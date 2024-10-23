@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { TodoCardComponent } from './../todo-card/todo-card.component';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +16,7 @@ export class TodoListComponent implements OnInit {
   newTodo: string = '';
   toDoListFromBackend: GetToDoListResponse[] = [];
   // Dependency Injection
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService) {}
 
   ngOnInit() {
     this.fetchTodos();
@@ -30,24 +29,24 @@ export class TodoListComponent implements OnInit {
     this.newTodo = '';
   }
 
-  remove(todo: string) {
+  remove(todo: string): void {
     this.todoList = this.todoList.filter((i) => i !== todo);
   }
 
-  fetchTodos() {
-    // Async, Observable, Subscribe
-    this.todoService.getAll()
-      .subscribe({
-        next: (response: GetToDoListResponse[]) => {
-          this.toDoListFromBackend = response;
-        },
-        error: (err: any) => {
-          console.log('HATA', err);
-        },
-        complete: () => {
-          console.log('istek başarılı bitti');
-        },
-      });
+  fetchTodos(): void {
+    // Async, Observable, Subscribe,
+    // Bu istek uygulamnın bir çok sayfasından çağırılacak..
+    this.todoService.getAll().subscribe({
+      next: (response: GetToDoListResponse[]) => {
+        this.toDoListFromBackend = response;
+      },
+      error: (err: any) => {
+        console.log('HATA', err);
+      },
+      complete: () => {
+        console.log('istek başarılı bitti');
+      },
+    });
     // RxJs observable
   }
 }

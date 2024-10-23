@@ -11,7 +11,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    //içerisine interceptor verince, her istek için interceptor devreye girecek
     provideHttpClient(withInterceptors([authInterceptor])), // artık tüm uygulama http client kullanabilir
   ],
 };

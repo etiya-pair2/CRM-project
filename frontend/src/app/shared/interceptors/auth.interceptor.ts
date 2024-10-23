@@ -1,32 +1,29 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { catchError, finalize } from 'rxjs';
+import { inject } from '@angular/core';
+import { catchError, finalize, tap } from 'rxjs';
+import { StorageService } from '../services/storage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // req => request(giden istek)
-  // next => isteği devam ettirecek fonksiyon
+  // req => request (giden istek)
+  // next => isteği devam ettirecek fonksiyon.
 
-  //req read only olduğu için bir clonunu oluşturuyoruz
+  // fn bazlı DI
+  const storageService = inject(StorageService);
+
   req = req.clone({
     setHeaders: {
-      Authorization: `Bearear Token`,
-      'Accept-Language': 'en'
-    }
-  })
-
-  //Observable oluştuğunda istek atıyoruz ve cevap dönerken isteğin olduğu
-  //yere cevap dönüyor. bu cevap dönerken işlemin bitiş noktasına
-  //ulaşmadan herhangi bir noktasına pipe atıyoruz
-  //finalize, isteğin bittiği yerde işlem yapar
-  //rxJs dökümanına bak tüm pipe fonksiyonları ve hataları için
+      Authorization: `Bearer ${storageService.get('token')}`,
+      'Accept-Language': `en`,
+    },
+  });
   return next(req).pipe(
     finalize(() => {
-      console.log('istek başarıyla bitti');
+      console.log('Interceptor isteğin bitttiğini yakaldı..');
     }),
     catchError((err) => {
-      //global bir hata yönetimi yapabiliriz.
-      console.log('interceptor hata yakaladı', err);
+      // global hata yönetimi
+      console.log('interceptor hata yakaladı:', err);
       throw err;
-
     })
-  )
+  );
 };
