@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="GENERAL_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+
+podman network connect my-network objective_yonath
+podman network create my-network
+
+cd C:\Users\ceren.durmus\IdeaProjects\etiya-9-microservices\eureka
+ podman build -t gateway .
+
+podman images
+
+
+podman compose -f podman-compose.yml up -d
+podman compose -f podman-compose.yml down
