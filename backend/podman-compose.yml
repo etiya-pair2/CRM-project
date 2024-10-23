@@ -1,0 +1,218 @@
+services:
+
+  #MYSQL
+  customerservice.db:
+    image: docker.io/library/mysql:latest
+    container_name: customerservice.db
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: customer_db
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: test
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data2:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - common
+
+ #POSTGRES
+  productservice.db:
+    image: docker.io/library/postgres:latest
+    container_name: productservice.db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - common
+
+  identityservice.db:
+    image: docker.io/library/postgres:latest
+    container_name: identityservice.db
+    environment:
+      POSTGRES_DB: identitydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    volumes:
+      - postgres_data2:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - common
+
+  #MONGO
+  orderservice.db:
+    container_name: orderservice.db
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=mongo
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - common
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.1
+    hostname: zookeeper
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - common
+  kafka:
+    image: confluentinc/cp-kafka:7.4.1
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_HOURS: 168
+    networks:
+      - common
+
+  configserver:
+    image: "localhost/configserver"
+    container_name: configserver
+    build: ./configserver
+    ports:
+      - "8001:8001"
+    networks:
+      - common
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8001/actuator/health" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  eureka:
+    image: "localhost/eurekaserver"
+    container_name: eureka
+    build: ./eureka #image build
+    ports:
+      - "8888:8888"
+    networks:
+      - common
+    depends_on:
+      configserver:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+
+  gateway:
+    image: "localhost/gateway"
+    container_name: gateway
+    build: ./gateway
+    ports:
+      - "8090:8090"
+    networks:
+      - common
+    depends_on:
+      eureka:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+
+  customer:
+    image: "localhost/customerservice"
+    container_name: "customerservice"
+    build: ./customerservice
+    ports:
+      - "8080:8080"
+    networks:
+      - common
+    depends_on:
+        eureka:
+          condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+
+  product:
+    image: "localhost/productservice"
+    container_name: "productservice"
+    build: ./productservice
+    ports:
+      - "8081:8081"
+    networks:
+      - common
+    depends_on:
+        eureka:
+          condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+
+  identity:
+    image: "localhost/identityservice"
+    container_name: "identityservice"
+    build: ./identityservice
+    ports:
+      - "8083:8083"
+    networks:
+      - common
+    depends_on:
+      eureka:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+
+  #order:
+    #image: "localhost/orderservice"
+    #container_name: "orderservice"
+    #build: ./orderservice
+      #ports:
+    #- "8082:8082"
+      #networks:
+        #- common
+      #depends_on:
+        #eureka:
+      # condition: service_healthy
+      #environment:
+      #- SPRING_PROFILES_ACTIVE=podman
+
+
+volumes:
+  mysql_data2:
+  postgres_data:
+  postgres_data2:
+  mongo_data:
+
+networks:
+  common:
+    driver: bridge

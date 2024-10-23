@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: "optional:configserver:"
+  application:
+    name: identityservice
+  cloud:
+    config:
+      uri: http://localhost:8001
+      profile: dev
+      label: main
