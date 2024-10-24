@@ -2,6 +2,7 @@ package com.etiya.customerservice.dto.individualCustomer;
 
 import com.etiya.customerservice.dto.contactMedium.CreateContactMediumResponse;
 import com.etiya.customerservice.entity.ContactMedium;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.util.Date;
@@ -24,4 +25,6 @@ public class CreateIndividualCustomerResponse {
     private String fatherName;
     private String nationalityId;
     private boolean status;
+    private Date createdDate;
+    private Date updatedDate;
 }

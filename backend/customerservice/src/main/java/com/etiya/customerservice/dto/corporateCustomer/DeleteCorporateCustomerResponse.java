@@ -11,4 +11,5 @@ import java.util.UUID;
 @Data
 public class DeleteCorporateCustomerResponse {
     private UUID customerId;
+    private boolean status;
 }

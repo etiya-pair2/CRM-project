@@ -1,6 +1,13 @@
 package com.etiya.customerservice.dto.individualCustomer;
 
+import com.etiya.customerservice.dto.address.CreateAddressResponse;
+import com.etiya.customerservice.dto.billingAccount.CreateBillingAccountRequest;
+import com.etiya.customerservice.dto.billingAccount.CreateBillingAccountResponse;
 import com.etiya.customerservice.dto.contactMedium.CreateContactMediumResponse;
+import com.etiya.customerservice.entity.Address;
+import com.etiya.customerservice.entity.BillingAccount;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.Date;
@@ -23,4 +30,6 @@ public class GetByIdIndividualCustomerResponse {
     private String fatherName;
     private String nationalityId;
     private List<CreateContactMediumResponse> contactMediumList;
+    private List<CreateAddressResponse> addressList;
+    private List<CreateBillingAccountResponse> billingAccountList;
 }
