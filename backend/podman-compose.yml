@@ -192,19 +192,19 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=podman
 
-  #order:
-    #image: "localhost/orderservice"
-    #container_name: "orderservice"
-    #build: ./orderservice
-      #ports:
-    #- "8082:8082"
-      #networks:
-        #- common
-      #depends_on:
-        #eureka:
-      # condition: service_healthy
-      #environment:
-      #- SPRING_PROFILES_ACTIVE=podman
+  order:
+    image: "localhost/orderservice"
+    container_name: "orderservice"
+    build: ./orderservice
+    ports:
+    -  "8082:8082"
+    networks:
+        - common
+    depends_on:
+      eureka:
+       condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
 
 
 volumes:
