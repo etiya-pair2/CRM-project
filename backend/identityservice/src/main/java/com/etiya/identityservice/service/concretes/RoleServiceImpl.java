@@ -2,50 +2,61 @@ package com.etiya.identityservice.service.concretes;
 
 import com.etiya.identityservice.dto.Role.*;
 import com.etiya.identityservice.entity.Role;
+import com.etiya.identityservice.entity.User;
 import com.etiya.identityservice.mapper.RoleMapper;
 import com.etiya.identityservice.repository.RoleRepository;
 import com.etiya.identityservice.service.abstracts.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
     @Service
     @RequiredArgsConstructor
     public class RoleServiceImpl implements RoleService {
         private final RoleRepository roleRepository;
+        RoleMapper roleMapper = RoleMapper.INSTANCE;
 
         @Override
         public List<GetAllRoleResponse> getAll() {
             List<Role> roles = roleRepository.findAll();
-            return RoleMapper.INSTANCE.roleFromGetAllResponse(roles);
+            return roleMapper.roleFromGetAllResponse(roles);
         }
 
         @Override
         public GetByIdRoleResponse getById(UUID id) {
             Role role = roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Role not found"));
-            return RoleMapper.INSTANCE.roleFromGetByIdResponse(role);
+            return roleMapper.roleFromGetByIdResponse(role);
         }
 
         @Override
         public CreateRoleResponse create(CreateRoleRequest request) {
-            Role role = RoleMapper.INSTANCE.roleFromCreateRequest(request);
+            Role role = roleMapper.roleFromCreateRequest(request);
+            role.setCreatedDate(new Date());
+            role.setStatus(true);
             roleRepository.save(role);
-            return RoleMapper.INSTANCE.roleFromCreateResponse(role);
+            return roleMapper.roleFromCreateResponse(role);
         }
 
         @Override
         public UpdateRoleResponse update(UpdateRoleRequest request) {
-            Role role = RoleMapper.INSTANCE.roleFromUpdateRequest(request);
-            roleRepository.save(role);
-            return RoleMapper.INSTANCE.roleFromUpdateResponse(role);
+            Role oldRole = roleRepository.findById(request.getId()).orElseThrow();
+            Role newRole = roleMapper.roleFromUpdateRequest(request);
+            newRole.setCreatedDate(oldRole.getCreatedDate());
+            roleRepository.save(newRole);
+            return roleMapper.roleFromUpdateResponse(newRole);
         }
 
         @Override
         public DeleteRoleResponse delete(UUID id) {
-            Role role = roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Role not found"));
-            roleRepository.delete(role);
-            return RoleMapper.INSTANCE.roleFromDeleteResponse(role);
+            Optional<Role> role = roleRepository.findById(id);
+            if (role.isPresent()) {
+                roleRepository.delete(role.get());
+                return roleMapper.roleFromDeleteResponse(role.get());
+            }
+            return null;
         }
     }
 
