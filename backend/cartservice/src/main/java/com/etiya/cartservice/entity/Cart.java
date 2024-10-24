@@ -23,4 +23,5 @@ public class Cart implements Serializable {
     private Date updatedDate;
     private Boolean status;
     private List<CartItems> cartItems;
+
 }
