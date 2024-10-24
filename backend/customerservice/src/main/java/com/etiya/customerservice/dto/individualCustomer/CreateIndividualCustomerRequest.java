@@ -19,4 +19,5 @@ public class CreateIndividualCustomerRequest {
     private String motherName;
     private String fatherName;
     private String nationalityId;
+    private boolean status;
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class CreateCustomerResponse {
-    private UUID id;
+    private UUID customerId;
     private Date createdDate;
     private Date updatedDate;
     private boolean status;

@@ -13,8 +13,10 @@ public interface CorporateCustomerMapper {
 
     CorporateCustomerMapper INSTANCE= Mappers.getMapper(CorporateCustomerMapper.class);
 
+    @Mapping(source = "id", target = "customerId")
     CreateCorporateCustomerResponse corporateCustomerFromCreateResponse(CorporateCustomer corporateCustomer);
 
+    @Mapping(source = "id", target = "customerId")
     UpdateCorporateCustomerResponse corporateCustomerFromUpdateResponse( CorporateCustomer corporateCustomer);
 
     DeleteCorporateCustomerResponse corporateCustomerFromDeleteResponse (CorporateCustomer corporateCustomer);

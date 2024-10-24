@@ -18,8 +18,7 @@ import java.util.*;
 @Table(name="customers")
 public class Customer {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
 
@@ -32,13 +31,13 @@ public class Customer {
     @Column(name = "status")
     private boolean status;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ContactMedium> contactMediumList;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Address> addressList;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<BillingAccount> billingAccountList;
 
 

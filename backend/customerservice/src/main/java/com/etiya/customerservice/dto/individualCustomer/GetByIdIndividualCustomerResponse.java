@@ -1,8 +1,10 @@
 package com.etiya.customerservice.dto.individualCustomer;
 
+import com.etiya.customerservice.dto.contactMedium.CreateContactMediumResponse;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,4 +22,5 @@ public class GetByIdIndividualCustomerResponse {
     private String motherName;
     private String fatherName;
     private String nationalityId;
+    private List<CreateContactMediumResponse> contactMediumList;
 }

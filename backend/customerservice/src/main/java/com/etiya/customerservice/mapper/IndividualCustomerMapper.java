@@ -15,14 +15,17 @@ public interface IndividualCustomerMapper {
     IndividualCustomerMapper INSTANCE= Mappers.getMapper(IndividualCustomerMapper.class);
 
 
+    @Mapping(source = "id", target = "customerId")
     CreateIndividualCustomerResponse individualCustomerFromCreateResponse(IndividualCustomer individualCustomer);
 
+    @Mapping(source = "id", target = "customerId")
     UpdateIndividualCustomerResponse individualCustomerFromUpdateResponse(IndividualCustomer individualCustomer);
 
     DeleteIndividualCustomerResponse individualCustomerFromDeleteResponse(IndividualCustomer individualCustomer);
 
     List<GetAllIndividualCustomerResponse> individualCustomerFromGetAllResponse(List<IndividualCustomer> individualCustomers);
 
+    @Mapping(source = "id", target = "customerId")
     GetByIdIndividualCustomerResponse getIndividualCustomerById(IndividualCustomer individualCustomer);
 
     IndividualCustomer individualCustomerFromCreateRequest(CreateIndividualCustomerRequest request);

@@ -36,13 +36,13 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
 
     @Override
     public CreateProductAttributeResponse create(CreateProductAttributeRequest request) {
-        ProductAttribute productAttribute = productAttributeMapper.productAttributeFromCreateRequest(request);
+        ProductAttribute productAttribute = productAttributeRepository.save(productAttributeMapper.productAttributeFromCreateRequest(request));
         return productAttributeMapper.productAttributeFromCreateResponse(productAttribute);
     }
 
     @Override
     public UpdateProductAttributeResponse update(UpdateProductAttributeRequest request) {
-        ProductAttribute productAttribute = productAttributeMapper.productAttributeFromUpdateRequest(request);
+        ProductAttribute productAttribute = productAttributeRepository.save(productAttributeMapper.productAttributeFromUpdateRequest(request));
         return productAttributeMapper.productAttributeFromUpdateResponse(productAttribute);
     }
 
