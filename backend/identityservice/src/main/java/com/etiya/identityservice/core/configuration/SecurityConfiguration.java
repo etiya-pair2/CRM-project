@@ -16,34 +16,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@RequiredArgsConstructor
+
 public class SecurityConfiguration {
-    private final UserService userService;
+//    private final UserService userService;
+//    public SecurityConfiguration(UserService userService) {
+//        this.userService = userService;
+//    }
+//
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // JwtService'e ctor'dan veri geçme esnekliği
+//
+//    // JwtService'e ctor'dan veri geçme esnekliği
     @Bean
     public BaseJwtService baseJwtService() {
         return new BaseJwtService();
     }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider()
-    {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userService);
-        return provider;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
+//
+//    @Bean
+//    public AuthenticationProvider authenticationProvider()
+//    {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setPasswordEncoder(passwordEncoder());
+//        provider.setUserDetailsService(userService);
+//        return provider;
+//    }
+//
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//        return config.getAuthenticationManager();
+//    }
+//
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

@@ -3,6 +3,7 @@ package com.etiya.identityservice.mapper;
 import com.etiya.identityservice.dto.User.*;
 import com.etiya.identityservice.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 
@@ -16,6 +17,7 @@ public interface UserMapper {
 
     GetByIdUserResponse userFromGetByIdResponse(User user);
 
+    @Mapping(source="email",target="email")
     User userFromCreateRequest(CreateUserRequest request);
 
     CreateUserResponse userFromCreateResponse(User user);

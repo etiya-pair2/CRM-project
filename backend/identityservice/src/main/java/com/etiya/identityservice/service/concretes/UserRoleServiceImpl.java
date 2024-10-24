@@ -11,10 +11,8 @@ import com.etiya.identityservice.service.abstracts.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 public class UserRoleServiceImpl implements UserRoleService {
@@ -26,9 +24,15 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public List<GetAllUserRoleResponse> getAll() {
         List<UserRole> userRoles= userRoleRepository.findAll();
-        System.out.println(userRoles.get(0).getRole());
-        return userRoleMapper.userRoleFromGetAllResponse(userRoles);
+        List<GetAllUserRoleResponse> userRoleResponseList= new ArrayList<>();
 
+        for (UserRole userRole : userRoles) {
+            GetAllUserRoleResponse userRoleResponse= userRoleMapper.userRoleFromGetAllResponse(userRole);
+            userRoleResponseList.add(userRoleResponse);
+        }
+
+
+        return userRoleResponseList;
     }
 
     @Override
@@ -43,6 +47,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRole userRole = userRoleMapper.userRoleFromCreateRequest(request);
         userRole.setCreatedDate(new Date());
         userRole.setStatus(true);
+        List<UserRole> userRoles = userRoleRepository.findAll();
         userRoleRepository.save(userRole);
         return userRoleMapper.userRoleFromCreateResponse(userRole);
     }

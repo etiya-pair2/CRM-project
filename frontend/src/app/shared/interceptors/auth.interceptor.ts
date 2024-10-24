@@ -6,6 +6,7 @@ import { StorageService } from '../services/storage.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // req => request (giden istek)
   // next => isteği devam ettirecek fonksiyon.
+  //HTTP isteklerine otomatik olarak token ekleyerek, kullanıcı doğrulama süreçlerini yönetir.
 
   // fn bazlı DI
   const storageService = inject(StorageService);

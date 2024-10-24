@@ -15,6 +15,9 @@ public class CreateUserResponse {
     private String name;
     private String surname;
     private String identityNo;
+    private String password;
+    private String email;
     private Date createDate;
+
 
 }

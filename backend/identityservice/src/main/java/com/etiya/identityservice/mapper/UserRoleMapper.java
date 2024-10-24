@@ -30,7 +30,7 @@ public interface UserRoleMapper {
 
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "role.id", target = "roleId")
-    List<GetAllUserRoleResponse> userRoleFromGetAllResponse(List<UserRole> userRoles);
+    GetAllUserRoleResponse userRoleFromGetAllResponse(UserRole userRoles);
 
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "role.id", target = "roleId")
