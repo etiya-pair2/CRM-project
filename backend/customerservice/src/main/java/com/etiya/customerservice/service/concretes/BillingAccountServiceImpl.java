@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,27 +23,32 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public CreateBillingAccountResponse create(CreateBillingAccountRequest request) {
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromCreateRequest(request);
         billingAccountRepository.save(billingAccount);
-        return BillingAccountMapper.INSTANCE.BillingAccountFromCreateResponse(billingAccount);
+        return BillingAccountMapper.INSTANCE.billingAccountFromCreateResponse(billingAccount);
     }
 
     @Override
     public UpdateBillingAccountResponse update(UpdateBillingAccountRequest request) {
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromUpdateRequest(request);
         billingAccountRepository.save(billingAccount);
-        return BillingAccountMapper.INSTANCE.BillingAccountFromUpdateResponse(billingAccount);
+        return BillingAccountMapper.INSTANCE.billingAccountFromUpdateResponse(billingAccount);
     }
 
     @Override
     public DeleteBillingAccountResponse delete(UUID id) {
         BillingAccount billingAccount= billingAccountRepository.findById(id).orElseThrow(()->
                 new RuntimeException("Billing Account not found with ID:"  + id));
-        return BillingAccountMapper.INSTANCE.BillingAccountFromDeleteResponse(billingAccount);
+        return BillingAccountMapper.INSTANCE.billingAccountFromDeleteResponse(billingAccount);
     }
 
     @Override
     public List<GetAllBillingAccountResponse> getAll() {
         List<BillingAccount> billingAccounts=billingAccountRepository.findAll();
-        return BillingAccountMapper.INSTANCE.getAll(billingAccounts);
+        List<GetAllBillingAccountResponse> getAllBillingAccountResponseList= new ArrayList<>();
+        for(BillingAccount billingAccount: billingAccounts){
+            getAllBillingAccountResponseList.add(
+                    BillingAccountMapper.INSTANCE.billingAccountFromGetAllResponse(billingAccount));
+        }
+        return getAllBillingAccountResponseList;
     }
 
     @Override

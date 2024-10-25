@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,11 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     @Override
     public List<GetAllContactMediumResponse> getAll() {
         List<ContactMedium> contactMediumList= contactMediumRepository.findAll();
-        return ContactMediumMapper.INSTANCE.contactMediumFromGetAllResponse(contactMediumList);
+        List<GetAllContactMediumResponse> getAllContactMediumResponseList=new ArrayList<>();
+        for(ContactMedium contactMedium:contactMediumList){
+            getAllContactMediumResponseList.add(ContactMediumMapper.INSTANCE.contactMediumFromGetAllResponse(contactMedium));
+        }
+        return getAllContactMediumResponseList;
     }
 
     @Override

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,11 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<GetAllCityResponse> getAll() {
         List<City> cities = cityRepository.findAll();
-        return CityMapper.INSTANCE.cityFromGetAllResponse(cities);
+        List<GetAllCityResponse> getAllCityResponseList= new ArrayList<>();
+        for(City city: cities){
+            getAllCityResponseList.add(CityMapper.INSTANCE.cityFromGetAllResponse(city));
+        }
+        return getAllCityResponseList;
     }
 
     @Override

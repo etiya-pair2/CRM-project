@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +43,11 @@ public class CorporateCustomerServiceImpl implements CorporateCustomerService {
     @Override
     public List<GetAllCorporateCustomerResponse> getAll() {
         List<CorporateCustomer> corporateCustomers=corporateCustomerRepository.findAll();
-        return CorporateCustomerMapper.INSTANCE.corporateCustomerFromGetAllResponse(corporateCustomers);
+        List<GetAllCorporateCustomerResponse> getAllCorporateCustomerResponseList= new ArrayList<>();
+        for(CorporateCustomer corporateCustomer:corporateCustomers){
+            getAllCorporateCustomerResponseList.add(CorporateCustomerMapper.INSTANCE.corporateCustomerFromGetAllResponse(corporateCustomer));
+        }
+        return getAllCorporateCustomerResponseList;
     }
 
     @Override

@@ -13,13 +13,13 @@ import java.util.List;
 public interface BillingAccountMapper {
     BillingAccountMapper INSTANCE= Mappers.getMapper(BillingAccountMapper.class);
     @Mapping(source="customer.id",target = "customerId")
-    CreateBillingAccountResponse BillingAccountFromCreateResponse(BillingAccount billingAccount);
+    CreateBillingAccountResponse billingAccountFromCreateResponse(BillingAccount billingAccount);
     @Mapping(source="customer.id",target = "customerId")
-    UpdateBillingAccountResponse BillingAccountFromUpdateResponse(BillingAccount billingAccount);
+    UpdateBillingAccountResponse billingAccountFromUpdateResponse(BillingAccount billingAccount);
     @Mapping(source="customer.id",target = "customerId")
-    DeleteBillingAccountResponse BillingAccountFromDeleteResponse(BillingAccount billingAccount);
+    DeleteBillingAccountResponse billingAccountFromDeleteResponse(BillingAccount billingAccount);
     @Mapping(source="customer.id",target = "customerId")
-    List<GetAllBillingAccountResponse> getAll(List<BillingAccount> billingAccounts);
+    GetAllBillingAccountResponse billingAccountFromGetAllResponse(BillingAccount billingAccounts);
     @Mapping(source="customer.id",target = "customerId")
     GetByIdBillingAccountResponse getBillingAccountById(BillingAccount billingAccount);
     @Mapping(source="customerId",target = "customer.id")

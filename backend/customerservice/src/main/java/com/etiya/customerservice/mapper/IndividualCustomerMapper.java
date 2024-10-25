@@ -25,15 +25,15 @@ public interface IndividualCustomerMapper {
     DeleteIndividualCustomerResponse individualCustomerFromDeleteResponse(IndividualCustomer individualCustomer);
 
     @Mapping(source = "id", target = "customerId")
-    List<GetAllIndividualCustomerResponse> individualCustomerFromGetAllResponse(List<IndividualCustomer> individualCustomers);
+    GetAllIndividualCustomerResponse individualCustomerFromGetAllResponse(IndividualCustomer individualCustomers);
 
     @Mapping(source = "id", target = "customerId")
     GetByIdIndividualCustomerResponse getIndividualCustomerById(IndividualCustomer individualCustomer);
 
-    @Mapping(source = "customerId", target = "id")
+
     IndividualCustomer individualCustomerFromCreateRequest(CreateIndividualCustomerRequest request);
 
-    @Mapping(source = "customerId", target = "id")
+
     IndividualCustomer individualCustomerFromUpdateRequest(UpdateIndividualCustomerRequest request);
 
 

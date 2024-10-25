@@ -19,7 +19,7 @@ public interface ContactMediumMapper {
     @Mapping(source="customer.id",target = "customerId")
     DeleteContactMediumResponse contactMediumFromDeleteResponse (ContactMedium contactMedium);
     @Mapping(source="customer.id",target = "customerId")
-    List<GetAllContactMediumResponse> contactMediumFromGetAllResponse (List<ContactMedium> contactMediums);
+    GetAllContactMediumResponse contactMediumFromGetAllResponse (ContactMedium contactMediums);
     @Mapping(source="customer.id",target = "customerId")
     GetByIdContactMediumResponse getContactMediumById(ContactMedium contactMedium);
     @Mapping(source="customerId",target = "customer.id")

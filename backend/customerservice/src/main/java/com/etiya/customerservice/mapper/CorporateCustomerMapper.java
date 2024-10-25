@@ -21,7 +21,7 @@ public interface CorporateCustomerMapper {
 
     DeleteCorporateCustomerResponse corporateCustomerFromDeleteResponse (CorporateCustomer corporateCustomer);
 
-    List<GetAllCorporateCustomerResponse> corporateCustomerFromGetAllResponse(List<CorporateCustomer> corporateCustomers);
+    GetAllCorporateCustomerResponse corporateCustomerFromGetAllResponse(CorporateCustomer corporateCustomers);
 
     GetByIdCorporateCustomerResponse getCustomerById( CorporateCustomer corporateCustomer);
 

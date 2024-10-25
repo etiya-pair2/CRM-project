@@ -18,7 +18,7 @@ public interface CityMapper {
     UpdateCityResponse cityFromUpdateResponse( City city);
     DeleteCityResponse cityFromDeleteResponse(City city);
 
-    List<GetAllCityResponse> cityFromGetAllResponse(List<City> cities);
+    GetAllCityResponse cityFromGetAllResponse(City cities);
 
     GetByIdCityResponse getCityById(City city);
 
