@@ -1,6 +1,6 @@
 <div class="hv-100 d-flex justify-center align-items-center">
   <div class="logo-container">
-    <img src="../../../../assets/images/Logo.svg" alt="Logo" class="logo" />
+    <img src="../../../../assets/images/logo.png" alt="Logo" class="logo" />
     <!-- <iframe src="../../../../assets/images/Logo.svg" class="logo"></iframe> -->
     <!-- <object data="../../../../assets/images/Logo.svg" type="image/svg+xml" class="logo"></object> -->
   </div>
@@ -11,13 +11,8 @@
 
         <div class="form-floating">
           <img src="../../../../assets/images/User.png" alt="Email Icon" class="input-icon" />
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-            formControlName="email"
-          />
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+            formControlName="email" />
           <label for="floatingInput">Email address</label>
           @if(hasError('email')) {
           <small class="text-danger">Hatalı alan</small>
@@ -26,13 +21,8 @@
 
         <div class="form-floating">
           <img src="../../../../assets/images/Lock.png" alt="Password Icon" class="input-icon" />
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-            formControlName="password"
-          />
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+            formControlName="password" />
           <label for="floatingPassword">Password</label>
           @if(hasError('password')) {
           <small class="text-danger">Hatalı alan</small>
@@ -40,12 +30,7 @@
         </div>
 
         <div class="form-check text-start my-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="remember-me"
-            id="flexCheckDefault"
-          />
+          <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
           <label class="form-check-label" for="flexCheckDefault">
             Remember me
           </label>

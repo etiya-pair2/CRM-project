@@ -1,26 +1,25 @@
 .hv-100 {
   height: 100vh;
   display: flex;
+  background: linear-gradient(to right, #2B2B56, #242441, #BEBDCD);
+
 }
 
 .logo-container {
   margin-right: 20px;
   flex: 1;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
 }
 
-.logo {
-  width: 345px;
-}
+.logo {}
 
 .form-signin {
-  width: 100%; 
+  width: 100%;
   flex: 1;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   padding: 20px;
 }
@@ -31,7 +30,7 @@
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
-  height: 20px; 
+  height: 20px;
 }
 
 .form-floating {
