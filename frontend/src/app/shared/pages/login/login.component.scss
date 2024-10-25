@@ -2,7 +2,6 @@
   height: 100vh;
   display: flex;
   background: linear-gradient(to right, #2B2B56, #242441, #BEBDCD);
-
 }
 
 .logo-container {
@@ -12,8 +11,6 @@
   justify-content: center;
   align-items: center;
 }
-
-.logo {}
 
 .form-signin {
   width: 100%;
@@ -36,4 +33,30 @@
 .form-floating {
   position: relative;
   padding-left: 40px;
+  margin-bottom: 20px;
+}
+
+label {
+  color: white;
+  transition: 0.2s; 
+}
+
+.etiya-img {
+  width: 311px; 
+  width: 311px;
+  height: 103px;
+  top: 239px;
+  left: 928px;
+  gap: 0px;
+  opacity: 0px;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.forgot-password {
+  display: block;
+  color: white;
+  margin-left: 30px;
+  padding-bottom: 40px;
 }
