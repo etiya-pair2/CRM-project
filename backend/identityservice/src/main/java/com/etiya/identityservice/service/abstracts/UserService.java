@@ -6,6 +6,7 @@ import com.etiya.identityservice.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService extends UserDetailsService {
@@ -15,4 +16,6 @@ public interface UserService extends UserDetailsService {
     CreateUserResponse create(CreateUserRequest request);
     UpdateUserResponse update(UpdateUserRequest request);
     DeleteUserResponse delete(UUID id);
+    Boolean isEmailRegistered(String email);
+
 }

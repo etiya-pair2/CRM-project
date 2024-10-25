@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
+    public Boolean isEmailRegistered(String email) {
+        return userRepository.findByEmailIgnoreCase(email).isPresent();
+    }
+
+    @Override
     public User create(User user) {
         userRepository.save(user);
         return user;
@@ -77,4 +82,6 @@ public class UserServiceImpl implements UserService
         return userRepository.findByEmailIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException(""));
     }
+
+
 }

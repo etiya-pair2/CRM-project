@@ -9,8 +9,11 @@ import com.etiya.identityservice.service.abstracts.UserService;
 import io.github.sabaurgup.security.BaseJwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ public class AuthServiceImpl implements AuthService
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final BaseJwtService baseJwtService;
+
 
     @Override
     public TokenResponse login(LoginRequest loginRequest) {
@@ -32,6 +36,11 @@ public class AuthServiceImpl implements AuthService
 
     @Override
     public TokenResponse register(RegisterRequest registerRequest) {
+        String email = registerRequest.getEmail();
+        if (userService.isEmailRegistered(email)) {
+            throw new RuntimeException("Bu e-posta adresi zaten kayıtlı.");
+        }
+
         User userToAdd =new User();
         userToAdd.setEmail(registerRequest.getEmail());
         userToAdd.setName(registerRequest.getName());
@@ -41,4 +50,6 @@ public class AuthServiceImpl implements AuthService
         User user = userService.create(userToAdd);
         return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
     }
+
+
 }
