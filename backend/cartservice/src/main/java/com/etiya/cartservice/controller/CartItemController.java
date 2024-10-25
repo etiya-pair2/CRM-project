@@ -16,34 +16,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CartItemController {
 
-    private final CartItemsService cartItemsService;
-
-    @GetMapping("/getAll")
-    public List<GetAllCartItemResponse> getAll() {
-        return cartItemsService.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<GetByIdCartItemResponse> getById(@PathVariable UUID id) {
-        GetByIdCartItemResponse response = cartItemsService.getById(id);
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<CreateCartItemResponse> create(@RequestBody @Valid CreateCartItemRequest request) {
-        CreateCartItemResponse response = cartItemsService.create(request);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<UpdateCartItemResponse> update(@RequestBody @Valid UpdateCartItemRequest request) {
-        UpdateCartItemResponse response = cartItemsService.update(request);
-        return ResponseEntity.ok(response);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<DeleteCartItemResponse> delete(@PathVariable UUID id) {
-        DeleteCartItemResponse response = cartItemsService.delete(id);
-        return ResponseEntity.ok(response);
-    }
+//    private final CartItemsService cartItemsService;
+//
+//    @GetMapping("/getAll")
+//    public List<GetAllCartItemResponse> getAll() {
+//        return cartItemsService.getAll();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<GetByIdCartItemResponse> getById(@PathVariable UUID id) {
+//        GetByIdCartItemResponse response = cartItemsService.getById(id);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @PostMapping("/create")
+//    public ResponseEntity<CreateCartItemResponse> create(@RequestBody @Valid CreateCartItemRequest request) {
+//        CreateCartItemResponse response = cartItemsService.create(request);
+//        return new ResponseEntity<>(response, HttpStatus.CREATED);
+//    }
+//
+//    @PutMapping("/update")
+//    public ResponseEntity<UpdateCartItemResponse> update(@RequestBody @Valid UpdateCartItemRequest request) {
+//        UpdateCartItemResponse response = cartItemsService.update(request);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<DeleteCartItemResponse> delete(@PathVariable UUID id) {
+//        DeleteCartItemResponse response = cartItemsService.delete(id);
+//        return ResponseEntity.ok(response);
+//    }
 }

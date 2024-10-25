@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCartRequest {
-    private UUID customerId;
+//    private UUID customerId;
     private Boolean status;
 }

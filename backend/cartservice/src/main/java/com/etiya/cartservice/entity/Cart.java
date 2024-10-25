@@ -1,20 +1,16 @@
 package com.etiya.cartservice.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 
 public class Cart implements Serializable {
     private UUID id;
@@ -22,6 +18,12 @@ public class Cart implements Serializable {
     private Date createdDate;
     private Date updatedDate;
     private Boolean status;
-    private List<CartItems> cartItems;
+    private double totalPrice;
+    private List<CartItem> cartItems;
+
+    public Cart(){
+        this.cartItems = new ArrayList<>();
+        this.id= UUID.randomUUID();
+    }
 
 }

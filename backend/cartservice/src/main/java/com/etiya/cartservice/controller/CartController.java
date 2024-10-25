@@ -4,38 +4,47 @@ import com.etiya.cartservice.entity.Cart;
 import com.etiya.cartservice.service.concretes.CartServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.etiya.cartservice.service.abstracts.CartService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/cart/carts")
-@RequiredArgsConstructor
+
 public class CartController {
-    private final CartServiceImpl cartService;
+    private final CartService cartService;
 
-    @GetMapping("/{cartId}")
-    public Cart getCart(@PathVariable String cartId) {
-        return cartService.getCart(cartId);
+    @Autowired
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
-    @PostMapping
-    public void createCart(@RequestBody Cart cart) {
-        cartService.saveCart(cart);
+    @PostMapping("/{customerId}/products/{productId}")
+    public ResponseEntity<Void> addProductToCart(@PathVariable UUID customerId, @PathVariable UUID productId) {
+        cartService.add(customerId, productId);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public void updateCart(@RequestBody Cart cart) {
-        cartService.updateCart(cart);
-    }
+//    @GetMapping("/{customerId}")
+//    public ResponseEntity<Map<String, Cart>> getCartByCustomerId(@PathVariable UUID customerId) {
+//        Cart cart = cartService.getCartByCustomerId(customerId);
+//        if (cart != null) {
+//            return ResponseEntity.ok(cart);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-    @DeleteMapping("/{cartId}")
-    public void deleteCart(@PathVariable String cartId) {
-        cartService.deleteCart(cartId);
+    @GetMapping
+    public ResponseEntity<Map<String, Cart>> getAllCarts() {
+        return ResponseEntity.ok(cartService.getAllItems());
     }
 }
+
 

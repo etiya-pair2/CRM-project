@@ -1,7 +1,7 @@
 //package com.etiya.cartservice.service.concretes;
 //
 //import com.etiya.cartservice.dto.cartitems.*;
-//import com.etiya.cartservice.entity.CartItems;
+//import com.etiya.cartservice.entity.CartItem;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.stereotype.Service;
 //import com.etiya.cartservice.repository.CartItemsRepository;
@@ -17,34 +17,34 @@
 //
 //    @Override
 //    public List<GetAllCartItemResponse> getAll() {
-//        List<CartItems> cartItems = cartItemsRepository.findAll();
+//        List<CartItem> cartItems = cartItemsRepository.findAll();
 //        return CartItemsMapper.INSTANCE.cartItemsFromGetAllResponse(cartItems);
 //    }
 //
 //    @Override
 //    public GetByIdCartItemResponse getById(UUID id) {
-//        CartItems cartItem = cartItemsRepository.findById(id)
+//        CartItem cartItem = cartItemsRepository.findById(id)
 //                .orElseThrow(() -> new RuntimeException("Cart Item not found"));
 //        return CartItemsMapper.INSTANCE.cartItemsFromGetByIdResponse(cartItem);
 //    }
 //
 //    @Override
 //    public CreateCartItemResponse create(CreateCartItemRequest request) {
-//        CartItems cartItem = CartItemsMapper.INSTANCE.cartItemsFromCreateRequest(request);
+//        CartItem cartItem = CartItemsMapper.INSTANCE.cartItemsFromCreateRequest(request);
 //        cartItemsRepository.save(cartItem);
 //        return CartItemsMapper.INSTANCE.cartItemsFromCreateResponse(cartItem);
 //    }
 //
 //    @Override
 //    public UpdateCartItemResponse update(UpdateCartItemRequest request) {
-//        CartItems cartItem = CartItemsMapper.INSTANCE.cartItemsFromUpdateRequest(request);
+//        CartItem cartItem = CartItemsMapper.INSTANCE.cartItemsFromUpdateRequest(request);
 //        cartItemsRepository.save(cartItem);
 //        return CartItemsMapper.INSTANCE.cartItemsFromUpdateResponse(cartItem);
 //    }
 //
 //    @Override
 //    public DeleteCartItemResponse delete(UUID id) {
-//        CartItems cartItem = cartItemsRepository.findById(id)
+//        CartItem cartItem = cartItemsRepository.findById(id)
 //                .orElseThrow(() -> new RuntimeException("Cart Item not found"));
 //        cartItemsRepository.delete(cartItem);
 //        return CartItemsMapper.INSTANCE.cartItemsFromDeleteResponse(cartItem);

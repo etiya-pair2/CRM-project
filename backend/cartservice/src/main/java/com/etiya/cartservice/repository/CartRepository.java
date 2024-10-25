@@ -1,40 +1,37 @@
 package com.etiya.cartservice.repository;
 
-
-
+import java.util.Map;
 import java.util.UUID;
 
 import com.etiya.cartservice.entity.Cart;
-import org.springframework.beans.factory.annotation.Autowired;
-import io.github.sabaurgup.caching.RedisConfiguration;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CartRepository {
+    private String Key="cart";
 
-    private static final String CART_PREFIX = "cart:"; // Redis anahtar ön eki
+    private RedisTemplate<String, Object> redisTemplate;
+    private HashOperations<String,String, Cart> hashOperations;
 
-    @Autowired
-    private RedisTemplate<String, Cart> redisTemplate;
-
-    // Sepeti kaydetme
-    public void save(Cart cart) {
-        redisTemplate.opsForValue().set(CART_PREFIX + cart.getId(), cart);
+    public CartRepository(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        this.hashOperations=redisTemplate.opsForHash();
     }
 
-    // Sepeti alma
-    public Cart findById(String cartId) {
-        return redisTemplate.opsForValue().get(CART_PREFIX + cartId);
+    public Map<String,Cart> getAllItems(){
+        return this.hashOperations.entries(Key);
     }
 
-    // Sepeti silme
-    public void deleteById(String cartId) {
-        redisTemplate.delete(CART_PREFIX + cartId);
+    public void addItem(Cart cart){
+        this.hashOperations.put(Key, cart.getId().toString() + "_" + cart.getCustomerId().toString(), cart);
     }
 
-    // Sepeti güncelleme (güncelleme işlemi save metoduyla yapılabilir)
-    public void update(Cart cart) {
-        save(cart);
-    }
+   public Cart getCartByCustomerId(UUID customerId) {
+        return hashOperations.entries(Key).values().stream()
+           .filter(cart -> customerId.equals(cart.getCustomerId()))
+           .findFirst()
+            .orElse(null);
+   }
 }
