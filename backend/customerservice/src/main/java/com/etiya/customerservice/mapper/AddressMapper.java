@@ -21,7 +21,7 @@ public interface AddressMapper {
     DeleteAddressResponse addressFromDeleteResponse (Address address);
     @Mapping(source = "customer.id",target="customerId")
     @Mapping(source = "district.id",target="districtId")
-    List<GetAllAddressResponse> addressFromGetAllResponse (List<Address> addresses);
+    GetAllAddressResponse addressFromGetAllResponse (Address addresses);
 
     @Mapping(source = "customer.id",target="customerId")
     @Mapping(source = "district.id",target="districtId")

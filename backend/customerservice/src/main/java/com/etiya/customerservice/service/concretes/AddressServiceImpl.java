@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +43,11 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<GetAllAddressResponse> getAll() {
         List<Address> addresses= addressRepository.findAll();
-        return AddressMapper.INSTANCE.addressFromGetAllResponse(addresses);
+        List<GetAllAddressResponse> getAllAddressResponseList = new ArrayList<>();
+        for(Address address: addresses){
+            getAllAddressResponseList.add(AddressMapper.INSTANCE.addressFromGetAllResponse(address));
+        }
+        return getAllAddressResponseList;
     }
 
     @Override
