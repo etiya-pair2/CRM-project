@@ -13,7 +13,7 @@
         <module name="eureka" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for orderservice" enabled="true">
+      <profile name="Annotation profile for productservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -25,8 +25,8 @@
         </processorPath>
         <module name="identityservice" />
         <module name="customerservice" />
-        <module name="orderservice" />
         <module name="productservice" />
+        <module name="orderservice" />
         <module name="cartservice" />
       </profile>
     </annotationProcessing>

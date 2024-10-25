@@ -1,5 +1,6 @@
 package com.etiya.customerservice.dto.individualCustomer;
 
+import com.etiya.customerservice.dto.address.CreateAddressResponse;
 import com.etiya.customerservice.dto.contactMedium.CreateContactMediumResponse;
 import com.etiya.customerservice.entity.ContactMedium;
 import jakarta.persistence.Column;
@@ -27,4 +28,5 @@ public class CreateIndividualCustomerResponse {
     private boolean status;
     private Date createdDate;
     private Date updatedDate;
+    private List<CreateAddressResponse> addressList;
 }

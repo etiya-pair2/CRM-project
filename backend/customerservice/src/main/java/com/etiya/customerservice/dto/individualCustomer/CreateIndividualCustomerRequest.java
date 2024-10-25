@@ -1,8 +1,11 @@
 package com.etiya.customerservice.dto.individualCustomer;
 
+import com.etiya.customerservice.dto.address.CreateAddressRequest;
+import com.etiya.customerservice.dto.address.CreateAddressResponse;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter

@@ -1,8 +1,11 @@
 package com.etiya.customerservice.dto.individualCustomer;
 
+import com.etiya.customerservice.dto.address.CreateAddressRequest;
+import com.etiya.customerservice.dto.address.CreateAddressResponse;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,4 +23,5 @@ public class UpdateIndividualCustomerRequest {
     private String motherName;
     private String fatherName;
     private String nationalityId;
+    private List<CreateAddressRequest> addressList;
 }
