@@ -21,7 +21,7 @@ public interface DistrictMapper {
     @Mapping(source = "city.id",target="cityId" )
     DeleteDistrictResponse districtFromDeleteResponse(District district);
     @Mapping(source = "city.id",target="cityId" )
-    List<GetAllDistrictResponse> districtFromGetAllResponse(List<District> district);
+    GetAllDistrictResponse districtFromGetAllResponse(District district);
     @Mapping(source = "city.id",target="cityId" )
     GetByIdDistrictResponse getDistrictById(District district);
     @Mapping(source = "cityId",target="city.id" )

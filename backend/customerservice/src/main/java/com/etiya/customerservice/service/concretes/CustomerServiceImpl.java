@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<GetAllCustomerResponse> getAll() {
         List<Customer> customers= customerRepository.findAll();
-        return CustomerMapper.INSTANCE.customerFromGetAllResponse(customers);
+        List<GetAllCustomerResponse> getAllCustomerResponseList=new ArrayList<>();
+        for(Customer customer: customers){
+            getAllCustomerResponseList.add(CustomerMapper.INSTANCE.customerFromGetAllResponse(customer));
+        }
+        return getAllCustomerResponseList;
+
     }
 
     @Override

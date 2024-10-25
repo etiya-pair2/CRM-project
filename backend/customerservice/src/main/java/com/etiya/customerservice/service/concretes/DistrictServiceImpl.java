@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,11 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public List<GetAllDistrictResponse> getAll() {
         List<District> districts= districtRepository.findAll();
-        return DistrictMapper.INSTANCE.districtFromGetAllResponse(districts);
+        List<GetAllDistrictResponse> getAllDistrictResponseList= new ArrayList<>();
+        for(District district:districts){
+            getAllDistrictResponseList.add(DistrictMapper.INSTANCE.districtFromGetAllResponse(district));
+        }
+        return getAllDistrictResponseList;
     }
 
     @Override

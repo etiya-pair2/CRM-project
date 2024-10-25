@@ -20,7 +20,7 @@ public interface CustomerMapper {
 
     DeleteCustomerResponse customerFromDeleteResponse(Customer customer);
 
-    List<GetAllCustomerResponse> customerFromGetAllResponse(List<Customer> customers);
+    GetAllCustomerResponse customerFromGetAllResponse(Customer customers);
 
     GetByIdCustomerResponse getCustomerById(Customer customer);
 
