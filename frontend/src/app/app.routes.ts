@@ -21,13 +21,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { requiredRoles: ['admin', 'moderator'] },
       },
-      {
-        path: 'todolist',
-        loadComponent: () =>
-          import('../app/shared/components/todo-list/todo-list.component').then(
-            (c) => c.TodoListComponent
-          ),
-      },
+      
     ],
   },
   {
@@ -38,4 +32,11 @@ export const routes: Routes = [
       ),
   },
   //{path:'/login',component:LoginComponent}
+  {
+    path: 'customer',
+    loadChildren: () =>
+      import('../app/features/customer/customer.module').then(
+        (m) => m.CustomerModule
+      ),
+  },
 ];

@@ -1,0 +1,36 @@
+header {
+    width: 1440px;
+    height: 242px;
+    top: -3px;
+    opacity: 0; 
+    display: flex;
+    justify-content: space-between; /* İçerikleri yerleştirmek için */
+    align-items: center; /* Dikey hizalama */
+    gap: 0; /* Eğer içeriğinizde bir boşluk istemiyorsanız */
+    background-color: #242441; /* İsterseniz arka plan rengi ekleyebilirsiniz */
+    color: white; /* Metin rengi */
+    position: relative; /* 'top' özelliğinin çalışması için */
+  }
+  
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
