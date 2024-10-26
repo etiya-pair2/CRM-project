@@ -25,10 +25,6 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest){
         String email = loginRequest.getEmail();
-        if (email == null || !email.contains("@") || !email.contains(".")) {
-            throw new RuntimeException("Geçersiz e-posta veya şifre.");
-        }
-
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 
@@ -36,12 +32,6 @@ public class AuthController {
     @PostMapping("register")
     public ResponseEntity<TokenResponse> register(@RequestBody RegisterRequest registerRequest){
         String email = registerRequest.getEmail();
-        if (email == null || !email.contains("@") || !email.contains(".")) {
-            throw new RuntimeException("Geçersiz e-posta formatı.");
-        }
-        if (registerRequest.getPassword() == null || registerRequest.getPassword().length() < 6.) {
-            throw new RuntimeException("Şifre en az 6 karakter olmalıdır");
-        }
         return ResponseEntity.ok(authService.register(registerRequest));
     }
 }

@@ -30,7 +30,6 @@ public class AuthServiceImpl implements AuthService
         boolean passwordMatching = passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
         if(!passwordMatching)
             throw new RuntimeException("E-posta veya şifre hatalı.");
-
         return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
     }
 
