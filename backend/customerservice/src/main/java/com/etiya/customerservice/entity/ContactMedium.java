@@ -35,7 +35,6 @@ public class ContactMedium {
     @Column(name = "email")
     private String email;
 
-
     @Column(name = "home_phone")
     private Long homePhone;
 

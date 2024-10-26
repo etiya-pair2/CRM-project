@@ -34,22 +34,28 @@ public class IndividualCustomerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreateIndividualCustomerResponse> add(@RequestBody @Valid CreateIndividualCustomerRequest request){
-        CreateIndividualCustomerResponse saved= individualCustomerService.create(request);
-        if(saved != null){
-            return  new ResponseEntity<>(saved,HttpStatus.OK);
+    public ResponseEntity<CreateIndividualCustomerResponse> add(@RequestBody @Valid CreateIndividualCustomerRequest request) {
+        CreateIndividualCustomerResponse saved = individualCustomerService.create(request);
+        if (saved != null) {
+            return new ResponseEntity<>(saved, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/delete")
-    public DeleteIndividualCustomerResponse delete(@RequestParam UUID id){
+    public DeleteIndividualCustomerResponse delete(@RequestParam UUID id) {
         return individualCustomerService.delete(id);
     }
 
     @PutMapping("/update")
-    public UpdateIndividualCustomerResponse update(@RequestBody @Valid UpdateIndividualCustomerRequest request){
+    public UpdateIndividualCustomerResponse update(@RequestBody @Valid UpdateIndividualCustomerRequest request) {
         return individualCustomerService.update(request);
     }
 
+    @PostMapping("/search")
+    public List<GetAllIndividualCustomerResponse> searchCustomer(@RequestBody SearchIndCustomerRequest request) {
+
+        return individualCustomerService.searchCustomer(request);
+
+    }
 }

@@ -2,6 +2,7 @@ package com.etiya.customerservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class IndividualCustomer extends Customer {
     private String fatherName;
     @Column(name = "nationality_id")
     private String nationalityId;
+
 
 
 }

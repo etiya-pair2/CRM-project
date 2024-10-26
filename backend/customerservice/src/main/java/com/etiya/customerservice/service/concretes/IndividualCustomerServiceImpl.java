@@ -63,4 +63,14 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 new RuntimeException("Customer not found with ID: " + customerId));
         return IndividualCustomerMapper.INSTANCE.getIndividualCustomerById(individualCustomer);
     }
+
+    @Override
+    public List<GetAllIndividualCustomerResponse> searchCustomer(SearchIndCustomerRequest request) {
+        List<IndividualCustomer> individualCustomers=individualCustomerRepository.searchIndividualCustomer(request);
+        List<GetAllIndividualCustomerResponse> getAllIndividualCustomerResponseList= new ArrayList<>();
+        for(IndividualCustomer individualCustomer:individualCustomers){
+            getAllIndividualCustomerResponseList.add(IndividualCustomerMapper.INSTANCE.individualCustomerFromGetAllResponse(individualCustomer));
+        }
+        return getAllIndividualCustomerResponseList;
+    }
 }

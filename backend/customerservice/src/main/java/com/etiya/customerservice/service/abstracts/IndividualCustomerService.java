@@ -9,10 +9,8 @@ public interface IndividualCustomerService {
 
     CreateIndividualCustomerResponse create(CreateIndividualCustomerRequest request);
     UpdateIndividualCustomerResponse update(UpdateIndividualCustomerRequest request);
-
     DeleteIndividualCustomerResponse delete(UUID customerId);
-
     List<GetAllIndividualCustomerResponse> getAll();
-
     GetByIdIndividualCustomerResponse getById (UUID customerId);
+    List<GetAllIndividualCustomerResponse> searchCustomer(SearchIndCustomerRequest request);
 }
