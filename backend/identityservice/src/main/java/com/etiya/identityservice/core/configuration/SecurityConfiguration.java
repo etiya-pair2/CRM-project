@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
+                        .requestMatchers("/api/v1/identity/auth/**").permitAll()              
                         .anyRequest().permitAll()
                 );
         //.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
