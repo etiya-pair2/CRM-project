@@ -9,7 +9,7 @@ import { TokenResponse } from '../models/auth/tokenResponse';
   providedIn: 'root',
 })
 export class AuthService {
-  controllerUrl: string = `${environment.MS_V1_API_URL}/auth`;
+  controllerUrl: string = `${environment.MS_V1_API_URL}/identity/auth`;
   constructor(private httpClient: HttpClient) {}
   // any,unknown ❌
 
