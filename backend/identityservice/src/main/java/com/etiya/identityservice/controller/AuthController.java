@@ -24,14 +24,13 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest){
-        String email = loginRequest.getEmail();
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 
 
     @PostMapping("register")
-    public ResponseEntity<TokenResponse> register(@RequestBody RegisterRequest registerRequest){
-        String email = registerRequest.getEmail();
-        return ResponseEntity.ok(authService.register(registerRequest));
+    public TokenResponse register(@RequestBody RegisterRequest registerRequest){
+        TokenResponse tokenResponse = authService.register(registerRequest);
+        return tokenResponse;
     }
 }

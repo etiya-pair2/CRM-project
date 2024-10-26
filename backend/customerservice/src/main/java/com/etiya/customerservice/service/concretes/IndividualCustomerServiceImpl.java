@@ -24,8 +24,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
     @Override
     public CreateIndividualCustomerResponse create(CreateIndividualCustomerRequest request) {
-        IndividualCustomer individualCustomer=
-                IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateRequest(request);
+        IndividualCustomer individualCustomer= IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateRequest(request);
         individualCustomerRepository.save(individualCustomer);
         return IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateResponse(individualCustomer);
 

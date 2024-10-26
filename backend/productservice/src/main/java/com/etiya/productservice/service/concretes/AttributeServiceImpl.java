@@ -5,6 +5,7 @@ import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.entity.Category;
 import com.etiya.productservice.mapper.AttributeMapper;
 import com.etiya.productservice.repository.AttributeRepository;
+import com.etiya.productservice.rules.AttributeBusinessRules;
 import com.etiya.productservice.service.abstracts.AttributeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import java.util.UUID;
 public class AttributeServiceImpl implements AttributeService {
 
     private final AttributeRepository  attributeRepository;
+
+    private final AttributeBusinessRules attributeBusinessRules;
 
     AttributeMapper attributeMapper = AttributeMapper.INSTANCE;
     @Override
@@ -34,6 +37,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public CreateAttributeResponse create(CreateAttributeRequest request) {
+//        attributeBusinessRules.checkIfNameExist(request.getName());
         Attribute attribute = attributeRepository.save(attributeMapper.attributeFromCreateRequest(request));
         return attributeMapper.attributeFromCreateResponse(attribute);
 

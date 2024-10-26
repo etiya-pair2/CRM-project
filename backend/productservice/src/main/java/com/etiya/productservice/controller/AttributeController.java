@@ -1,6 +1,7 @@
 package com.etiya.productservice.controller;
 
 import com.etiya.productservice.dto.attribute.*;
+import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.service.abstracts.AttributeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,8 @@ public class AttributeController {
 
     @PostMapping("/create")
     public ResponseEntity<CreateAttributeResponse> create(@RequestBody CreateAttributeRequest request){
-        return ResponseEntity.ok(attributeService.create(request));
+        CreateAttributeResponse attribute = attributeService.create(request);
+        return ResponseEntity.ok(attribute);
     }
 
     @PutMapping("/update")

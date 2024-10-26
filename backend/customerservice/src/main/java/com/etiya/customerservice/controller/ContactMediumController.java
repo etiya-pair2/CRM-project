@@ -30,12 +30,13 @@ public class ContactMediumController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreateContactMediumResponse> add(@RequestBody @Valid CreateContactMediumRequest request){
-        CreateContactMediumResponse saved= contactMediumService.create(request);
-        if(saved != null){
-            return  new ResponseEntity<>(saved,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<CreateContactMediumResponse> add(@RequestBody CreateContactMediumRequest request){
+        CreateContactMediumResponse saved = contactMediumService.create(request);
+//        if(saved != null){
+//            return  new ResponseEntity<>(saved,HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+           return  new ResponseEntity<>(saved,HttpStatus.OK);
     }
     @DeleteMapping("/delete")
     public DeleteContactMediumResponse delete(@RequestParam UUID id){
@@ -44,7 +45,7 @@ public class ContactMediumController {
     }
 
     @PutMapping("/update")
-    public UpdateContactMediumResponse update(@RequestBody @Valid UpdateContactMediumRequest request){
+    public UpdateContactMediumResponse update(@RequestBody UpdateContactMediumRequest request){
         return contactMediumService.update(request);
     }
 

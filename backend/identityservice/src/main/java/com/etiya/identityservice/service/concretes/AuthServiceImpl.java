@@ -4,9 +4,11 @@ import com.etiya.identityservice.dto.Auth.LoginRequest;
 import com.etiya.identityservice.dto.Auth.RegisterRequest;
 import com.etiya.identityservice.dto.Auth.TokenResponse;
 import com.etiya.identityservice.entity.User;
+import com.etiya.identityservice.rules.AuthBusinessRules;
 import com.etiya.identityservice.service.abstracts.AuthService;
 import com.etiya.identityservice.service.abstracts.UserService;
 import io.github.sabaurgup.security.BaseJwtService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +24,7 @@ public class AuthServiceImpl implements AuthService
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final BaseJwtService baseJwtService;
+    private final AuthBusinessRules authBusinessRules;
 
 
     @Override
@@ -33,14 +36,12 @@ public class AuthServiceImpl implements AuthService
         return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
     }
 
+    @Transactional
     @Override
     public TokenResponse register(RegisterRequest registerRequest) {
-        String email = registerRequest.getEmail();
-        if (userService.isEmailRegistered(email)) {
-            throw new RuntimeException("Bu e-posta adresi zaten kayıtlı.");
-        }
+        authBusinessRules.checkIfEmailExist( registerRequest.getEmail());
 
-        User userToAdd =new User();
+        User userToAdd = new User();
         userToAdd.setEmail(registerRequest.getEmail());
         userToAdd.setName(registerRequest.getName());
         userToAdd.setSurname(registerRequest.getSurname());

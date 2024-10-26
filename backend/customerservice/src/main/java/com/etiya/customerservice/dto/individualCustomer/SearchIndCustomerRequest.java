@@ -13,7 +13,7 @@ public class SearchIndCustomerRequest {
     private String natId;
     private UUID customerId;
     private String accNumber;
-    private  Long mobilePhone;
+    private String mobilePhone;
     private String firstName;
     private String lastName ;
     private UUID orderId;

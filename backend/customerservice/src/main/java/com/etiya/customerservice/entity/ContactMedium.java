@@ -25,24 +25,19 @@ public class ContactMedium {
     @Column(name = "id")
     private UUID id;
 
-
-    @JoinColumn(name = "customer_id")
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @NotNull
-    @Email
     @Column(name = "email")
     private String email;
 
     @Column(name = "home_phone")
-    private Long homePhone;
+    private String homePhone;
 
-    @NotNull
     @Column(name = "mobile_phone")
-    private Long mobilePhone;
+    private String mobilePhone;
 
-    @NotNull
     @Column(name = "fax")
     private String fax;
 

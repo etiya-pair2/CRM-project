@@ -31,6 +31,7 @@ public interface IndividualCustomerMapper {
     GetByIdIndividualCustomerResponse getIndividualCustomerById(IndividualCustomer individualCustomer);
 
 
+
     IndividualCustomer individualCustomerFromCreateRequest(CreateIndividualCustomerRequest request);
 
 

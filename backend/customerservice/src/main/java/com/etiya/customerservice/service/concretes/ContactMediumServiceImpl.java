@@ -27,9 +27,11 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public UpdateContactMediumResponse update(UpdateContactMediumRequest request) {
-        ContactMedium contactMedium= ContactMediumMapper.INSTANCE.contactMediumFromUpdateRequest(request);
-        contactMediumRepository.save(contactMedium);
-        return ContactMediumMapper.INSTANCE.contactMediumFromUpdateResponse(contactMedium);
+        ContactMedium oldContactMedium = contactMediumRepository.findById(request.getId()).orElseThrow();
+        ContactMedium newContactMedium= ContactMediumMapper.INSTANCE.contactMediumFromUpdateRequest(request);
+        newContactMedium.setCustomer(oldContactMedium.getCustomer());
+        contactMediumRepository.save(newContactMedium);
+        return ContactMediumMapper.INSTANCE.contactMediumFromUpdateResponse(newContactMedium);
     }
 
     @Override

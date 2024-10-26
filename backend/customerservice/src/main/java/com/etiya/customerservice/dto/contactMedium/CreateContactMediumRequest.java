@@ -15,7 +15,7 @@ public class CreateContactMediumRequest {
 
     private UUID customerId;
     private String email;
-    private Long homePhone;
-    private Long mobilePhone;
+    private String homePhone;
+    private String mobilePhone;
     private String fax;
 }
