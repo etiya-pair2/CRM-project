@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CustomerSearchRequest } from '../../../shared/models/customer/customerSearchRequest';
 import { CustomerSearchResponse } from '../../../shared/models/customer/customerSearchResponse';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-search',
   standalone: true,
-  imports: [MainLayoutComponent],
+  imports: [MainLayoutComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './customer-search.component.html',
   styleUrls: ['./customer-search.component.scss']
 })
@@ -19,10 +20,10 @@ export class CustomerSearchComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private customerService: CustomerService) {
     this.searchForm = this.fb.group({
-      nationalityId: [''],
+      natId: [''],
       customerId: [''],
-      accountNumber: [''],
-      gsmNumber: [''],
+      accNumber: [''],
+      mobilePhone: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
     });
@@ -37,9 +38,14 @@ export class CustomerSearchComponent implements OnInit {
   search(): void {
     if (this.searchForm.valid) {
       const searchRequest: CustomerSearchRequest = this.searchForm.value;
-      this.customerService.searchCustomer(searchRequest).subscribe(response => {
-        this.results = response;
-      });
+      this.customerService.searchCustomer(searchRequest).subscribe(
+        (response) => {
+          this.results = response;
+        },
+        (error) => {
+          console.error('Search failed', error);
+        }
+      );
     }
   }
 

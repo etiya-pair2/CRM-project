@@ -6,7 +6,7 @@ body {
     background-color: #e4e3f5;
     overflow: hidden;
 }
-
+ 
 .container {
     max-width: 1600px; /* Container genişliğini azaltarak ortalamaya yardımcı olduk */
     height: 600px;
@@ -16,10 +16,12 @@ body {
     justify-content: space-around; /* Ortalamak için space-around */
     align-items: center; /* Yatayda ortalamak için center */
     padding: 20px;
+    margin: 50px;
 }
-
+ 
 .filters {
     width: 400px;
+    height: 500px;;
     background: #A1A0B4;
     border: 1px solid #BEBDCD;
     border-radius: 10px;
@@ -27,7 +29,7 @@ body {
     flex-direction: column;
     padding: 20px;
 }
-
+ 
 .results {
     width: 1000px;
     height: 500px;
@@ -37,7 +39,7 @@ body {
     overflow-y: auto;
     padding: 20px;
 }
-
+ 
 input {
     padding: 5px;
     margin-bottom: 10px;
@@ -45,13 +47,13 @@ input {
     border: 1px solid #BEBDCD;
     height: 25px;
 }
-
+ 
 .buttons {
     display: flex;
     gap: 10px;
     margin-top: 10px;
 }
-
+ 
 button {
     padding: 5px 15px;
     border-radius: 5px;
@@ -59,24 +61,24 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
+ 
 button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
-
+ 
 button:not(:disabled):hover {
     opacity: 0.9;
 }
-
-button.Clear {
+ 
+button:first-child {
     background: linear-gradient(90deg, #F80000 0%, #3B0000 100%);
     width: 100px;
     color: white;
 }
-
-button.Search {
+ 
+button:last-child {
     background: #717171;
     width: 100px;
-    color: white;
+    color: white;
 }

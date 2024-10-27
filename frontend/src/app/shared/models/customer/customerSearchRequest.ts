@@ -1,8 +1,8 @@
 export interface CustomerSearchRequest {
-    nationalityId?: string;
+    natId?: string;
     customerId?: string;
-    accountNumber?: string;
-    gsmNumber?: string;
+    accNumber?: string;
+    mobilePhone?: string;
     firstName?: string;
     lastName?: string;
   }

@@ -30,7 +30,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common" target="1.8" />
       <module name="core" target="17" />
       <module name="core2" target="17" />
     </bytecodeTargetLevel>
