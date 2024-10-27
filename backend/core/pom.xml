@@ -11,16 +11,13 @@
 
     <groupId>io.github.sabaurgup</groupId>
     <artifactId>core</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>core</name>
     <url>http://maven.apache.org</url>
     <description>Etiya Academy 9th term microservice project core layer</description>
 
-    <properties>
-        <org.projectlombok.version>1.18.30</org.projectlombok.version>
-    </properties>
     <developers>
         <developer>
             <id>sabaurgup</id>
@@ -87,7 +84,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-            <version>${org.projectlombok.version}</version>
         </dependency>
 
         <dependency>
@@ -96,10 +92,8 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
