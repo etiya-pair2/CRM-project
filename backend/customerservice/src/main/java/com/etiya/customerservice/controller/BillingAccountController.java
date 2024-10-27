@@ -37,7 +37,7 @@ public class BillingAccountController {
     public ResponseEntity<CreateBillingAccountResponse> add(@RequestBody @Valid CreateBillingAccountRequest request){
         CreateBillingAccountResponse saved= billingAccountService.create(request);
         if(saved!=null){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(saved,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

@@ -29,8 +29,9 @@ public class BillingAccount {
     @Column(name = "account_number")
     private String accountNumber;
 
-    @Column(name = "address")
-    private String address;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @Column(name = "description")
     private String description;

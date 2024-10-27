@@ -15,4 +15,5 @@ public class CreateAddressResponse {
     private UUID districtId;
     private String postalCode;
     private String description;
+    private String flatNumber;
 }

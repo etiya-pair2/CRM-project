@@ -1,28 +1,38 @@
 package com.etiya.customerservice.rules;
 
 import com.etiya.customerservice.core.configuration.exceptions.type.BusinessException;
+import com.etiya.customerservice.entity.Address;
 import com.etiya.customerservice.entity.Customer;
+import com.etiya.customerservice.entity.District;
+import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.repository.DistrictRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Service
+@Component
 public class AddressBusinessRules {
 
     private final CustomerRepository customerRepository;
 
     private final DistrictRepository districtRepository;
 
+    private final AddressRepository addressRepository;
+
+    public Address checkIfAddressExist(UUID id) {
+        return addressRepository.findById(id).orElseThrow(() ->  new BusinessException("Adres Bulunamadı"));
+    }
+
     public void checkIfCustomerExist(UUID id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if(customer.isEmpty()){
-            throw new BusinessException("Müşteri Bulunamadı");
-        }
+        customerRepository.findById(id).orElseThrow(() -> new BusinessException("Müşteri Bulunamadı"));
+    }
+
+    public void checkIfDistrictExist(UUID id) {
+        districtRepository.findById(id).orElseThrow(() -> new BusinessException("Bölge Bulunamadı"));
     }
 
 

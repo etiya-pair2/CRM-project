@@ -40,6 +40,9 @@ public class Address {
     @Column(name = "description")
     private String description;
 
+    @OneToOne(mappedBy = "address")
+    private BillingAccount billingAccount;
+
     @NotNull
     @NotBlank
     @Column(name = "flat_number")

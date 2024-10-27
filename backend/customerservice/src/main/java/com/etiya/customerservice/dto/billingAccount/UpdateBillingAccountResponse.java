@@ -12,4 +12,11 @@ import java.util.UUID;
 public class UpdateBillingAccountResponse {
     private UUID id;
     private UUID customerId;
+    private UUID addressId;
+    private String description;
+    private String accountName;
+    private String accountNumber;
+    private Boolean accountStatus;
+    private String accountType;
+    private String action;
 }

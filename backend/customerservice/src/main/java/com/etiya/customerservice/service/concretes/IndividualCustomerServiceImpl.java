@@ -1,14 +1,12 @@
 package com.etiya.customerservice.service.concretes;
 
 import com.etiya.customerservice.dto.individualCustomer.*;
-import com.etiya.customerservice.entity.Customer;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
-import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
+import com.etiya.customerservice.rules.IndCustBusinessRules;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,9 +19,11 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
 
     private final IndividualCustomerRepository individualCustomerRepository;
+    private final IndCustBusinessRules indCustBusinessRules;
 
     @Override
     public CreateIndividualCustomerResponse create(CreateIndividualCustomerRequest request) {
+        indCustBusinessRules.checkMernis(request);
         IndividualCustomer individualCustomer= IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateRequest(request);
         individualCustomerRepository.save(individualCustomer);
         return IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateResponse(individualCustomer);
