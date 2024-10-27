@@ -4,6 +4,7 @@ import com.etiya.customerservice.dto.address.*;
 import com.etiya.customerservice.entity.Address;
 import com.etiya.customerservice.mapper.AddressMapper;
 import com.etiya.customerservice.repository.AddressRepository;
+import com.etiya.customerservice.rules.AddressBusinessRules;
 import com.etiya.customerservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,12 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
+    private final AddressBusinessRules addressBusinessRules;
+
     @Override
     public CreateAddressResponse create(CreateAddressRequest request) {
+        addressBusinessRules.checkIfCustomerExist(request.getCustomerId());
+        addressBusinessRules.checkIfDistrictExist(request.getDistrictId());
         Address address= AddressMapper.INSTANCE.addressFromCreateRequest(request);
         addressRepository.save(address);
         return AddressMapper.INSTANCE.addressFromCreateResponse(address);
@@ -28,6 +33,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public UpdateAddressResponse update(UpdateAddressRequest request) {
+        addressBusinessRules.checkIfAddressExist(request.getId());
+        addressBusinessRules.checkIfCustomerExist(request.getCustomerId());
+        addressBusinessRules.checkIfDistrictExist(request.getDistrictId());
         Address address= AddressMapper.INSTANCE.addressFromUpdateRequest(request);
         addressRepository.save(address);
         return AddressMapper.INSTANCE.addressFromUpdateResponse(address);
@@ -35,8 +43,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public DeleteAddressResponse delete(UUID id) {
-        Address address= addressRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Address not found with ID:"  + id));
+        Address address = addressBusinessRules.checkIfAddressExist(id);
         return AddressMapper.INSTANCE.addressFromDeleteResponse(address);
     }
 
@@ -52,8 +59,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public GetByIdAddressResponse getById(UUID id) {
-        Address address= addressRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Address not found with ID:"  + id));
+        Address address = addressBusinessRules.checkIfAddressExist(id);
         return AddressMapper.INSTANCE.getAddressById(address);
     }
 }

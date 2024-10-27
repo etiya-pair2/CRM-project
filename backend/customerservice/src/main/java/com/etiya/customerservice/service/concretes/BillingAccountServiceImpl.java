@@ -4,6 +4,7 @@ import com.etiya.customerservice.dto.billingAccount.*;
 import com.etiya.customerservice.entity.BillingAccount;
 import com.etiya.customerservice.mapper.BillingAccountMapper;
 import com.etiya.customerservice.repository.BillingAccountRepository;
+import com.etiya.customerservice.rules.BillingAccountBusinessRules;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,24 @@ import java.util.UUID;
 public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
+    private final BillingAccountBusinessRules bilAccBusinessRules;
 
     @Override
     public CreateBillingAccountResponse create(CreateBillingAccountRequest request) {
+        bilAccBusinessRules.checkIfCustomerExist(request.getCustomerId());
+        bilAccBusinessRules.checkIfCustomerAddressExist(request.getCustomerId(),request.getAddressId());
+        bilAccBusinessRules.checkIfBilAccExistsForCustAndAddress(request.getCustomerId(),request.getAddressId());
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromCreateRequest(request);
+        billingAccount.setAccountStatus(true);
         billingAccountRepository.save(billingAccount);
         return BillingAccountMapper.INSTANCE.billingAccountFromCreateResponse(billingAccount);
     }
 
     @Override
     public UpdateBillingAccountResponse update(UpdateBillingAccountRequest request) {
+        bilAccBusinessRules.checkIfBilAccExist(request.getId());
+        bilAccBusinessRules.checkIfCustomerExist(request.getCustomerId());
+        bilAccBusinessRules.checkIfCustomerAddressExist(request.getCustomerId(),request.getAddressId());
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromUpdateRequest(request);
         billingAccountRepository.save(billingAccount);
         return BillingAccountMapper.INSTANCE.billingAccountFromUpdateResponse(billingAccount);
@@ -35,8 +44,8 @@ public class BillingAccountServiceImpl implements BillingAccountService {
 
     @Override
     public DeleteBillingAccountResponse delete(UUID id) {
-        BillingAccount billingAccount= billingAccountRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Billing Account not found with ID:"  + id));
+        BillingAccount billingAccount= bilAccBusinessRules.checkIfBilAccExist(id);
+        billingAccountRepository.delete(billingAccount);
         return BillingAccountMapper.INSTANCE.billingAccountFromDeleteResponse(billingAccount);
     }
 
@@ -53,8 +62,7 @@ public class BillingAccountServiceImpl implements BillingAccountService {
 
     @Override
     public GetByIdBillingAccountResponse getById(UUID id) {
-        BillingAccount billingAccount= billingAccountRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Billing Account not found with ID:"  + id));
+        BillingAccount billingAccount= bilAccBusinessRules.checkIfBilAccExist(id);
         return BillingAccountMapper.INSTANCE.getBillingAccountById(billingAccount);
     }
 }

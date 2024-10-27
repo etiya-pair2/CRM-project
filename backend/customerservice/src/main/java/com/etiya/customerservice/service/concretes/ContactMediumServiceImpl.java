@@ -4,6 +4,7 @@ import com.etiya.customerservice.dto.contactMedium.*;
 import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.mapper.ContactMediumMapper;
 import com.etiya.customerservice.repository.ContactMediumRepository;
+import com.etiya.customerservice.rules.ContactMediumBusinessRules;
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import java.util.UUID;
 public class ContactMediumServiceImpl implements ContactMediumService {
 
     private final ContactMediumRepository contactMediumRepository;
+    private final ContactMediumBusinessRules contactMediumBusinessRules;
     @Override
     public CreateContactMediumResponse create(CreateContactMediumRequest request) {
+        contactMediumBusinessRules.checkIfCustomerExist(request.getCustomerId());
         ContactMedium contactMedium= ContactMediumMapper.INSTANCE.contactMediumFromCreateRequest(request);
         contactMediumRepository.save(contactMedium);
         return ContactMediumMapper.INSTANCE.contactMediumFromCreateResponse(contactMedium);
@@ -27,7 +30,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public UpdateContactMediumResponse update(UpdateContactMediumRequest request) {
-        ContactMedium oldContactMedium = contactMediumRepository.findById(request.getId()).orElseThrow();
+        ContactMedium oldContactMedium = contactMediumBusinessRules.checkIfContMedExist(request.getId());
         ContactMedium newContactMedium= ContactMediumMapper.INSTANCE.contactMediumFromUpdateRequest(request);
         newContactMedium.setCustomer(oldContactMedium.getCustomer());
         contactMediumRepository.save(newContactMedium);
@@ -36,9 +39,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public DeleteContactMediumResponse delete(UUID id) {
-        ContactMedium contactMedium= contactMediumRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Contact Medium not found with ID:"  + id));
-        return ContactMediumMapper.INSTANCE.contactMediumFromDeleteResponse(contactMedium);
+        return ContactMediumMapper.INSTANCE.contactMediumFromDeleteResponse(contactMediumBusinessRules.checkIfContMedExist(id));
     }
 
     @Override
@@ -53,8 +54,6 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public GetByIdContactMediumResponse getById(UUID id) {
-        ContactMedium contactMedium= contactMediumRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Contact Medium not found with ID:"  + id));
-        return ContactMediumMapper.INSTANCE.getContactMediumById(contactMedium);
+        return ContactMediumMapper.INSTANCE.getContactMediumById(contactMediumBusinessRules.checkIfContMedExist(id));
     }
 }
