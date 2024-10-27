@@ -17,11 +17,13 @@ public class CreateAddressRequest {
 
     private UUID customerId;
     private UUID districtId;
+
     @NotNull
     @NotBlank
     @Positive
     private String postalCode;
     private String description;
+
     @NotNull
     @NotBlank
     @Positive

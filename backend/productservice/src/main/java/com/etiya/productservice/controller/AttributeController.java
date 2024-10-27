@@ -3,6 +3,7 @@ package com.etiya.productservice.controller;
 import com.etiya.productservice.dto.attribute.*;
 import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.service.abstracts.AttributeService;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

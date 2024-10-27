@@ -4,6 +4,7 @@ import com.etiya.customerservice.dto.address.*;
 import com.etiya.customerservice.entity.Address;
 import com.etiya.customerservice.mapper.AddressMapper;
 import com.etiya.customerservice.repository.AddressRepository;
+import com.etiya.customerservice.rules.AddressBusinessRules;
 import com.etiya.customerservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,11 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
+    private final AddressBusinessRules addressBusinessRules;
+
     @Override
     public CreateAddressResponse create(CreateAddressRequest request) {
+        addressBusinessRules.checkIfCustomerExist(request.getCustomerId());
         Address address= AddressMapper.INSTANCE.addressFromCreateRequest(request);
         addressRepository.save(address);
         return AddressMapper.INSTANCE.addressFromCreateResponse(address);
