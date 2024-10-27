@@ -12,6 +12,17 @@
   align-items: center;
 }
 
+.btn {
+    width: 210px;
+    height: 40px;
+    position: absolute;
+    right: 150px;
+    border-radius: 25px; /* Kenar yuvarlatma */
+    padding: 10px 20px; /* İç boşluk ekle */
+    background-color: #242441; /* Buton rengi */
+    border: none; /* Kenar kaldır */
+    margin-top: 30px;
+}
 .form-signin {
   width: 100%;
   flex: 1;
@@ -42,11 +53,11 @@ label {
 }
 
 .etiya-img {
+  margin-left: 180px;
   width: 311px; 
-  width: 311px;
   height: 103px;
   top: 239px;
-  left: 928px;
+  left: 700px;
   gap: 0px;
   opacity: 0px;
   justify-content: center;
