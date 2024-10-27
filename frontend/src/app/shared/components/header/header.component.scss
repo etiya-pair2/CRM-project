@@ -1,6 +1,6 @@
 .div {
   width: 100%; // Tam genişlik
-  height: 242px;
+  height: 154px; // 230px * 0.67
   position: relative;
   top: 0; // Yukarıdan boşluk bırakmamak için
   gap: 0;
@@ -8,40 +8,136 @@
   display: flex; // İçeriği yan yana yerleştirmek için
   align-items: center; // Dikey ortalamak için
 }
+
 .logo {
-  width: 80px;  // Genişlik
-  height: 115px; // Yükseklik
+  width: 54px;  // 80px * 0.67
+  height: 77px; // 115px * 0.67
   position: absolute; // Üstten konumlandırma
-  bottom: 90px;     // Yukarıdan konumu artırarak üstteki header ile mesafeyi aç
-  left: 51px;     
-  opacity: 1;    
-}
-.etiya-logo {
-  width: 183px;  // Yeni genişlik
-  height: 61px;  // Yeni yükseklik
-  position: absolute; // Üstten konumlandırma
-  top: 69px;  // Yukarıdan konum
-  left: 190px; // Soldan konum
+  bottom: 60px;     // 90px * 0.67
+  left: 34px;      // 51px * 0.67
   opacity: 1;    
 }
 
+.etiya-logo {
+  width: 123px;  // 183px * 0.67
+  height: 41px;  // 61px * 0.67
+  position: absolute; // Üstten konumlandırma
+  top: 46px;  // 69px * 0.67
+  left: 127px; // 190px * 0.67
+  opacity: 1;    
+}
+
+.logo-container {
+  display: flex; // Yan yana dizmek için flex kullan
+  align-items: center; // Dikey ortalama
+  gap: 20px; // Logo arasındaki boşluk
+  margin-left: auto; // Sol alanı doldurur
+  margin-right: 130px; // Sağdan boşluk ekleyerek sola it
+}
+
+.vector-logo {
+  width: 30px;  // Yeni genişlik
+  height: 30px;  // Yeni yükseklik
+  opacity: 1;    
+  
+}
+.button-container {
+  display: flex; // Flex düzeni
+  flex-direction: column; // Butonları alt alta diz
+  align-items: flex-start; // Soldan hizala
+  gap: 10px; // Butonlar arasındaki boşluk
+}
+.english-button, .turkish-button{
+  width: 50px;  // Yeni genişlik
+  height: 30px;  // Yeni yükseklik
+  opacity: 1;
+  background-color: #242441;
+  color: white;
+}
+.name{
+  margin-bottom: 55px;
+}
+
+.first-name, .last-name {
+  color: white; // Yazı rengi beyaz
+  margin: 0; // Varsayılan marjları kaldır
+  font-size: 18px; // Yazı boyutu
+  float: left; // Solda hizalamak için
+  clear: both; // Her iki float'ı temizlemek için
+  right:50px;
+  position:absolute;
+}
+
+.last-name {
+  margin-top: 25px; // İsteğe bağlı olarak alt boşluk ekleyebilirsiniz
+}
+.user-logo {
+  width: 55px;  // Yeni genişlik
+  height: 55px;  // Yeni yükseklik
+  opacity: 1;    
+}
+
+.rectangle-logo {
+  width: 3px;  // Yeni genişlik
+  height: 100px;  // Yeni yükseklik
+  opacity: 1;   
+  margin-left: 15px; 
+}
+
+
 .search-button, .create-button {
-  width: 260px; // Genişlik
-  height: 41px; // Yükseklik
+  width: 174px; // 260px * 0.67
+  height: 27px; // 41px * 0.67
   position: absolute; 
-  top: 180px; // Yukarıdan konum
-  border-radius: 10px; // Oval köşe için
+  top: 121px; // 180px * 0.67
+  border-radius: 7px; // 10px * 0.67
   opacity: 1; // Görünürlük
   color: #003366; // Koyu lacivert yazı rengi
-  font-size: 16px; // Yazı boyutu (büyüt)
+  font-size: 11px; // 16px * 0.67
   font-weight: bold; // Yazıyı kalın yap
 }
 
 .search-button {
-  left: 51px; // Soldan konum
-  margin-right: 10px; // Sağ tarafına boşluk ekle
+  left: 34px; // 51px * 0.67
+  margin-right: 7px; // 10px * 0.67
+}
+.search-icon{
+  width: 10px; // 24px * 0.67
+  height: 10px; // 24px * 0.67
+  margin-right: 7px; // 10px * 0.67
 }
 
 .create-button {
-  left: 318px; // Sağdan konum
+  left: 213px; // 318px * 0.67
+}
+
+.create-icon{
+  width: 14px; // 24px * 0.67
+  height: 14px; // 24px * 0.67
+  margin-right: 7px; // 10px * 0.67
+}
+
+.logout-button {
+  width: 92px; // 137px * 0.67
+  height: 30px; // 44px * 0.67
+  position: absolute; // Pozisyonu kontrol edebilmek için
+  top: 119px; // 178px * 0.67
+  left: 1400px; // 1259px * 0.67
+  border-radius: 7px; // 10px * 0.67
+  padding: 7px; // 10px * 0.67
+  gap: 7px; // 10px * 0.67
+  opacity: 0.8; // %80 opaklık
+  background-color: #f44336; // İsterseniz butonun arka plan rengi
+  color: white; // Metin rengi
+  border: none; // Kenar çizgisi
+  cursor: pointer; // Fare imleci
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.logout-icon {
+  width: 18px; // 24px * 0.67
+  height: 18px; // 24px * 0.67
+  background:  #f44336;
+  
 }
