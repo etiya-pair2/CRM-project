@@ -1,51 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CustomerSearchRequest } from '../../../shared/models/customer/customerSearchRequest';
+import { CustomerSearchResponse } from '../../../shared/models/customer/customerSearchResponse';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
-
 
 @Component({
   selector: 'app-customer-search',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,MainLayoutComponent],
+  imports: [MainLayoutComponent],
   templateUrl: './customer-search.component.html',
-  styleUrl: './customer-search.component.scss'
+  styleUrls: ['./customer-search.component.scss']
 })
 export class CustomerSearchComponent implements OnInit {
-  form!: FormGroup;
+  searchForm: FormGroup;
+  results: CustomerSearchResponse[] = [];
+  isSearchEnabled = false;
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) {}
+  constructor(private fb: FormBuilder, private customerService: CustomerService) {
+    this.searchForm = this.fb.group({
+      nationalityId: [''],
+      customerId: [''],
+      accountNumber: [''],
+      gsmNumber: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+    });
 
-  ngOnInit(): void {
-    this.buildForm();
-  }
-
-  buildForm() {
-    this.form = this.formBuilder.group({
-      customerName: new FormControl('', Validators.required),
-      customerEmail: new FormControl('', [Validators.required, Validators.email]),
+    this.searchForm.valueChanges.subscribe(() => {
+      this.isSearchEnabled = this.searchForm.valid;
     });
   }
 
-  submitForm() {
-    this.form.markAllAsTouched();
-    if (!this.form.valid) {
-      return;
+  ngOnInit(): void {}
+
+  search(): void {
+    if (this.searchForm.valid) {
+      const searchRequest: CustomerSearchRequest = this.searchForm.value;
+      this.customerService.searchCustomer(searchRequest).subscribe(response => {
+        this.results = response;
+      });
     }
-    const searchRequest: CustomerSearchRequest = this.form.value;
-    this.customerService.searchCustomer(searchRequest).subscribe({
-      next: (response) => {
-        console.log('Arama başarılı:', response);
-      },
-    });
   }
 
-  hasError(controlName: string) {
-    return !this.form.get(controlName)?.valid && this.form.get(controlName)?.touched;
+  clear(): void {
+    this.searchForm.reset();
+    this.results = [];
+    this.isSearchEnabled = false;
   }
-
-  get isFormValid() {
-    return this.form.valid;
-  }
 }
