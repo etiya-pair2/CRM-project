@@ -1,1 +1,36 @@
 <app-main-layout></app-main-layout>
+<html><body>  
+<div class="container">
+    <div class="filters">
+      <label for="nationalityId" style="margin-top: 20px;">Nationality Id</label>
+      <input id="nationalityId" formControlName="nationalityId" />
+
+      <label for="customerId" style="margin-top: 10px;">Customer Id</label>
+      <input id="customerId" formControlName="customerId" />
+  
+      <label for="accountNumber" style="margin-top: 10px;">Account Number</label>
+      <input id="accountNumber" formControlName="accountNumber" />
+  
+      <label for="gsmNumber"style="margin-top: 10px;">GSM No</label>
+      <input id="gsmNumber" formControlName="gsmNumber" />
+  
+      <label for="firstName"style="margin-top: 10px;">First Name</label>
+      <input id="firstName" formControlName="firstName" />
+  
+      <label for="lastName"style="margin-top: 10px;">Last Name</label>
+      <input id="lastName"  formControlName="lastName" />
+  
+      <div class="buttons">
+        <button class="Clear" (click)="clear()" style="color: aliceblue;">CLEAR</button>
+        <button class="Search" [disabled]="!isSearchEnabled" (click)="search()" style="color: aliceblue;">SEARCH</button>
+      </div>
+    </div>
+      <div class="results">
+        <div style="text-align: center; font-size: larger; padding-top: 200px;">Please at least fill the one field to search.</div>
+        <div *ngFor="let result of results">
+          <!--  *ngIf="results.length === 0"--> 
+        </div>
+      </div> 
+  </div>
+</body>
+  </html>
