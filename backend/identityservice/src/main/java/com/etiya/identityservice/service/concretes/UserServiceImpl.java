@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService
         User oldUser = userRepository.findById(request.getId()).orElseThrow();
         User newUser = userMapper.userFromUpdateRequest(request);
         newUser.setCreatedDate(oldUser.getCreatedDate());
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         userRepository.save(newUser);
         return userMapper.userFromUpdateResponse(newUser);
     }

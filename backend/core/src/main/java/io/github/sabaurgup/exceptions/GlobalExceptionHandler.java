@@ -1,20 +1,43 @@
 package io.github.sabaurgup.exceptions;
 
+import io.github.sabaurgup.exceptions.response.BusinessExceptionResponse;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+import java.util.HashMap;
+import java.util.Map;
+
+@RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<String> handleBusinessException(BusinessException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleValidationException(MethodArgumentNotValidException exception) {
+        Map<String, String> errors = new HashMap<>();
+
+        for (FieldError error :
+                exception.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+
+        return errors;
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+    @ExceptionHandler({BusinessException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BusinessExceptionResponse handleBusinessException(BusinessException exception) {
+        return new BusinessExceptionResponse(exception.getMessage());
     }
+
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleRuntimeException(){
+        return "Bilinmedik hata";
+    }
+
 }
