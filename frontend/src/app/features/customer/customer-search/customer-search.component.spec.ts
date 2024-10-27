@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerSearchComponent } from './customer-search.component';
 
+import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
+
 describe('CustomerSearchComponent', () => {
   let component: CustomerSearchComponent;
   let fixture: ComponentFixture<CustomerSearchComponent>;
