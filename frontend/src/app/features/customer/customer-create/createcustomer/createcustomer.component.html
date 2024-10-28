@@ -1,1 +1,42 @@
-<p>createcustomer works!</p>
+<app-main-layout></app-main-layout>
+<body>
+  <div class="container">
+    <div class="in-container">
+      <h3 class="title">Create Customer</h3>
+      <div style="display: flex; align-items: center; margin-top: 10px">
+        <label for="natId" style="color: #29294a; margin-right: 10px">
+          Nationality ID*
+        </label>
+        <input id="natId" [(ngModel)]="natId" (input)="onInputChange()" />
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="button" (click)="clear()">CANCEL</button>
+      <button
+        type="submit"
+        [disabled]="!isNextEnabled"
+        [ngStyle]="{
+          'background-color': isNextEnabled ? '#29294a' : '#717171B2'
+        }"
+        style="
+          padding: 5px 15px;
+          border-radius: 5px;
+          border: none;
+          color: white;
+        "
+        (click)="checkCustomerExists()"
+      >
+        NEXT
+      </button>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div *ngIf="showPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <p>The customer already exists with this Nationality ID!</p>
+      <button (click)="closePopup()">OK</button>
+    </div>
+  </div>
+</body>
