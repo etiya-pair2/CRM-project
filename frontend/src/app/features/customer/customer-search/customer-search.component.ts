@@ -43,7 +43,7 @@ export class CustomerSearchComponent implements OnInit {
     
   }
   navigateToCreateCustomer() {
-    this.router.navigate(['/create-customer']);
+    this.router.navigate(['customer/create']);
   }
   ngOnInit(): void {}
 
