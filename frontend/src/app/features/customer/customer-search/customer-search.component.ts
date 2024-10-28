@@ -6,6 +6,7 @@ import { CustomerSearchResponse } from '../../../shared/models/customer/customer
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-search',
@@ -24,7 +25,7 @@ export class CustomerSearchComponent implements OnInit {
   pageSize: number = 10;
   totalResults: number = 0;
 
-  constructor(private fb: FormBuilder, private customerService: CustomerService) {
+  constructor(private fb: FormBuilder, private customerService: CustomerService ,private router: Router) {
     this.searchForm = this.fb.group({
       natId: [''],
       customerId: [''],
@@ -32,13 +33,18 @@ export class CustomerSearchComponent implements OnInit {
       mobilePhone: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-    });
+    },{ validators: this.nameValidator });
 
     this.searchForm.valueChanges.subscribe(() => {
-      this.isSearchEnabled = this.searchForm.valid;
+      // En az bir alanın dolu olup olmadığını kontrol et
+      this.isSearchEnabled = this.searchForm.valid || 
+      Object.values(this.searchForm.controls).some(control => control.value);
     });
+    
   }
-
+  navigateToCreateCustomer() {
+    this.router.navigate(['/create-customer']);
+  }
   ngOnInit(): void {}
 
   search(): void {
@@ -62,6 +68,24 @@ export class CustomerSearchComponent implements OnInit {
       );
     }
   }
+
+  private nameValidator(form: FormGroup) {
+    const firstName = form.get('firstName')?.value;
+    const lastName = form.get('lastName')?.value;
+  
+    // Eğer her ikisi de boşsa geçerli
+    if (!firstName && !lastName) {
+      return null; // Geçerli
+    }
+  
+    // Eğer biri doluysa diğeri de dolu olmalı
+    if ((firstName && !lastName) || (!firstName && lastName)) {
+      return { nameRequired: true }; // Geçersiz
+    }
+  
+    return null; // Her ikisi de dolu ise geçerli
+  }
+  
 
   clear(): void {
     this.searchForm.reset();

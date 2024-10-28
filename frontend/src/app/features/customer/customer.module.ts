@@ -4,13 +4,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
 import { CustomerInfoComponent } from './customer-create/customer-info/customer-info.component';
+import { CreatecustomerComponent } from './customer-create/createcustomer/createcustomer.component';
 
 @NgModule({
-  imports: [
+imports: [
     CommonModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CreatecustomerComponent,
+    CustomerInfoComponent
   ],
 })
 export class CustomerModule { }

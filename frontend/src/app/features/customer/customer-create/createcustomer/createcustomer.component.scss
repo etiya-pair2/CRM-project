@@ -1,0 +1,115 @@
+body {
+    display: flex;
+    justify-content: center;  // Yatayda ortala
+    align-items: center;      // Dikeyde ortala
+    height: 100vh;
+    background-color: #e4e3f5;
+    overflow: hidden;
+    margin: 0;                // Varsayılan body marjını sıfırladık
+}
+
+
+.container {
+    max-width: 1400px;
+    height: 600px;
+    background: #B0AFC6;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; // Dikey hizalama için
+    justify-content: center; // Ortalamak için
+    align-items: center; // Yatayda ortalamak için
+    padding: 20px;
+    margin: 50px;       // Üst, alt, sağ ve sol 50px boşluk
+    position: relative;  // Pozisyonu belirleyelim
+}
+
+.in-container {
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #A1A0B4;
+    border: 1px solid #BEBDCD;
+    border-radius: 10px;
+    overflow-y: auto;
+    padding: 20px;
+}
+.title {
+    color: #29294a;
+    text-align: center;
+    font-weight: bold;  // Kalın yazı için
+}
+
+input {
+    padding: 5px;
+    margin-top: 10px; // Label ile input arasında boşluk
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #bab9ca;
+    height: 25px;
+}
+
+.buttons {
+    display: flex;
+    gap: 200px;
+    margin-top: 40px; // Butonların üstünde boşluk
+    justify-content: center; // Butonları ortala
+    width: 100%; // Butonların container genişliğine yayılmasını sağlar
+}
+
+button {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #242441;  // Varsayılan arka plan rengi
+    color: white;                // Varsayılan metin rengi
+}
+
+button:disabled {
+    background-color: #717171B2;   // İkinci buton için arka plan rengi
+    cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+    opacity: 0.9;                // Hover durumunda opaklık
+}
+
+button:first-child {
+    width: 100px;
+    border: 1px solid #242441;  // İlk buton için arka plan rengi
+}
+
+button:last-child {
+    background: #717171B2;       // İkinci buton için arka plan rengi
+    width: 100px;
+}
+.popup {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Yarı saydam arka plan
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid red; // Kırmızı çerçeve
+  }
+  
+  .close {
+    cursor: pointer;
+    float: right;
+  }
+
