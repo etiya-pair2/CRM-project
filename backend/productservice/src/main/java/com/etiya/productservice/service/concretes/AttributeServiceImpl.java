@@ -1,5 +1,6 @@
 package com.etiya.productservice.service.concretes;
 
+import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.dto.attribute.*;
 import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.entity.Category;
@@ -22,9 +23,8 @@ public class AttributeServiceImpl implements AttributeService {
 
     private final AttributeBusinessRules attributeBusinessRules;
 
-
-
     AttributeMapper attributeMapper = AttributeMapper.INSTANCE;
+
     @Override
     public List<GetAllAttributeResponse> getAll() {
         return attributeMapper.attributeFromGetAllResponse(attributeRepository.findAll());
@@ -49,14 +49,17 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public UpdateAttributeResponse update(UpdateAttributeRequest request) {
+        attributeBusinessRules.checkIfAttributeExists(request.getId());
         Attribute attribute = attributeRepository.save(attributeMapper.attributeFromUpdateRequest(request));
         return attributeMapper.attributeFromUpdateResponse(attribute);
     }
 
     @Override
     public DeleteAttributeResponse delete(UUID id) {
-        Optional<Attribute> attribute = attributeRepository.findById(id);
-        attribute.ifPresent(attributeRepository::delete);
-        return attributeMapper.attributeFromDeleteResponse(attribute.get());
+        Attribute attribute = attributeRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Attribute with ID " + id + " does not exist."));
+
+        attributeRepository.delete(attribute);
+        return attributeMapper.attributeFromDeleteResponse(attribute);
     }
 }

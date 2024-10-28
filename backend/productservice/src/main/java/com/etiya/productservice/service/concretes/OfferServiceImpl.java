@@ -1,9 +1,11 @@
 package com.etiya.productservice.service.concretes;
 
+import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.dto.offer.*;
 import com.etiya.productservice.entity.Offer;
 import com.etiya.productservice.mapper.OfferMapper;
 import com.etiya.productservice.repository.OfferRepository;
+import com.etiya.productservice.rules.OfferBusinessRules;
 import com.etiya.productservice.service.abstracts.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.util.UUID;
 public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
-
+    private final OfferBusinessRules offerBusinessRules;
     OfferMapper offerMapper = OfferMapper.INSTANCE;
     @Override
     public List<GetAllOfferResponse> getAll() {
@@ -33,6 +35,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public CreateOfferResponse create(CreateOfferRequest request) {
+        offerBusinessRules.validateDiscount(request.getDiscount() );
         Offer offer = offerMapper.offerFromCreateRequest(request);
         offer.setCreatedDate(new Date());
         offer.setStatus(true);
@@ -42,6 +45,8 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public UpdateOfferResponse update(UpdateOfferRequest request) {
+        offerBusinessRules.checkIfOfferExists(request.getId());
+        offerBusinessRules.validateDiscount(request.getDiscount() );
         Offer oldOffer = offerRepository.findById(request.getId()).orElseThrow();
         Offer newOffer = offerMapper.offerFromUpdateRequest(request);
         newOffer.setCreatedDate(oldOffer.getCreatedDate());
@@ -51,7 +56,9 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public DeleteOfferResponse delete(UUID id) {
-        Offer offer = offerRepository.findById(id).orElseThrow();
+        Offer offer = offerRepository
+                .findById(id)
+                .orElseThrow(() -> new BusinessException("Offer with ID " + id + " does not exist."));
         offerRepository.delete(offer);
         return offerMapper.offerFromDeleteResponse(offer);
     }

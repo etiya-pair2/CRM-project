@@ -1,10 +1,10 @@
 package com.etiya.productservice.service.concretes;
 
 import com.etiya.productservice.dto.campaign.*;
-import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.entity.Campaign;
 import com.etiya.productservice.mapper.CampaignMapper;
 import com.etiya.productservice.repository.CampaignRepository;
+import com.etiya.productservice.rules.CampaignBusinessRules;
 import com.etiya.productservice.service.abstracts.CampaignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,10 @@ import java.util.UUID;
 public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignRepository campaignRepository;
+    private final CampaignBusinessRules campaignBusinessRules;
 
     CampaignMapper campaignMapper = CampaignMapper.INSTANCE;
+
     @Override
     public List<GetAllCampaignResponse> getAll() {
         return campaignMapper.campaignFromGetAllResponse(campaignRepository.findAll());
@@ -34,6 +36,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public CreateCampaignResponse create(CreateCampaignRequest request) {
+        campaignBusinessRules.validateDiscount(request.getDiscount());
         Campaign campaign = campaignMapper.campaignFromCreateRequest(request);
         campaign.setCreatedDate(new Date());
         campaign.setStatus(true);
@@ -43,6 +46,8 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public UpdateCampaignResponse update(UpdateCampaignRequest request) {
+        campaignBusinessRules.checkIfCampaignExists(request.getId());
+        campaignBusinessRules.validateDiscount(request.getDiscount());
         Campaign oldCampaign = campaignRepository.findById(request.getId()).orElseThrow();
         Campaign newCampaign = campaignMapper.campaignFromUpdateRequest(request);
         newCampaign.setCreatedDate(oldCampaign.getCreatedDate());
@@ -57,7 +62,9 @@ public class CampaignServiceImpl implements CampaignService {
             campaignRepository.delete(campaign.get());
             return campaignMapper.campaignFromDeleteResponse(campaign.get());
         }
-        return null;
+        else {
+            throw new RuntimeException("No campaign found to be deleted: " + id);
+        }
     }
 
 
