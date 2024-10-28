@@ -1,6 +1,6 @@
 <app-main-layout></app-main-layout>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<body>
 <form [formGroup]="searchForm" (ngSubmit)="search()">
   <div class="container">
     <div class="filters">
@@ -18,9 +18,13 @@
 
       <label for="firstName">First Name</label>
       <input id="firstName" formControlName="firstName" />
+      <div *ngIf="searchForm.hasError('nameRequired') && (searchForm.get('firstName')?.touched || searchForm.get('lastName')?.touched)" style="color: red; font-size: smaller;">
+        Both First Name and Last Name must be filled together.
+      </div>
 
       <label for="lastName">Last Name</label>
       <input id="lastName" formControlName="lastName" />
+      
 
       <div class="buttons">
         <button type="button" (click)="clear()">CLEAR</button>
@@ -28,10 +32,18 @@
       </div>
     </div>
     <div class="results">
-      <div *ngIf="results.length === 0 && searched && isSearchEnabled" style="text-align: center; font-size: larger; padding-top: 20px;">
-        NO RESULTS FOUND
-      </div>
-      <div *ngIf="!isSearchEnabled && !searched" style="text-align: center; font-size: larger; padding-top: 60px;">
+      <div *ngIf="results.length === 0 && searched && isSearchEnabled" style="text-align: center; font-size: larger; padding-top: 20px; margin-top: 150px; color: white;">
+        NO CUSTOMER FOUND! WOULD YOU LIKE TO CREATE THE CUSTOMER?
+        <button class="create-button" 
+                (click)="navigateToCreateCustomer()"
+                style="display: flex; align-items: center; padding: 10px 20px; border-radius: 5px; width: auto; font-size: medium; margin-left: 350px; background: linear-gradient(135deg, #242441, #4a4a8d); color: white; border: none; margin-top: 50px;">
+            <img src="assets/images/plus.png" alt="Create Icon" class="create-icon" width="20px" height="20px" style="margin-right: 8px;" />
+            Create Customer
+        </button>
+    </div>
+    
+      
+      <div *ngIf="!isSearchEnabled && !searched" style="text-align: center; font-size: larger; padding-top: 60px; color: white; margin-top: 150px;">
         PLEASE AT LEAST FILL ONE AREA TO MAKE A RESEARCH <!-- Araştırma yapmak için en az bir alan girin mesajı -->
       </div>
       <table class="table" *ngIf="results.length > 0  && searched && isSearchEnabled">
@@ -63,9 +75,11 @@
     <button (click)="previousPage()" [disabled]="page === 1" class="previousButton">
         &lt; <!-- Sol ok -->
     </button>
-    <span style=" position: absolute; bottom: -55px; left: 56%;transform: translateX(-50%);cursor: pointer;  color: white;    font-size: 16px; display: flex;gap: 10px;
+    <span style=" position: absolute; bottom: -95px; left: 56%;transform: translateX(-50%);cursor: pointer;  color: white;    font-size: 16px; display: flex;gap: 10px;
     margin: 0 10px;">Page {{ page }} of {{ totalPages }} </span>
     <button (click)="nextPage()" [disabled]="page * pageSize >= totalResults" class="nextButton">
         &gt; <!-- Sağ ok -->
     </button>
-</div>
+</div> 
+</form>
+</body>

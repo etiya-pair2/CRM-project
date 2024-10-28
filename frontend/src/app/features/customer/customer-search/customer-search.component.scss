@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #e4e3f5;
+    background-color:#e4e3f5;
     overflow: hidden;
 }
  
@@ -17,7 +17,7 @@ body {
     align-items: center; /* Yatayda ortalamak için center */
     padding: 20px;
     margin-left: 50px;
-    margin-right: 0px ;
+    margin-right: 100px ;
     margin-bottom: 50px;
     margin-top: 50px;
     position: relative;
@@ -52,6 +52,9 @@ input {
     border-radius: 5px;
     border: 1px solid #BEBDCD;
     height: 25px;
+}
+label{
+  color: white;
 }
  
 .buttons {
@@ -88,6 +91,14 @@ button:last-child {
     width: 100px;
     color: white;
 }
+button:last-child:not(:disabled) {
+  background: linear-gradient(135deg, #242441, #4a4a8d); /* Tıklanabilir durumda arka plan rengi */
+}
+
+button:last-child:disabled {
+  background: #717171; /* Geçersiz durumda arka plan rengi */
+  cursor: not-allowed; /* Geçersiz durumda imleç */
+}
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -111,7 +122,7 @@ button:last-child {
 
   .pagination .previousButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: -60px; /* Alt kenara 10px mesafe */
+    bottom: -100px; /* Alt kenara 10px mesafe */
     left: 50%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */
@@ -124,7 +135,7 @@ button:last-child {
   }
   .pagination .nextButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: -60px; /* Alt kenara 10px mesafe */
+    bottom: -100px; /* Alt kenara 10px mesafe */
     left: 60%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */
@@ -144,5 +155,6 @@ button:last-child {
    .previousButton{
     background-color: transparent !important;
    }
+  
  
 }
