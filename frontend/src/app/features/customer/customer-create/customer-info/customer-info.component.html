@@ -1,0 +1,42 @@
+<app-main-layout></app-main-layout>
+<div class="outer-container">
+  <div class="container">
+    <h2>Customer Info</h2>
+    <div class="form-group">
+      <label for="firstName">First Name*:</label>
+      <input type="text" id="firstName" [(ngModel)]="customer.firstName" required />
+      <label for="middleName">Middle Name:</label>
+      <input type="text" id="middleName" [(ngModel)]="customer.middleName" />
+    </div>
+  
+    <div class="form-group">
+      <label for="lastName">Last Name*:</label>
+      <input type="text" id="lastName" [(ngModel)]="customer.lastName" required />
+      <label for="birthDate">Birth Date*:</label>
+      <input type="date" id="birthDate" [(ngModel)]="customer.birthDate" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="gender">Gender*:</label>
+      <select id="gender" [(ngModel)]="customer.gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <label for="fatherName">Father Name:</label>
+      <input type="text" id="fatherName" [(ngModel)]="customer.fatherName" />
+    </div>
+  
+    <div class="form-group">
+      <label for="motherName">Mother Name:</label>
+      <input type="text" id="motherName" [(ngModel)]="customer.motherName" />
+      <label for="nationalityId">Nationality ID*:</label>
+      <input type="text" id="nationalityId" [(ngModel)]="customer.nationalityId" required />
+    </div>
+  
+    <div class="button-group">
+      <button (click)="onPrevious()">Previous</button>
+      <button (click)="onNext()">Next</button>
+    </div>
+  </div>
+</div>
