@@ -14,10 +14,11 @@ public class CreateBillingAccountResponse {
 
     private UUID id;
     private UUID customerId;
-    private String address;
+    private UUID addressId;
     private String description;
     private String accountName;
     private String accountNumber;
     private Boolean accountStatus;
     private String accountType;
+
 }

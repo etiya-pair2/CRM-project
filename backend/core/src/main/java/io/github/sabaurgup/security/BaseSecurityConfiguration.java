@@ -32,7 +32,7 @@ public class BaseSecurityConfiguration {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable).httpBasic(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(req -> req.requestMatchers("/api/v1/identity/auth/**", "/api/v1/product/**").permitAll()
+                authorizeHttpRequests(req -> req.requestMatchers("/api/v1/identity/auth/**").permitAll()
                         .anyRequest().permitAll());
         //.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

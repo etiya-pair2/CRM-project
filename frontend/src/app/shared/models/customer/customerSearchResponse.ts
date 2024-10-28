@@ -7,5 +7,4 @@ export interface CustomerSearchResponse {
     mobilePhone: string;
     firstName: string;
     lastName : string;
-    orderId : string;
 }

@@ -8,14 +8,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { TokenResponse } from '../../models/auth/tokenResponse';
 import { StorageService } from '../../services/storage.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

@@ -1,51 +1,94 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CustomerSearchRequest } from '../../../shared/models/customer/customerSearchRequest';
+import { CustomerSearchResponse } from '../../../shared/models/customer/customerSearchResponse';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-customer-search',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,MainLayoutComponent],
+  imports: [MainLayoutComponent, FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './customer-search.component.html',
-  styleUrl: './customer-search.component.scss'
+  styleUrls: ['./customer-search.component.scss']
 })
 export class CustomerSearchComponent implements OnInit {
-  form!: FormGroup;
+  searchForm: FormGroup;
+  results: CustomerSearchResponse[] = [];
+  isSearchEnabled = false;
+  searched = false;
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) {}
+  page: number = 1;
+  pageSize: number = 10;
+  totalResults: number = 0;
 
-  ngOnInit(): void {
-    this.buildForm();
-  }
+  constructor(private fb: FormBuilder, private customerService: CustomerService) {
+    this.searchForm = this.fb.group({
+      natId: [''],
+      customerId: [''],
+      accNumber: [''],
+      mobilePhone: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+    });
 
-  buildForm() {
-    this.form = this.formBuilder.group({
-      customerName: new FormControl('', Validators.required),
-      customerEmail: new FormControl('', [Validators.required, Validators.email]),
+    this.searchForm.valueChanges.subscribe(() => {
+      this.isSearchEnabled = this.searchForm.valid;
     });
   }
 
-  submitForm() {
-    this.form.markAllAsTouched();
-    if (!this.form.valid) {
-      return;
+  ngOnInit(): void {}
+
+  search(): void {
+    if (this.isSearchEnabled) {
+      const searchRequest: CustomerSearchRequest = this.searchForm.value;
+      this.customerService.searchCustomer(searchRequest).subscribe(
+        (response) => {
+          this.results = response;
+          this.totalResults = response.length;
+          this.searched = true; // Arama yapıldı
+          // Eğer sonuç yoksa, boş array döndüğünden emin olalım
+          if (this.results.length === 0) {
+            this.results = []; // Eğer sonuç boşsa yine de results dizisi sıfırlanmış olur
+          }
+        },
+        (error) => {
+          console.error('Search failed', error);
+          this.results = [];
+          this.searched = true; // Arama yapıldı olarak işaretle
+        }
+      );
     }
-    const searchRequest: CustomerSearchRequest = this.form.value;
-    this.customerService.searchCustomer(searchRequest).subscribe({
-      next: (response) => {
-        console.log('Arama başarılı:', response);
-      },
-    });
   }
 
-  hasError(controlName: string) {
-    return !this.form.get(controlName)?.valid && this.form.get(controlName)?.touched;
+  clear(): void {
+    this.searchForm.reset();
+    this.results = [];
+    this.isSearchEnabled = false;
+    this.page = 1;
+    this.searched = false;
   }
 
-  get isFormValid() {
-    return this.form.valid;
-  }
+  get paginatedResults() {
+    const start = (this.page - 1) * this.pageSize;
+    return this.results.slice(start, start + this.pageSize);
+  }
+
+  nextPage() {
+    if (this.page * this.pageSize < this.totalResults) {
+      this.page++;
+    }
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+    }
+  }
+
+  get totalPages() {
+    return Math.ceil(this.totalResults / this.pageSize);
+  }
 }

@@ -9,6 +9,7 @@ export const routes: Routes = [
     redirectTo: 'login', // Ana rotayı doğrudan login sayfasına yönlendiriyoruz
     pathMatch: 'full',
   },
+  
   {
     path: 'login',
     loadComponent: () =>
@@ -16,6 +17,14 @@ export const routes: Routes = [
         (c) => c.LoginComponent
       ),
   },
+  {
+    path: 'forgot-password', // Forgot Password için route
+    loadComponent: () =>
+      import('../app/shared/pages/forgot-password/forgot-password.component').then(
+        (c) => c.ForgotPasswordComponent
+      ),
+  },
+
   {
     path: 'homepage',
     loadComponent: () =>

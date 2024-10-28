@@ -39,8 +39,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public CreateAttributeResponse create(CreateAttributeRequest request) {
-
-        attributeBusinessRules.checkIfNameExist(request.getName());
+//        attributeBusinessRules.checkIfNameExist(request.getName());
         Attribute attribute = attributeRepository.save(attributeMapper.attributeFromCreateRequest(request));
         return attributeMapper.attributeFromCreateResponse(attribute);
 

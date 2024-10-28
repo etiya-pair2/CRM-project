@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CustomerService {
-    controllerUrl: string = `${environment.MS_V1_API_URL}/individualcustomers`;
+    controllerUrl: string = `${environment.MS_V1_API_URL}/customer/individualCustomers`;
     constructor(private httpClient: HttpClient) {}
     searchCustomer(searchRequest: CustomerSearchRequest): Observable<CustomerSearchResponse[]> {
         return this.httpClient.post<CustomerSearchResponse[]>(
