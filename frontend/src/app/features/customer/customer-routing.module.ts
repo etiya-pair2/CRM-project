@@ -6,6 +6,11 @@ const routes: Routes = [
   {
     path: 'search',
     loadComponent: () => import('./customer-search/customer-search.component').then(c => c.CustomerSearchComponent)
+  },
+  {
+    path: 'create',
+    loadComponent: () => import('./customer-create/createcustomer/createcustomer.component').
+    then(c => c.CreatecustomerComponent)
   }
 ];
 
@@ -14,3 +19,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class CustomerRoutingModule {}
+
