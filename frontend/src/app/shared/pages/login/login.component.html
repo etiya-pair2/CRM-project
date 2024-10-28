@@ -11,9 +11,6 @@
       <div class="input-group">
         <input type="email" class="form-control" id="floatingEmail" placeholder="name@etiya.com" formControlName="email" />
       </div>
-      @if(hasError('email')) {
-        <small class="text-danger">Hatalı alan</small>
-      }
     </div>
 
     <div class="col mb-20 form-floating">
@@ -21,9 +18,11 @@
       <div class="input-group">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
       </div>
-      @if(hasError('password')) {
-        <small class="text-danger">Hatalı alan</small>
-      }
+      <div *ngIf="hasError('password') || hasError('email')">
+        <small class="text-danger">Wrong username or password.</small>
+        <small class="text-danger">Please try again.</small>
+      </div>
+    
     </div>
     
     <a href [routerLink]="['/forgot-password']" class="forgot-password" >Forgot My Password</a>
