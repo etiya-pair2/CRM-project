@@ -26,7 +26,7 @@
       <input
         type="date"
         id="birthDate"
-        [(ngModel)]="customer.birthDate"
+        [(ngModel)]="customer.birthday"
         required
       />
     </div>
@@ -58,7 +58,7 @@
       <button (click)="onPrevious()" [routerLink]="['/customer/create']">
         Previous
       </button>
-      <button (click)="onNext()">Next</button>
+      <button (click)="save()">Next</button>
     </div>
   </div>
 </div>

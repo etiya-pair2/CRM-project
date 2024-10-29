@@ -1,6 +1,8 @@
 import { CustomerSearchRequest } from '../../shared/models/customer/customerSearchRequest';
 import { Observable } from 'rxjs';
 import { CustomerSearchResponse } from '../../shared/models/customer/customerSearchResponse';
+import { customerCreateInfoResponse } from '../../shared/models/customer/customerCreateInfoResponse';
+import { customerCreateInfoRequest } from '../../shared/models/customer/customerCreateInfoRequest';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -18,12 +20,17 @@ export class CustomerService {
           `${this.controllerUrl}/search`,
           searchRequest
         );
-      }
-      searchCustomerNatId(searchNatIdRequest: searchNatIDRequest):Observable<CustomerSearchResponse[]>{
+    }
+    searchCustomerNatId(searchNatIdRequest: searchNatIDRequest):Observable<CustomerSearchResponse[]>{
         return this.httpClient.post<CustomerSearchResponse[]>(
           `${this.controllerUrl}/search`,
           searchNatIdRequest
         );
-      }
-   
+    }
+    createCustomerInfo(createInfoRequest: customerCreateInfoRequest): Observable<customerCreateInfoResponse[]> {
+      return this.httpClient.post<customerCreateInfoResponse[]>(
+        `${this.controllerUrl}/create`,
+        createInfoRequest
+      );
+    }
    }

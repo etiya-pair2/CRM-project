@@ -3,6 +3,7 @@ import { MainLayoutComponent } from '../../../../shared/layouts/main-layout/main
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router,RouterModule } from '@angular/router'; 
+import { CustomerService } from '../../../../shared/services/customer.service';
 
 @Component({
   selector: 'app-customerinfo',
@@ -12,13 +13,14 @@ import { Router,RouterModule } from '@angular/router';
   styleUrl: './customer-info.component.scss'
 })
 export class CustomerInfoComponent {
-  constructor( private router : Router) {};
+  constructor(private router: Router, private customerService: CustomerService) {}
+  isSaveEnabled: boolean = true;
 
   customer = {
     firstName: '',
     middleName: '',
     lastName: '',
-    birthDate: '',
+    birthday: '',
     gender: '',
     fatherName: '',
     motherName: '',
@@ -26,12 +28,31 @@ export class CustomerInfoComponent {
   };
 
   onPrevious() {
-    // Önceki sayfaya gitme işlemi burada yapılacak
     console.log("Previous button clicked");
   }
 
-  onNext() {
-    // Sonraki sayfaya gitme işlemi burada yapılacak
-    console.log("Next button clicked");
+  save() : void {
+    const createInfoRequest = {
+      firstName: this.customer.firstName,
+      middleName: this.customer.middleName,
+      lastName: this.customer.lastName,
+      birthday: this.customer.birthday,
+      gender: this.customer.gender,
+      fatherName: this.customer.fatherName,
+      motherName: this.customer.motherName,
+      nationalityId: this.customer.nationalityId
+    };
+
+    this.customerService.createCustomerInfo(createInfoRequest).subscribe(
+      (response) => {
+        console.log('Customer information saved successfully', response);
+        // Optionally navigate to another route or display a success message
+        this.router.navigate(['/next-route']); // Adjust the route as needed
+      },
+      (error) => {
+        console.error('Error saving customer information', error);
+        // Optionally display an error message to the user
+      }
+    );
   }
 }
