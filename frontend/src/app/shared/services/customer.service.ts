@@ -4,8 +4,8 @@ import { CustomerSearchResponse } from '../../shared/models/customer/customerSea
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
-//import { CustomerCreateRequest } from '../../features/customer/models/customerCreateRequest';
-//import { CustomerCreateResponse } from '../../features/customer/models/customerCreateResponse';
+import { searchNatIDRequest } from '../models/customer/searchNatIDRequest';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,11 @@ export class CustomerService {
           searchRequest
         );
       }
-      //createCustomer(createRequest: CustomerCreateRequest):Observable<CustomerCreateResponse>{
-       // return this.httpClient.post<CustomerCreateResponse>(
-        //  `${this.controllerUrl}`,
-        //  createRequest
-       // )
-      //}
-   // 
+      searchCustomerNatId(searchNatIdRequest: searchNatIDRequest):Observable<CustomerSearchResponse[]>{
+        return this.httpClient.post<CustomerSearchResponse[]>(
+          `${this.controllerUrl}/search`,
+          searchNatIdRequest
+        );
+      }
+   
    }

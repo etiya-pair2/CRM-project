@@ -28,19 +28,18 @@ export const routes: Routes = [
   },
 
   {
-    path: 'homepage',
-    loadComponent: () =>
-      import('../app/shared/pages/homepage/homepage.component').then(
-        (c) => c.HomepageComponent
-      ),
-    canActivate: [authGuard], // Giriş yapmamışsa yönlendirilir
+    path: '',
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'customer',
+        loadChildren: () =>
+          import('../app/features/customer/customer.module').then(
+            (m) => m.CustomerModule
+          ),
+      },
+    ],
   },
-{
-  path: 'customer',
-  loadChildren: () =>
-    import('../app/features/customer/customer.module').then(
-      (m) => m.CustomerModule
-    ),
-},
+
   
 ];
