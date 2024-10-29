@@ -6,6 +6,7 @@ import com.etiya.customerservice.entity.ContactMedium;
 import jakarta.persistence.Column;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,16 +18,12 @@ import java.util.UUID;
 @Data
 public class CreateIndividualCustomerResponse {
     private UUID customerId;
+    private String nationalityId;
     private String firstName;
     private String middleName;
     private String lastName;
     private String gender;
-    private Date birthday;
+    private LocalDate birthday;
     private String motherName;
     private String fatherName;
-    private String nationalityId;
-    private boolean status;
-    private Date createdDate;
-    private Date updatedDate;
-    private List<CreateAddressResponse> addressList;
 }

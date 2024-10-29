@@ -24,7 +24,9 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
     @Override
     public CreateIndividualCustomerResponse create(CreateIndividualCustomerRequest request) {
         indCustBusinessRules.checkMernis(request);
+        indCustBusinessRules.checkIndCustExist(request.getNationalityId());
         IndividualCustomer individualCustomer= IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateRequest(request);
+        individualCustomer.setStatus(true);
         individualCustomerRepository.save(individualCustomer);
         return IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateResponse(individualCustomer);
 

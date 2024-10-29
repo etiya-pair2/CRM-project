@@ -4,6 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 // Standalone component'ı doğrudan yükleyin
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'search', // Ana rotayı doğrudan login sayfasına yönlendiriyoruz
+    pathMatch: 'full',
+  },
+  {
     path: 'search',
     loadComponent: () => import('./customer-search/customer-search.component').then(c => c.CustomerSearchComponent)
   },
@@ -14,7 +19,7 @@ const routes: Routes = [
   {
     path: 'create',
     loadComponent: () => import('./customer-create/createcustomer/createcustomer.component').
-    then(c => c.CreatecustomerComponent)
+      then(c => c.CreatecustomerComponent)
   }
 ];
 
@@ -22,5 +27,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CustomerRoutingModule {}
+export class CustomerRoutingModule { }
 

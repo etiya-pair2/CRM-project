@@ -25,7 +25,7 @@ export class CustomerSearchComponent implements OnInit {
   pageSize: number = 10;
   totalResults: number = 0;
 
-  constructor(private fb: FormBuilder, private customerService: CustomerService ,private router: Router) {
+  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router) {
     this.searchForm = this.fb.group({
       natId: [''],
       customerId: [''],
@@ -33,29 +33,34 @@ export class CustomerSearchComponent implements OnInit {
       mobilePhone: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-    },{ validators: this.nameValidator });
+    }, { validators: this.nameValidator });
 
     this.searchForm.valueChanges.subscribe(() => {
       // En az bir alanın dolu olup olmadığını kontrol et
-      this.isSearchEnabled = this.searchForm.valid || 
-      Object.values(this.searchForm.controls).some(control => control.value);
+      this.isSearchEnabled = this.searchForm.valid ||
+        Object.values(this.searchForm.controls).some(control => control.value);
     });
-    
+
   }
   navigateToCreateCustomer() {
     this.router.navigate(['customer/create']);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   search(): void {
     if (this.isSearchEnabled) {
-      const searchRequest: CustomerSearchRequest = this.searchForm.value;
+      const searchRequest = Object.entries(this.searchForm.value).reduce((acc: any, [key, value]) => {
+        if (value) {
+          acc[key] = value;
+        }
+        return acc;
+      }, {} as CustomerSearchRequest);
+
       this.customerService.searchCustomer(searchRequest).subscribe(
         (response) => {
           this.results = response;
           this.totalResults = response.length;
           this.searched = true; // Arama yapıldı
-          // Eğer sonuç yoksa, boş array döndüğünden emin olalım
           if (this.results.length === 0) {
             this.results = []; // Eğer sonuç boşsa yine de results dizisi sıfırlanmış olur
           }
@@ -69,23 +74,24 @@ export class CustomerSearchComponent implements OnInit {
     }
   }
 
+
   private nameValidator(form: FormGroup) {
     const firstName = form.get('firstName')?.value;
     const lastName = form.get('lastName')?.value;
-  
+
     // Eğer her ikisi de boşsa geçerli
     if (!firstName && !lastName) {
       return null; // Geçerli
     }
-  
+
     // Eğer biri doluysa diğeri de dolu olmalı
     if ((firstName && !lastName) || (!firstName && lastName)) {
       return { nameRequired: true }; // Geçersiz
     }
-  
+
     return null; // Her ikisi de dolu ise geçerli
   }
-  
+
 
   clear(): void {
     this.searchForm.reset();

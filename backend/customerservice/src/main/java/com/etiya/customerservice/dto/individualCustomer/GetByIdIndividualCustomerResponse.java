@@ -29,6 +29,7 @@ public class GetByIdIndividualCustomerResponse {
     private String motherName;
     private String fatherName;
     private String nationalityId;
+    private boolean status;
     private List<CreateContactMediumResponse> contactMediumList;
     private List<CreateAddressResponse> addressList;
     private List<CreateBillingAccountResponse> billingAccountList;

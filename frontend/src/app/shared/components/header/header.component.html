@@ -3,26 +3,14 @@
   <img src="assets/images/ETIYA.png" alt="ETIYA" class="etiya-logo" />
 
   <div class="logo-container">
-    <img
-      src="../../../../assets/images/language.jpg"
-      alt="Vector"
-      class="vector-logo"
-    />
+    <img src="../../../../assets/images/language.jpg" alt="Vector" class="vector-logo" />
     <div class="button-container">
       <button class="english-button">EN</button>
       <button class="turkish-button">TR</button>
     </div>
 
-    <img
-      src="../../../../assets/images/Rectangle.jpg"
-      alt="Rectangle"
-      class="rectangle-logo"
-    />
-    <img
-      src="../../../../assets/images/User.png"
-      alt="User"
-      class="user-logo"
-    />
+    <img src="../../../../assets/images/Rectangle.jpg" alt="Rectangle" class="rectangle-logo" />
+    <img src="../../../../assets/images/User.png" alt="User" class="user-logo" />
 
     <div class="name">
       <p class="first-name">{{ firstName }}</p>
@@ -30,22 +18,18 @@
     </div>
   </div>
 
-  <button class="search-button">
+  <button class="search-button" [routerLink]="['/customer/search']">
     <img src="assets/images/search.png" alt="Search Icon" class="search-icon" />
     Search Customer
   </button>
 
-  <button class="create-button">
+  <button class="create-button" [routerLink]="['/customer/create']">
     <img src="assets/images/plus.png" alt="Create Icon" class="create-icon" />
     Create Customer
   </button>
 
   <button class="logout-button">
-    <img
-      src="assets/images/logout_gray.png"
-      alt="Log Out Icon"
-      class="logout-icon"
-    />
+    <img src="assets/images/logout_gray.png" alt="Log Out Icon" class="logout-icon" />
     Log Out
   </button>
 </div>

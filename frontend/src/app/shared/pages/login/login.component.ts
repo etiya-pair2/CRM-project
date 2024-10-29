@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule,CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private storageService: StorageService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.buildForm();
   }
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value).subscribe({
       next: (response: TokenResponse) => {
         console.log('Giriş başarılı token alındı:', response);
+        this.router.navigate(["/customer/search"]);
         this.storageService.set('token', response.token);
       },
     });

@@ -15,13 +15,9 @@ import java.util.UUID;
 @Data
 public class UpdateIndividualCustomerRequest {
     private UUID customerId;
-    private String firstName;
-    private String middleName;
-    private String lastName;
     private String gender;
     private Date birthday;
     private String motherName;
     private String fatherName;
-    private String nationalityId;
     private List<CreateAddressRequest> addressList;
 }
