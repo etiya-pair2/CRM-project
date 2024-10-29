@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -42,9 +43,12 @@ public class IndCustBusinessRules {
      * @throws BusinessException Eğer müşteri zaten kayıtlıysa
      */
     public void checkIndCustExist(String natId){
-        boolean exists = indCustRepository.existsByNationalityId(natId);
-        if (exists) {
-            throw new BusinessException("Bu Müşteri Zaten Kayıtlı!");
+        Optional<IndividualCustomer> individualCustomer = indCustRepository.findByNationalityId(natId);
+        boolean checkNatId = indCustRepository.existsByNationalityId(natId);
+        if(individualCustomer.isPresent()) {
+            if (individualCustomer.get().getStatus() && checkNatId) {
+                throw new BusinessException("Bu Müşteri Zaten Kayıtlı!");
+            }
         }
     }
 

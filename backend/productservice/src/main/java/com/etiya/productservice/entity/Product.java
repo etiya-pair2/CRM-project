@@ -41,5 +41,6 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<CampaignProduct> campaignProducts;
 
-
+    @OneToMany(mappedBy = "product")
+    private List<OfferProduct> offerProducts;
 }

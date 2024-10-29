@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,16 +13,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "offers")
-public class Offer {
+@Table(name = "offer_products")
+public class OfferProduct {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String name;
-    private Date createdDate;
-    private boolean status;
-    private double discount;
+    private UUID uuid;
 
-    @OneToMany(mappedBy = "offer")
-    private List<OfferProduct> offerProducts;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
 }

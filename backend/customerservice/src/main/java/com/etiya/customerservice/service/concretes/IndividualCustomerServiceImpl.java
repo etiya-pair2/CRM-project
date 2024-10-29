@@ -9,9 +9,6 @@ import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -53,6 +50,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         IndividualCustomer individualCustomer= indCustBusinessRules.checkCustomerExist(customerId);
         indCustBusinessRules.checkDeletedCustExist(customerId);
         individualCustomer.setStatus(false);
+        individualCustomer.setNationalityId("");
         individualCustomerRepository.save(individualCustomer);
         return indCustMapper.individualCustomerFromDeleteResponse(individualCustomer);
     }

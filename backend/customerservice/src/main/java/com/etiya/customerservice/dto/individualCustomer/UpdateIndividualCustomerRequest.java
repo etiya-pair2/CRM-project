@@ -32,7 +32,5 @@ public class UpdateIndividualCustomerRequest {
     @NotBlank(message = "Cinsiyet boş bırakılamaz.")
     private String gender;
 
-    @NotNull(message = "Durum alanı boş bırakılamaz.")
-    private Boolean status;
 
 }

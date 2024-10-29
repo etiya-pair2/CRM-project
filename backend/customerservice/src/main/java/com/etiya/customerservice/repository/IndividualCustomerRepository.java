@@ -13,11 +13,14 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, UUID>, JpaSpecificationExecutor<IndividualCustomer> {
 
     boolean existsByNationalityId(String nationalityId);
+
+    Optional<IndividualCustomer> findByNationalityId(String nationalityId);
 
 
     default List<IndividualCustomer> searchIndividualCustomer(SearchIndCustomerRequest request) {
