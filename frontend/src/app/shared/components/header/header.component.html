@@ -3,14 +3,26 @@
   <img src="assets/images/ETIYA.png" alt="ETIYA" class="etiya-logo" />
 
   <div class="logo-container">
-    <img src="../../../../assets/images/language.jpg" alt="Vector" class="vector-logo" />
+    <img
+      src="../../../../assets/images/language.jpg"
+      alt="Vector"
+      class="vector-logo"
+    />
     <div class="button-container">
       <button class="english-button">EN</button>
       <button class="turkish-button">TR</button>
     </div>
 
-    <img src="../../../../assets/images/Rectangle.jpg" alt="Rectangle" class="rectangle-logo" />
-    <img src="../../../../assets/images/User.png" alt="User" class="user-logo" />
+    <img
+      src="../../../../assets/images/Rectangle.jpg"
+      alt="Rectangle"
+      class="rectangle-logo"
+    />
+    <img
+      src="../../../../assets/images/User.png"
+      alt="User"
+      class="user-logo"
+    />
 
     <div class="name">
       <p class="first-name">{{ firstName }}</p>
@@ -28,8 +40,12 @@
     Create Customer
   </button>
 
-  <button class="logout-button">
-    <img src="assets/images/logout_gray.png" alt="Log Out Icon" class="logout-icon" />
+  <button class="logout-button" [routerLink]="['/login']">
+    <img
+      src="assets/images/logout_gray.png"
+      alt="Log Out Icon"
+      class="logout-icon"
+    />
     Log Out
   </button>
 </div>

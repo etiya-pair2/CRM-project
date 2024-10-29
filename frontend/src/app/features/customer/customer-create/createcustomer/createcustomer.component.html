@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="buttons">
-      <button type="button" (click)="clear()">CANCEL</button>
+      <button type="button" [routerLink]="['/customer/search']">CANCEL</button>
       <button
         type="submit"
         [disabled]="!isNextEnabled"
@@ -24,7 +24,7 @@
           border: none;
           color: white;
         "
-        (click)="checkCustomerExists()"
+        (click)="search()"
       >
         NEXT
       </button>
@@ -35,8 +35,10 @@
   <div *ngIf="showPopup" class="popup">
     <div class="popup-content">
       <span class="close" (click)="closePopup()">&times;</span>
-      <p>The customer already exists with this Nationality ID!</p>
-      <button (click)="closePopup()">OK</button>
+      <p>{{ errorMessage }}</p>
+      <button (click)="closePopup()" [routerLink]="['/customer/search']">
+        OK
+      </button>
     </div>
   </div>
 </body>

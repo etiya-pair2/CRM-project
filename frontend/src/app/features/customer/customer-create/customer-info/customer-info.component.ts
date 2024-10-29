@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MainLayoutComponent } from '../../../../shared/layouts/main-layout/main-layout.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; 
+import { Router,RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-customerinfo',
   standalone: true,
-  imports: [MainLayoutComponent, CommonModule, FormsModule],
+  imports: [MainLayoutComponent, CommonModule, FormsModule,RouterModule],
   templateUrl: './customer-info.component.html',
   styleUrl: './customer-info.component.scss'
 })
