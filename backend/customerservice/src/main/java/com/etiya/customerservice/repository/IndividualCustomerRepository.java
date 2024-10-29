@@ -19,6 +19,7 @@ public interface IndividualCustomerRepository extends JpaRepository<IndividualCu
 
     boolean existsByNationalityId(String nationalityId);
 
+
     default List<IndividualCustomer> searchIndividualCustomer(SearchIndCustomerRequest request) {
         return findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();

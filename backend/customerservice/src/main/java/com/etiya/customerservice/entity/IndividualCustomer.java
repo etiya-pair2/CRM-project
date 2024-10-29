@@ -35,6 +35,4 @@ public class IndividualCustomer extends Customer {
     @Column(name = "nationality_id")
     private String nationalityId;
 
-
-
 }

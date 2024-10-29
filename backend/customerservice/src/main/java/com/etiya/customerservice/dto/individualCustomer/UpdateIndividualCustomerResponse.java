@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -19,42 +20,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class UpdateIndividualCustomerResponse {
-
     private UUID customerId;
-
-    @NotBlank(message = "İsim boş bırakılamaz.")
-    @Size(min = 3, message = "İsim en az 3 harfli olmalıdır.")
+    private String nationalityId;
     private String firstName;
-
-    @Size(min = 3, message = "Orta isim en az 3 harfli olmalıdır.")
-    private String middleName; // Zorunlu değil
-
-    @NotBlank(message = "Soyisim boş bırakılamaz.")
-    @Size(min = 2, message = "Soyisim en az 2 harfli olmalıdır.")
+    private String middleName;
     private String lastName;
-
-    @NotBlank(message = "Cinsiyet boş bırakılamaz.")
     private String gender;
-
-    @NotNull(message = "Doğum tarihi boş bırakılamaz.")
-    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\\d\\d$",
-            message = "Doğum tarihi gg/aa/yyyy formatında olmalıdır.")
-    private String birthday;
-
-    @NotBlank(message = "Anne adı boş bırakılamaz.")
-    @Size(min = 3, message = "Anne adı en az 3 harfli olmalıdır.")
+    private LocalDate birthday;
     private String motherName;
-
-    @NotBlank(message = "Baba adı boş bırakılamaz.")
-    @Size(min = 3, message = "Baba adı en az 3 harfli olmalıdır.")
     private String fatherName;
 
-    @NotBlank(message = "TC Kimlik Numarası boş bırakılamaz.")
-    @Size(min = 11, max = 11, message = "TC Kimlik Numarası 11 haneli olmalıdır.")
-    @Pattern(regexp = "^[0-9]+$", message = "TC Kimlik Numarası sadece rakamlardan oluşmalıdır.")
-    private String nationalityId;
 
-    private List<CreateContactMediumResponse> contactMediumList;
-    private List<CreateAddressResponse> addressList;
-    private List<CreateBillingAccountResponse> billingAccountList;
 }

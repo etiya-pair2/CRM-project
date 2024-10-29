@@ -29,7 +29,7 @@ public class Customer {
     private Date updatedDate;
 
     @Column(name = "status")
-    private boolean status;
+    private Boolean status;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ContactMedium> contactMediumList;
@@ -39,8 +39,5 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<BillingAccount> billingAccountList;
-
-
-
 
 }

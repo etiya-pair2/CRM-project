@@ -36,7 +36,7 @@ public class CreateIndividualCustomerRequest {
         @Size(min = 2, message = "Soyisim en az 2 harfli olmalıdır.")
         private String lastName;
 
-//        @NotBlank(message = "Cinsiyet boş bırakılamaz.")
+        @NotBlank(message = "Cinsiyet boş bırakılamaz.")
         private String gender;
 
 //        @NotNull(message = "Doğum tarihi boş bırakılamaz.")

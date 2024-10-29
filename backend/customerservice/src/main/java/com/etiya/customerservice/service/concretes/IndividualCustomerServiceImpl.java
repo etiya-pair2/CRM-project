@@ -9,9 +9,10 @@ import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,31 +22,39 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
     private final IndividualCustomerRepository individualCustomerRepository;
     private final IndCustBusinessRules indCustBusinessRules;
 
+    IndividualCustomerMapper indCustMapper =  IndividualCustomerMapper.INSTANCE;
+
     @Override
     public CreateIndividualCustomerResponse create(CreateIndividualCustomerRequest request) {
         indCustBusinessRules.checkMernis(request);
         indCustBusinessRules.checkIndCustExist(request.getNationalityId());
-        IndividualCustomer individualCustomer= IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateRequest(request);
+        IndividualCustomer individualCustomer= indCustMapper.individualCustomerFromCreateRequest(request);
         individualCustomer.setStatus(true);
-        individualCustomerRepository.save(individualCustomer);
-        return IndividualCustomerMapper.INSTANCE.individualCustomerFromCreateResponse(individualCustomer);
+        return indCustMapper.individualCustomerFromCreateResponse(individualCustomerRepository.save(individualCustomer));
 
     }
 
     @Override
     public UpdateIndividualCustomerResponse update(UpdateIndividualCustomerRequest request) {
-        IndividualCustomer individualCustomer=
-                IndividualCustomerMapper.INSTANCE.individualCustomerFromUpdateRequest(request);
+        IndividualCustomer indCustCredentials = indCustBusinessRules.checkCustomerExist(request.getCustomerId());
+        IndividualCustomer individualCustomer = indCustMapper.individualCustomerFromUpdateRequest(request);
+        individualCustomer.setNationalityId(indCustCredentials.getNationalityId());
+        individualCustomer.setBirthday(indCustCredentials.getBirthday());
+        individualCustomer.setFirstName(indCustCredentials.getFirstName());
+        individualCustomer.setLastName(indCustCredentials.getLastName());
+        individualCustomer.setMiddleName(indCustCredentials.getMiddleName());
+
         individualCustomerRepository.save(individualCustomer);
-        return IndividualCustomerMapper.INSTANCE.individualCustomerFromUpdateResponse(individualCustomer);
+        return indCustMapper.individualCustomerFromUpdateResponse(individualCustomer);
     }
 
     @Override
     public DeleteIndividualCustomerResponse delete(UUID customerId) {
-        IndividualCustomer individualCustomer= (IndividualCustomer) individualCustomerRepository.findById(customerId).orElseThrow(() ->
-                new RuntimeException("Customer not found with ID: " + customerId));
-        individualCustomerRepository.delete(individualCustomer);
-        return IndividualCustomerMapper.INSTANCE.individualCustomerFromDeleteResponse(individualCustomer);
+        IndividualCustomer individualCustomer= indCustBusinessRules.checkCustomerExist(customerId);
+        indCustBusinessRules.checkDeletedCustExist(customerId);
+        individualCustomer.setStatus(false);
+        individualCustomerRepository.save(individualCustomer);
+        return indCustMapper.individualCustomerFromDeleteResponse(individualCustomer);
     }
 
     @Override
@@ -53,16 +62,14 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         List<IndividualCustomer> individualCustomers= individualCustomerRepository.findAll();
         List<GetAllIndividualCustomerResponse> getAllIndividualCustomerResponseList= new ArrayList<>();
         for(IndividualCustomer individualCustomer:individualCustomers){
-            getAllIndividualCustomerResponseList.add(IndividualCustomerMapper.INSTANCE.individualCustomerFromGetAllResponse(individualCustomer));
+            getAllIndividualCustomerResponseList.add(indCustMapper.individualCustomerFromGetAllResponse(individualCustomer));
         }
         return getAllIndividualCustomerResponseList;
     }
 
     @Override
     public GetByIdIndividualCustomerResponse getById(UUID customerId) {
-        IndividualCustomer individualCustomer= (IndividualCustomer) individualCustomerRepository.findById(customerId).orElseThrow(() ->
-                new RuntimeException("Customer not found with ID: " + customerId));
-        return IndividualCustomerMapper.INSTANCE.getIndividualCustomerById(individualCustomer);
+        return indCustMapper.getIndividualCustomerById(indCustBusinessRules.checkCustomerExist(customerId));
     }
 
     @Override
@@ -70,7 +77,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         List<IndividualCustomer> individualCustomers=individualCustomerRepository.searchIndividualCustomer(request);
         List<GetAllIndividualCustomerResponse> getAllIndividualCustomerResponseList= new ArrayList<>();
         for(IndividualCustomer individualCustomer:individualCustomers){
-            getAllIndividualCustomerResponseList.add(IndividualCustomerMapper.INSTANCE.individualCustomerFromGetAllResponse(individualCustomer));
+            getAllIndividualCustomerResponseList.add(indCustMapper.individualCustomerFromGetAllResponse(individualCustomer));
         }
         return getAllIndividualCustomerResponseList;
     }

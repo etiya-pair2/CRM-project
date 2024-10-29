@@ -45,7 +45,7 @@ public class IndividualCustomerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/delete")
+    @PutMapping("/delete")
     public DeleteIndividualCustomerResponse delete(@RequestParam UUID id) {
         return individualCustomerService.delete(id);
     }
