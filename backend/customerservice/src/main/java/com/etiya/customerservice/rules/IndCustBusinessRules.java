@@ -30,18 +30,13 @@ public class IndCustBusinessRules {
         if (request.getMiddleName() != null && !request.getMiddleName().isEmpty()) {
             fullName += " " + request.getMiddleName();
         }
-        boolean isRealPerson = client.TCKimlikNoDogrula(Long.valueOf(request.getNationalityId()),fullName,request.getLastName(), request.getBirthday().getYear());
+        boolean isRealPerson = client.TCKimlikNoDogrula(Long.valueOf(request.getNationalityId()),fullName,
+                request.getLastName(), request.getBirthday().getYear());
         if(!isRealPerson){
             throw new BusinessException("Müşterinin Kimlik Bilgileri Doğrulanamadı!");
         }
     }
 
-    /**
-     * Belirtilen vatandaşlık numarasına sahip bireysel müşteri var mı kontrol eder.
-     *
-     * @param natId Müşterinin vatandaşlık numarası
-     * @throws BusinessException Eğer müşteri zaten kayıtlıysa
-     */
     public void checkIndCustExist(String natId){
         Optional<IndividualCustomer> individualCustomer = indCustRepository.findByNationalityId(natId);
         boolean checkNatId = indCustRepository.existsByNationalityId(natId);
@@ -52,12 +47,6 @@ public class IndCustBusinessRules {
         }
     }
 
-    /**
-     * Belirtilen UUID'ye sahip müşteri var mı kontrol eder.
-     *
-     * @param id Müşterinin UUID'si
-     * @throws BusinessException Eğer müşteri bulunamazsa
-     */
     public IndividualCustomer checkCustomerExist(UUID id){
         return indCustRepository.findById(id).orElseThrow(() -> new BusinessException("Müşteri Bulunamadı"));
     }

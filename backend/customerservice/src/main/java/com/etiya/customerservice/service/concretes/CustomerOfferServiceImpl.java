@@ -22,9 +22,7 @@ public class CustomerOfferServiceImpl implements CustomerOfferService {
     @Override
     public CreateCustomerOfferResponse create(CreateCustomerOfferRequest request) {
         Offer offer =  productServiceClient.findById(request.getOfferId());
-        System.out.println(offer);
         if(offer!=null){
-
             CustomerOffer customerOffer = repository.save(mapper.customerOfferFromCreateRequest(request));
             return mapper.customerOfferFromCreateResponse(customerOffer);
         }

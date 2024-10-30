@@ -44,8 +44,6 @@ public interface IndividualCustomerRepository extends JpaRepository<IndividualCu
             }
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%" + (request.getFirstName() != null ? request.getFirstName() : "") + "%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + (request.getLastName() != null ? request.getLastName() : "") + "%"));
-            //TODO:id çalışmıyor
-            //predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("customerId")), "%" + (request.getCustomerId() != null ? request.getCustomerId() : "") + "%"));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });
 
