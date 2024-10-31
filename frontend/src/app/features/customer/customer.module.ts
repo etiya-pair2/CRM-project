@@ -1,3 +1,5 @@
+
+import { CreatecustomerContactMediumComponent } from './customer-create/create-contact-medium/createcustomer-contact-medium.component';
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +16,9 @@ imports: [
     ReactiveFormsModule,
     FormsModule,
     CreatecustomerComponent,
-    CustomerInfoComponent
+    CustomerInfoComponent,
+    CreatecustomerContactMediumComponent,
+    CustomerSearchComponent
   ],
 })
 export class CustomerModule { }

@@ -6,5 +6,6 @@ export interface customerCreateInfoResponse {
     gender: string,
     birthday: string,
     motherName?: string,
-    fatherName?: string
+    fatherName?: string,
+    customerId:string
 }

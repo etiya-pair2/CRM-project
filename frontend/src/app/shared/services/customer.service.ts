@@ -1,3 +1,4 @@
+import { CreatecustomerContactMediumComponent } from './../../features/customer/customer-create/create-contact-medium/createcustomer-contact-medium.component';
 import { CustomerSearchRequest } from '../../shared/models/customer/customerSearchRequest';
 import { Observable } from 'rxjs';
 import { CustomerSearchResponse } from '../../shared/models/customer/customerSearchResponse';
@@ -7,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { searchNatIDRequest } from '../models/customer/searchNatIDRequest';
+import{customerCreateContactMedRequest} from '../../shared/models/customer/customerCreateContactMedRequest';
+import{customerCreateContactMedResponse} from '../models/customer/customerCreateContactMedResponse';
 
 
 @Injectable({
@@ -27,10 +30,17 @@ export class CustomerService {
           searchNatIdRequest
         );
     }
-    createCustomerInfo(createInfoRequest: customerCreateInfoRequest): Observable<customerCreateInfoResponse[]> {
-      return this.httpClient.post<customerCreateInfoResponse[]>(
+    createCustomerInfo(createInfoRequest: customerCreateInfoRequest): Observable<customerCreateInfoResponse> {
+      return this.httpClient.post<customerCreateInfoResponse>(
         `${this.controllerUrl}/create`,
         createInfoRequest
+      );
+    }
+    controllerUrl2: string = `${environment.MS_V1_API_URL}/customer/contactMediums`;
+    createCustomerContactMedium(cerateCustContactMedRequest: customerCreateContactMedRequest):Observable<customerCreateContactMedResponse[]> {
+      return this.httpClient.post<customerCreateContactMedResponse[]>(
+        `${this.controllerUrl2}/create`,
+        cerateCustContactMedRequest
       );
     }
    }
