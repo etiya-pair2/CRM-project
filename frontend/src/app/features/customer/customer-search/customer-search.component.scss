@@ -5,6 +5,7 @@ body {
     height: 100vh;
     background-color:#e4e3f5;
     overflow: hidden;
+  
 }
  
 .container {
@@ -15,12 +16,14 @@ body {
     display: flex;
     justify-content: space-around; /* Ortalamak için space-around */
     align-items: center; /* Yatayda ortalamak için center */
-    padding: 20px;
+    
     margin-left: 50px;
     margin-right: 100px ;
-    margin-bottom: 50px;
-    margin-top: 50px;
-    position: relative;
+    margin-bottom: 120px;
+    margin-top: 0px;
+    transform: scale(0.9);
+    transform-origin: center;
+ 
     overflow: hidden;
 }
  
@@ -122,7 +125,7 @@ button:last-child:disabled {
 
   .pagination .previousButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: -100px; /* Alt kenara 10px mesafe */
+    bottom: 15px; /* Alt kenara 10px mesafe */
     left: 50%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */
@@ -135,7 +138,7 @@ button:last-child:disabled {
   }
   .pagination .nextButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: -100px; /* Alt kenara 10px mesafe */
+    bottom: 15px; /* Alt kenara 10px mesafe */
     left: 60%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */

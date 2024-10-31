@@ -20,7 +20,13 @@ const routes: Routes = [
     path: 'create',
     loadComponent: () => import('./customer-create/createcustomer/createcustomer.component').
       then(c => c.CreatecustomerComponent)
+  },
+  {
+    path: 'generalInfo',
+    loadComponent: () => import('./general-info/general-info.component').
+      then(c => c.GeneralInfoComponent)
   }
+
 ];
 
 @NgModule({
