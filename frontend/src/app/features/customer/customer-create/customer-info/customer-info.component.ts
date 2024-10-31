@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router,RouterModule } from '@angular/router'; 
 import { CustomerService } from '../../../../shared/services/customer.service';
+import { customerCreateInfoResponse } from '../../../../shared/models/customer/customerCreateInfoResponse';
 
 @Component({
   selector: 'app-customerinfo',
@@ -15,6 +16,7 @@ import { CustomerService } from '../../../../shared/services/customer.service';
 export class CustomerInfoComponent {
   constructor(private router: Router, private customerService: CustomerService) {}
   isSaveEnabled: boolean = true;
+  customerId: string | null = null;
 
   customer = {
     firstName: '',
@@ -42,12 +44,17 @@ export class CustomerInfoComponent {
       motherName: this.customer.motherName,
       nationalityId: this.customer.nationalityId
     };
-
+     
     this.customerService.createCustomerInfo(createInfoRequest).subscribe(
       (response) => {
+        
+        this.customerId = response.customerId;
+       
         console.log('Customer information saved successfully', response);
+        
         // Optionally navigate to another route or display a success message
-        this.router.navigate(['/next-route']); // Adjust the route as needed
+        this.router.navigate(['/customer/contactMedium'],{ queryParams: { customerId: this.customerId } });
+        console.log('2',this.customerId); // Adjust the route as needed
       },
       (error) => {
         console.error('Error saving customer information', error);

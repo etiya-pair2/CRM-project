@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -25,6 +26,11 @@ const routes: Routes = [
     path: 'generalInfo',
     loadComponent: () => import('./general-info/general-info.component').
       then(c => c.GeneralInfoComponent)
+  },
+  {
+    path: 'contactMedium', 
+    loadComponent: () => import('./customer-create/create-contact-medium/createcustomer-contact-medium.component').
+      then(c => c.CreatecustomerContactMediumComponent)
   }
 
 ];
