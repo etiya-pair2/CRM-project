@@ -1,0 +1,43 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 60%; 
+    margin: 0 auto;
+    padding: 20px;
+  
+    .tab {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 16px;
+      background-color: #c2c2d1;
+      border: 1px solid #9c9ca8;
+      color: #333;
+      cursor: pointer;
+      text-align: center;
+  
+      &.active {
+        background-color: #ffab47;
+        color: #fff;
+        font-weight: bold;
+        border: 1px solid #ffab47;
+      }
+  
+      &:hover {
+        background-color: #d3d3e3;
+      }
+  
+      &:not(:last-child) {
+        border-right: none;
+      }
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .navbar {
+      width: 90%;
+      .tab {
+        font-size: 14px;
+      }
+    }
+  }
+  
