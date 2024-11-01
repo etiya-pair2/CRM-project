@@ -40,22 +40,22 @@ body {
     display: block;
     font-size: 14px;
     color: #FFFFFF;
-    margin-bottom: 5px;
+    margin-bottom: 2px; /* Slightly reduce margin */
 }
 
 .form-container input,
 .form-container textarea {
     width: 100%;
     padding: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reduced margin between fields */
     border: none;
     border-radius: 5px;
 }
 
 .form-container input.error,
 .form-container textarea.error {
-    border: 1px solid red; /* Hata durumunda kırmızı kenarlık */
-    background-color: #FFE6E6; /* Hata durumunda hafif pembe arka plan */
+    border: 1px solid red; /* Error state border */
+    background-color: #FFE6E6; /* Light pink background for error state */
 }
 
 .button-container {
@@ -78,19 +78,13 @@ body {
 }
 
 .error-message {
-    color: red; /* Kırmızı yazı rengi */
-    font-size: 14px; /* Yazı boyutunu artır */
-    margin-top: 4px; /* Üstten boşluk */
-    display: block; /* Bloğ tipi olarak göster */
-    font-weight: bold; /* Kalın yazı */
-}
-.form-group {
-    margin-bottom: 20px; /* Her form grubu arasında boşluk */
+    color: red; /* Error message color */
+    font-size: 10px; /* Font size for error messages */
+    margin-top: 2px; /* Reduced top margin for error messages */
+    display: block; /* Display as block */
+    font-weight: bold; /* Bold font for error messages */
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px; /* Üstten boşluk */
+.form-group {
+    margin-bottom: 15px; /* Reduced margin between form groups */
 }

@@ -1,38 +1,47 @@
+<app-main-layout></app-main-layout>
 <div class="customer-address-container">
-    <h2>Adres Oluştur</h2>
+    <h2>Create Address</h2>
     <div class="form-container">
-        <form (ngSubmit)="next($event)" #form="ngForm">
+        <form [formGroup]="addressForm" (ngSubmit)="next()">
             <div class="form-group">
-                <label for="city">Şehir*</label>
-                <input type="text" id="city" name="city" [(ngModel)]="city" (ngModelChange)="onInputChange()" 
-                       [ngClass]="{'error': cityErrorMessage}">
-                <div *ngIf="cityErrorMessage" class="error-message">{{ cityErrorMessage }}</div>
+                <label for="city">City*</label>
+                <input type="text" id="city" formControlName="city" 
+                       [ngClass]="{'error': addressForm.get('city')?.invalid && (addressForm.get('city')?.touched)}">
+                <div *ngIf="addressForm.get('city')?.invalid && (addressForm.get('city')?.touched)" class="error-message">
+                    City cannot be empty.
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="district">İlçe*</label>
-                <input type="text" id="district" name="district" [(ngModel)]="district" (ngModelChange)="onInputChange()" 
-                       [ngClass]="{'error': districtErrorMessage}">
-                <div *ngIf="districtErrorMessage" class="error-message">{{ districtErrorMessage }}</div>
+                <label for="district">District*</label>
+                <input type="text" id="district" formControlName="district" 
+                       [ngClass]="{'error': addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)}">
+                <div *ngIf="addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)" class="error-message">
+                    District cannot be empty.
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="postal-code">Posta Kodu*</label>
-                <input type="text" id="postal-code" name="postalCode" [(ngModel)]="postalCode" (ngModelChange)="onInputChange()" 
-                       [ngClass]="{'error': postalCodeErrorMessage}">
-                <div *ngIf="postalCodeErrorMessage" class="error-message">{{ postalCodeErrorMessage }}</div>
+                <label for="postal-code">Postal Code*</label>
+                <input type="text" id="postal-code" formControlName="postalCode" 
+                       [ngClass]="{'error': addressForm.get('postalCode')?.invalid && (addressForm.get('postalCode')?.touched)}">
+                <div *ngIf="addressForm.get('postalCode')?.invalid && (addressForm.get('postalCode')?.touched)" class="error-message">
+                    Postal Code cannot be empty.
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="address-description">Adres Tanımı*</label>
-                <textarea id="address-description" name="addressDescription" [(ngModel)]="addressDescription" 
-                          (ngModelChange)="onInputChange()" [ngClass]="{'error': descriptionErrorMessage}"></textarea>
-                <div *ngIf="descriptionErrorMessage" class="error-message">{{ descriptionErrorMessage }}</div>
+                <label for="address-description">Address Description*</label>
+                <textarea id="address-description" formControlName="addressDescription" 
+                          [ngClass]="{'error': addressForm.get('addressDescription')?.invalid && (addressForm.get('addressDescription')?.touched)}"></textarea>
+                <div *ngIf="addressForm.get('addressDescription')?.invalid && (addressForm.get('addressDescription')?.touched)" class="error-message">
+                    Address Description cannot be empty.
+                </div>
             </div>
 
             <div class="button-container">
-                <button type="button" [routerLink]="['/customer/address']">Önceki</button>
-                <button type="submit" [disabled]="!city || !district || !postalCode || !addressDescription">İleri</button>
+                <button type="button" [routerLink]="['/customer/address']">Previous</button>
+                <button type="submit" [disabled]="addressForm.invalid">Next</button>
             </div>
         </form>
     </div>
