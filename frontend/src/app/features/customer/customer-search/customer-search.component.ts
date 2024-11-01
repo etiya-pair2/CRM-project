@@ -6,7 +6,7 @@ import { CustomerSearchResponse } from '../../../shared/models/customer/customer
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-search',
@@ -25,7 +25,7 @@ export class CustomerSearchComponent implements OnInit {
   pageSize: number = 10;
   totalResults: number = 0;
 
-  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router) {
+  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {
     this.searchForm = this.fb.group({
       natId: [''],
       customerId: [''],
@@ -45,7 +45,21 @@ export class CustomerSearchComponent implements OnInit {
   navigateToCreateCustomer() {
     this.router.navigate(['customer/create']);
   }
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const natIdFromParams = params['natId'];
+      if (natIdFromParams) {
+        this.searchForm.patchValue({
+          natId: natIdFromParams
+        });
+        //TODO: Yapı karmaşık oluşturulmuş
+        this.isSearchEnabled = true
+        this.search()
+      }
+    });
+  }
+
+
 
   search(): void {
     if (this.isSearchEnabled) {

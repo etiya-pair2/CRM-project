@@ -1,0 +1,26 @@
+.table-nav {
+    background-color: #29294A;
+    color: #FFFFFF;
+    padding: 10px 60px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.accordion-item {
+    background-color: #B0AFC6 !important;
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: #29294A;
+}
+
+.accordion-body {
+    background-color: #FFFFFF !important;
+}
+
+.accordion-button:focus {
+    outline: none;
+    box-shadow: none;
+    color: #29294A;
+}

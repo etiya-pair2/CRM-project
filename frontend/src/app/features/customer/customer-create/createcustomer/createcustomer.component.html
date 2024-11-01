@@ -27,7 +27,7 @@
   </div>
 
   <!-- Popup -->
-  <div *ngIf="showPopup" class="popup">
+  <!-- <div *ngIf="showPopup" class="popup">
     <div class="popup-content">
       <span class="close" (click)="closePopup()">&times;</span>
       <p>{{ errorMessage }}</p>
@@ -35,5 +35,24 @@
         OK
       </button>
     </div>
+  </div> -->
+
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Warning</h5>
+        </div>
+        <div class="modal-body">
+          <p>{{ errorMessage }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopup()">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" [routerLink]="['/customer/search']"
+            [queryParams]="{natId: natId}" (click)="closePopup()">Search</button>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>

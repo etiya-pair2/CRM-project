@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CustomerService } from '../../../../shared/services/customer.service';
 import { customerCreateInfoResponse } from '../../../../shared/models/customer/customerCreateInfoResponse';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customerinfo',
@@ -14,7 +15,12 @@ import { customerCreateInfoResponse } from '../../../../shared/models/customer/c
   styleUrl: './customer-info.component.scss'
 })
 export class CustomerInfoComponent implements OnInit {
-  constructor(private router: Router, private customerService: CustomerService, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private customerService: CustomerService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) { }
   isSaveEnabled: boolean = true;
   customerId: string | null = null;
 
@@ -56,18 +62,13 @@ export class CustomerInfoComponent implements OnInit {
 
     this.customerService.createCustomerInfo(createInfoRequest).subscribe(
       (response) => {
+        this.toastr.success("Müşteri Başarlı Bir Şekilde Oluşturuldu!")
+        this.router.navigate(['/customer/contactMedium'], { queryParams: { customerId: response.customerId } });
 
-        this.customerId = response.customerId;
-
-        console.log('Customer information saved successfully', response);
-
-        // Optionally navigate to another route or display a success message
-        this.router.navigate(['/customer/contactMedium'], { queryParams: { customerId: this.customerId } });
-        console.log('2', this.customerId); // Adjust the route as needed
       },
       (error) => {
-        console.error('Error saving customer information', error);
-        // Optionally display an error message to the user
+        const errorMessages = error.error?.message || "Bir Hata Oluştu";
+        this.toastr.warning(errorMessages)
       }
     );
   }

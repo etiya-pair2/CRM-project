@@ -5,6 +5,9 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNetlifyLoader } from '@angular/common';
 import { authInterceptor } from './shared/interceptors/auth.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+import { provideToastr } from 'ngx-toastr';
 
 // Global konfigürasyon yapısı (kod için)
 export const appConfig: ApplicationConfig = {
@@ -12,6 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])), // artık tüm uygulama http client kullanabilir
+    provideAnimations(),
+    provideToastr(),
     // importProvidersFrom([TranslateModule.forRoot({
     //   loader: {
     //     provide: TranslateLoader,

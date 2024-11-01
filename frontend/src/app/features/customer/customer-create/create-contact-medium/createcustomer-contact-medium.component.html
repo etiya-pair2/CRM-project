@@ -1,9 +1,10 @@
 <app-main-layout></app-main-layout>
+
 <body>
   <div class="container">
     <div class="in-container">
       <h3 class="title">Contact Medium</h3>
-      <div style="display: flex; align-items: center; margin-top: 10px">
+      <div class="mb-3">
         <label for="email" style="color: #29294a; margin-right: 10px">
           E-mail* :
         </label>
@@ -16,11 +17,7 @@
         <label for="mobilePhone" style="color: #29294a; margin-right: 10px">
           Mobile Phone* :
         </label>
-        <input
-          id="mobilePhone"
-          [(ngModel)]="mobilePhone"
-          (input)="onInputChange()"
-        />
+        <input id="mobilePhone" [(ngModel)]="mobilePhone" (input)="onInputChange()" />
         <div *ngIf="showError" class="error-message" style="color: red">
           {{ mobilePhoneErrorMessage }}
         </div>
@@ -29,11 +26,7 @@
         <label for="homePhone" style="color: #29294a; margin-right: 10px">
           Home Phone :
         </label>
-        <input
-          id="homePhone"
-          [(ngModel)]="homePhone"
-          (input)="onInputChange()"
-        />
+        <input id="homePhone" [(ngModel)]="homePhone" (input)="onInputChange()" />
       </div>
       <div style="display: flex; align-items: center; margin-top: 10px">
         <label for="fax" style="color: #29294a; margin-right: 10px">
@@ -44,20 +37,14 @@
     </div>
     <div class="buttons">
       <button type="button" [routerLink]="['/customer/address']">PREVIOUS ></button>
-      <button
-        type="submit"
-        [disabled]="!isNextEnabled"
-        [ngStyle]="{
+      <button type="submit" [disabled]="!isNextEnabled" [ngStyle]="{
           'background-color': isNextEnabled ? '#29294a' : '#717171B2'
-        }"
-        style="
+        }" style="
           padding: 5px 15px;
           border-radius: 5px;
           border: none;
           color: white;
-        "
-        (click)="next()"
-      >
+        " (click)="next()">
         NEXT
       </button>
     </div>

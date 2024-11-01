@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router'; // Router'ı içe aktar
 import { searchNatIDRequest } from '../../../../shared/models/customer/searchNatIDRequest';
 import { CustomerSearchResponse } from '../../../../shared/models/customer/customerSearchResponse';
 import { CustomerService } from '../../../../shared/services/customer.service';
+declare var bootstrap: any;
 @Component({
   selector: 'app-createcustomer',
   standalone: true,
@@ -34,11 +35,10 @@ export class CreatecustomerComponent {
     this.customerService.searchCustomerNatId(searchNatIdRequest).subscribe(
       (response: CustomerSearchResponse[]) => {
         if (response && response.length > 0) {
-          this.showPopup = true;
           this.errorMessage = 'This Customer Already Exists!';
+          this.openModal();
         } else {
           // Hata durumu
-          this.showPopup = false;
           this.errorMessage = 'No customer found with the given Nationality ID!';
           this.router.navigate(['/customer/info'], { queryParams: { natId } });
         }
@@ -49,6 +49,14 @@ export class CreatecustomerComponent {
         this.errorMessage = 'An error occurred while searching for the customer.';
       }
     );
+  }
+
+  openModal() {
+    const modalElement = document.querySelector('.modal'); // Modal elementini seç
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement); // Bootstrap modal nesnesini oluştur
+      modal.show(); // Modal'ı göster
+    }
   }
 
   closePopup() {
