@@ -1,79 +1,11 @@
 package com.etiya.identityservice.core.configuration;
 
-import com.etiya.identityservice.service.abstracts.UserService;
-import io.github.sabaurgup.security.BaseJwtService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
+import io.github.sabaurgup.security.BaseSecurityConfiguration;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
 @Configuration
+public class SecurityConfiguration extends BaseSecurityConfiguration{
 
-public class SecurityConfiguration {
-    //    private final UserService userService;
-//    public SecurityConfiguration(UserService userService) {
-//        this.userService = userService;
-//    }
-//
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    //
-//    // JwtService'e ctor'dan veri geçme esnekliği
-    @Bean
-    public BaseJwtService baseJwtService() {
-        return new BaseJwtService();
-    }
-
-    //
-//    @Bean
-//    public AuthenticationProvider authenticationProvider()
-//    {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setPasswordEncoder(passwordEncoder());
-//        provider.setUserDetailsService(userService);
-//        return provider;
-//    }
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
-//
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable).httpBasic(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(req -> req.requestMatchers("/api/v1/identity/auth/**").permitAll()
-                        .anyRequest().permitAll());
-        //.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-
-    private CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 }
