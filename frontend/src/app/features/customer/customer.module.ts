@@ -7,6 +7,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
 import { CustomerInfoComponent } from './customer-create/customer-info/customer-info.component';
 import { CreatecustomerComponent } from './customer-create/createcustomer/createcustomer.component';
+import { CreateAddressComponent } from './customer-create/create-address/create-address.component';
 
 
 @NgModule({
@@ -18,7 +19,10 @@ imports: [
     CreatecustomerComponent,
     CustomerInfoComponent,
     CreatecustomerContactMediumComponent,
-    CustomerSearchComponent
+    CustomerSearchComponent,
+    CustomerSearchComponent,
+    CreateAddressComponent
+
   ],
 })
 export class CustomerModule { }

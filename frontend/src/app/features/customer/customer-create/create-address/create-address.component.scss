@@ -1,0 +1,96 @@
+body {
+    background-color: #e4e3f5;
+}
+
+.customer-address-container {
+    width: 100vw;
+    max-width: 98%;
+    margin: 15px auto;
+    height: auto;
+    background-color: #B0AFC6;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.customer-address-container h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #3D3D5C;
+    font-weight: bold;
+    padding-bottom: 10px;
+    width: 100%;
+    border-bottom: 2px solid #3D3D5C;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    width: 400px;
+    background-color: #8F8FA0;
+    padding: 20px;
+    text-align: left;
+}
+
+.form-container label {
+    display: block;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-container input.error,
+.form-container textarea.error {
+    border: 1px solid red; /* Hata durumunda kırmızı kenarlık */
+    background-color: #FFE6E6; /* Hata durumunda hafif pembe arka plan */
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container button {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4A4A5A;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #6A6A7A;
+}
+
+.error-message {
+    color: red; /* Kırmızı yazı rengi */
+    font-size: 14px; /* Yazı boyutunu artır */
+    margin-top: 4px; /* Üstten boşluk */
+    display: block; /* Bloğ tipi olarak göster */
+    font-weight: bold; /* Kalın yazı */
+}
+.form-group {
+    margin-bottom: 20px; /* Her form grubu arasında boşluk */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px; /* Üstten boşluk */
+}
