@@ -1,0 +1,109 @@
+.address-list {
+    display: flex; /* Flexbox ile yan yana dizilecek */
+    flex-wrap: wrap; /* Taşma durumunda alt satıra geçmesini sağlar */
+    gap: 10px; /* Adresler arasındaki boşluk */
+    justify-content: center; /* Ortalamak için */
+    width: 100%; /* Tam genişlik */
+}
+
+.address-item {
+    position:relative;
+    flex: 1 1 calc(30% - 20px); /* Üç sütun düzeni için esnek genişlik ayarı */
+    padding: 1px;
+    background: #B0AFC6;
+    border: 1px solid #bab9ca; /* Kenar rengi */
+    border-radius: 5px;
+    margin-bottom: 10px; /* Alt boşluk */
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 25%; /* Genişliği sınırlamak için */
+}
+.title {
+    color: #29294a;
+    font-weight: bold;  /* Kalın yazı için */
+    text-align: left;   /* Sol hizalama */
+    margin-left: 35px;  /* Sağ kaydırma için boşluk */
+}
+.title-divider {
+    border: none;         /* Kenar çizgisi yok */
+    height: 2px;         /* Çizgi kalınlığı */
+    background-color: #29294a; /* Çizgi rengi */
+    margin-top: 10px;    /* Başlık ile çizgi arasındaki boşluk */
+    margin-bottom: 20px; /* Çizgi ile altındaki içerik arasındaki boşluk */
+}
+.create-address-btn {
+    padding: 5px 10px; /* Butonun iç boşlukları */
+    border-radius: 15px; /* Yuvarlak köşeler için */
+    background-color: #242441; /* Arka plan rengi */
+    color: white; /* Metin rengi */
+    border: none; /* Kenarlık yok */
+    cursor: pointer; /* Fare imlecini gösterir */
+    transition: background-color 0.3s; /* Hover geçiş efekti */
+}
+
+.create-address-btn:hover {
+    background-color: #1f1f2a; /* Hover durumunda arka plan rengi */
+}
+
+.header-container {
+    display: flex;              
+    justify-content: flex-start; /* Başlık ve butonu sola hizala */
+    align-items: center;        
+    margin-bottom: 10px;       
+}
+
+.title {
+    margin-right: 1050px; /* Başlık ile buton arasında boşluk */
+}
+input {
+    padding: 5px;
+    margin-top: 10px; /* Label ile input arasında boşluk */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #bab9ca;
+    height: 25px;
+    width: 100%; /* Input alanlarının genişliği tam olsun */
+}
+
+.buttons {
+    display: flex;
+    gap: 20px; /* Butonlar arasında boşluk */
+    margin-top: 20px; /* Butonların üstünde boşluk */
+    justify-content: center; /* Butonları ortala */
+    width: 100%; /* Butonların container genişliğine yayılmasını sağlar */
+}
+
+button {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #242441; /* Varsayılan arka plan rengi */
+    color: white; /* Varsayılan metin rengi */
+}
+
+button:hover {
+    opacity: 0.9; /* Hover durumunda opaklık */
+}
+
+.popup {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam arka plan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #A1A0B4;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid #A1A0B4; 
+}
