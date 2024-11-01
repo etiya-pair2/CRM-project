@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name="productservice") // Eurekada iletişime geçeceğim servis ismi
+@FeignClient(name="productservice")
 public interface ProductServiceClient {
 
     @GetMapping("/api/v1/offer/search/{id}")

@@ -30,7 +30,7 @@ public class CreateIndividualCustomerRequest {
         private String firstName;
 
 //        @Size(min = 3, message = "Orta isim en az 3 harfli olmalıdır.")
-        private String middleName; // Zorunlu değil
+        private String middleName;
 //
         @NotBlank(message = "Soyisim boş bırakılamaz.")
         @Size(min = 2, message = "Soyisim en az 2 harfli olmalıdır.")

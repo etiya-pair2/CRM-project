@@ -18,11 +18,13 @@ import java.util.UUID;
 
 public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, UUID>, JpaSpecificationExecutor<IndividualCustomer> {
 
+
     boolean existsByNationalityId(String nationalityId);
 
     Optional<IndividualCustomer> findByNationalityId(String nationalityId);
 
 
+    //custom query method
     default List<IndividualCustomer> searchIndividualCustomer(SearchIndCustomerRequest request) {
         return findAll((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
