@@ -10,6 +10,8 @@ import { Injectable } from '@angular/core';
 import { searchNatIDRequest } from '../models/customer/searchNatIDRequest';
 import{customerCreateContactMedRequest} from '../../shared/models/customer/customerCreateContactMedRequest';
 import{customerCreateContactMedResponse} from '../models/customer/customerCreateContactMedResponse';
+import { customerCreateAddRequest } from '../models/customer/customerCreateAddRequest';
+import { customerCreateAddResponse } from '../models/customer/customerCreateAddResponse';
 
 
 @Injectable({
@@ -43,4 +45,15 @@ export class CustomerService {
         cerateCustContactMedRequest
       );
     }
+
+    controllerUrl3: string = `${environment.MS_V1_API_URL}/customer/addresses`;
+
+    createCustomerAddress(createCustomerAddRequest: customerCreateAddRequest): Observable<customerCreateAddResponse> {
+        return this.httpClient.post<customerCreateAddResponse>(
+            this.controllerUrl3,
+            createCustomerAddRequest
+        );
+    }
+
+
    }

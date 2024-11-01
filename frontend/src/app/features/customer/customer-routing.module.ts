@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'contactMedium', 
     loadComponent: () => import('./customer-create/create-contact-medium/createcustomer-contact-medium.component').
       then(c => c.CreatecustomerContactMediumComponent)
+  },
+  {
+    path: 'address',
+    loadComponent: () => import('./customer-create/create-address/create-address.component').then(c=>c.CreateAddressComponent)
+    
   }
 
 ];
