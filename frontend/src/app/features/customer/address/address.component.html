@@ -1,2 +1,48 @@
 <app-main-layout></app-main-layout>
 <app-navbar></app-navbar>
+<div class="header-container">
+  <h3 class="title">Customer Address</h3>
+  <button (click)="showCreateAddressPopup()" class="create-address-btn">
+    Create New Address
+  </button>
+</div>
+<hr class="title-divider" />
+<div *ngIf="addresses.length > 0; else noAddress" class="address-list">
+  <div *ngFor="let address of addresses" class="address-item">
+    <p><strong>City:</strong> {{ address.city }}</p>
+    <p><strong>District:</strong> {{ address.district }}</p>
+    <p><strong>Postal Code:</strong> {{ address.postalcode }}</p>
+    <p><strong>Description:</strong> {{ address.description }}</p>
+    <hr />
+  </div>
+</div>
+<ng-template #noAddress>
+  <p>No addresses found. Please add one.</p>
+</ng-template>
+
+<!-- Create Address Popup -->
+<div *ngIf="isPopupVisible" class="popup">
+  <div class="popup-content">
+    <h4>Create New Address</h4>
+    <div>
+      <label for="city">City*</label>
+      <input id="city" [(ngModel)]="newAddress.city" />
+    </div>
+    <div>
+      <label for="district">District*</label>
+      <input id="district" [(ngModel)]="newAddress.district" />
+    </div>
+    <div>
+      <label for="postalcode">Postal Code*</label>
+      <input id="postalcode" [(ngModel)]="newAddress.postalcode" />
+    </div>
+    <div>
+      <label for="description">Address Description</label>
+      <input id="description" [(ngModel)]="newAddress.description" />
+    </div>
+    <div class="buttons">
+      <button (click)="closePopup()">Cancel</button>
+      <button (click)="saveAddress()">Save</button>
+    </div>
+  </div>
+</div>
