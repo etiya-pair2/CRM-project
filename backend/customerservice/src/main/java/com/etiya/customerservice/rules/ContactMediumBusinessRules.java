@@ -1,10 +1,11 @@
 package com.etiya.customerservice.rules;
 
-import com.etiya.customerservice.core.configuration.exceptions.type.BusinessException;
+
 import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.entity.Customer;
 import com.etiya.customerservice.repository.ContactMediumRepository;
 import com.etiya.customerservice.repository.CustomerRepository;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

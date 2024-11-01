@@ -1,11 +1,11 @@
 package com.etiya.customerservice.rules;
 
-import com.etiya.customerservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.customerservice.dto.individualCustomer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mernis.RISKPSPublicSoap;
 import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;

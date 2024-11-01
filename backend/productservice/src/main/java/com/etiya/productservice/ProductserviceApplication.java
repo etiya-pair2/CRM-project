@@ -2,11 +2,13 @@ package com.etiya.productservice;
 
 import com.etiya.event.OrderCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.sabaurgup.annotations.EnableCore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.KafkaListener;
 
 @SpringBootApplication
+@EnableCore
 public class ProductserviceApplication {
 
     public static void main(String[] args) {

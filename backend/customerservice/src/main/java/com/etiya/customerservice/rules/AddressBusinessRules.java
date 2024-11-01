@@ -1,12 +1,12 @@
 package com.etiya.customerservice.rules;
 
-import com.etiya.customerservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.customerservice.entity.Address;
 import com.etiya.customerservice.entity.Customer;
 import com.etiya.customerservice.entity.District;
 import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.repository.DistrictRepository;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
