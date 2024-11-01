@@ -8,6 +8,10 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
 import { CustomerInfoComponent } from './customer-create/customer-info/customer-info.component';
 import { CreatecustomerComponent } from './customer-create/createcustomer/createcustomer.component';
 import { CreateAddressComponent } from './customer-create/create-address/create-address.component';
+import { CustomerAccountComponent } from './customer-account/customer-account.component';
+import { ContactMediumComponent } from './contact-medium/contact-medium.component';
+import { AddressComponent } from './address/address.component';
+
 
 
 @NgModule({
@@ -21,7 +25,10 @@ imports: [
     CreatecustomerContactMediumComponent,
     CustomerSearchComponent,
     CustomerSearchComponent,
-    CreateAddressComponent
+    CreateAddressComponent,
+    CustomerAccountComponent,
+    ContactMediumComponent,
+    AddressComponent
 
   ],
 })

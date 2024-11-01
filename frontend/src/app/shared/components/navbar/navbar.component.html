@@ -1,6 +1,30 @@
 <div class="navbar">
-  <a class="tab" href="/customer/generalInfo" [class.active]="activeTab === 'generalInfo'" (click)="setActiveTab('generalInfo')">Customer Info</a>
-  <a class="tab" href="/customer/customerAccount" [class.active]="activeTab === 'customerAccount'" (click)="setActiveTab('customerAccount')">Customer Account</a>
-  <a class="tab" href="/customer/address" [class.active]="activeTab === 'address'" (click)="setActiveTab('address')">Address</a>
-  <a class="tab" href="/customer/contactMedium" [class.active]="activeTab === 'contactMedium'" (click)="setActiveTab('contactMedium')">Contact Medium</a>
+  <a
+    class="tab"
+    href="/customer/generalInfo"
+    [class.active]="activeTab === 'generalInfo'"
+    (click)="setActiveTab('generalInfo')"
+    >Customer Info</a
+  >
+  <a
+    class="tab"
+    href="/customer/customerAccount"
+    [class.active]="activeTab === 'customerAccount'"
+    (click)="setActiveTab('customerAccount')"
+    >Customer Account</a
+  >
+  <a
+    class="tab"
+    href="/customer/addressInfo"
+    [class.active]="activeTab === 'address'"
+    (click)="setActiveTab('address')"
+    >Address</a
+  >
+  <a
+    class="tab"
+    href="/customer/contactMediumInfo"
+    [class.active]="activeTab === 'contactMedium'"
+    (click)="setActiveTab('contactMedium')"
+    >Contact Medium</a
+  >
 </div>
