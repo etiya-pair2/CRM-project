@@ -12,48 +12,63 @@ import{customerCreateContactMedRequest} from '../../shared/models/customer/custo
 import{customerCreateContactMedResponse} from '../models/customer/customerCreateContactMedResponse';
 import { customerCreateAddRequest } from '../models/customer/customerCreateAddRequest';
 import { customerCreateAddResponse } from '../models/customer/customerCreateAddResponse';
-
+import { customerDetailsResponse } from '../models/customer/customerDetailsResponse';
+import { contactMediumInfoResponse } from '../models/customer/contactMediumInfoResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-    controllerUrl: string = `${environment.MS_V1_API_URL}/customer/individualCustomers`;
-    constructor(private httpClient: HttpClient) {}
-    searchCustomer(searchRequest: CustomerSearchRequest): Observable<CustomerSearchResponse[]> {
-        return this.httpClient.post<CustomerSearchResponse[]>(
-          `${this.controllerUrl}/search`,
-          searchRequest
-        );
-    }
-    searchCustomerNatId(searchNatIdRequest: searchNatIDRequest):Observable<CustomerSearchResponse[]>{
-        return this.httpClient.post<CustomerSearchResponse[]>(
-          `${this.controllerUrl}/search`,
-          searchNatIdRequest
-        );
-    }
-    createCustomerInfo(createInfoRequest: customerCreateInfoRequest): Observable<customerCreateInfoResponse> {
-      return this.httpClient.post<customerCreateInfoResponse>(
-        `${this.controllerUrl}/create`,
-        createInfoRequest
-      );
-    }
-    controllerUrl2: string = `${environment.MS_V1_API_URL}/customer/contactMediums`;
-    createCustomerContactMedium(cerateCustContactMedRequest: customerCreateContactMedRequest):Observable<customerCreateContactMedResponse[]> {
-      return this.httpClient.post<customerCreateContactMedResponse[]>(
-        `${this.controllerUrl2}/create`,
-        cerateCustContactMedRequest
-      );
-    }
+  private readonly controllerUrl = `${environment.MS_V1_API_URL}/customer/individualCustomers`;
+  private readonly controllerUrl2 = `${environment.MS_V1_API_URL}/customer/contactMediums`;
+  private readonly controllerUrl3 = `${environment.MS_V1_API_URL}/customer/addresses`;
 
-    controllerUrl3: string = `${environment.MS_V1_API_URL}/customer/addresses`;
+  constructor(private httpClient: HttpClient) {}
 
-    createCustomerAddress(createCustomerAddRequest: customerCreateAddRequest): Observable<customerCreateAddResponse> {
-        return this.httpClient.post<customerCreateAddResponse>(
-            this.controllerUrl3,
-            createCustomerAddRequest
-        );
-    }
+  searchCustomer(searchRequest: CustomerSearchRequest): Observable<CustomerSearchResponse[]> {
+    return this.httpClient.post<CustomerSearchResponse[]>(
+      `${this.controllerUrl}/search`,
+      searchRequest
+    );
+  }
 
+  searchCustomerNatId(searchNatIdRequest: searchNatIDRequest): Observable<CustomerSearchResponse[]> {
+    return this.httpClient.post<CustomerSearchResponse[]>(
+      `${this.controllerUrl}/search`,
+      searchNatIdRequest
+    );
+  }
 
-   }
+  createCustomerInfo(createInfoRequest: customerCreateInfoRequest): Observable<customerCreateInfoResponse> {
+    return this.httpClient.post<customerCreateInfoResponse>(
+      `${this.controllerUrl}/create`,
+      createInfoRequest
+    );
+  }
+
+  createCustomerContactMedium(createCustContactMedRequest: customerCreateContactMedRequest): Observable<customerCreateContactMedResponse[]> {
+    return this.httpClient.post<customerCreateContactMedResponse[]>(
+      `${this.controllerUrl2}/create`,
+      createCustContactMedRequest
+    );
+  }
+
+  createCustomerAddress(createCustomerAddRequest: customerCreateAddRequest): Observable<customerCreateAddResponse> {
+    return this.httpClient.post<customerCreateAddResponse>(
+      `${this.controllerUrl3}`,
+      createCustomerAddRequest
+    );
+  }
+
+  getCustomerDetails(customerId: string): Observable<customerDetailsResponse> {
+    return this.httpClient.get<customerDetailsResponse>(
+      `${this.controllerUrl}/${customerId}`
+    );
+  }
+
+  getContactDetails(customerId: string): Observable<contactMediumInfoResponse> {
+    return this.httpClient.get<contactMediumInfoResponse>(
+      `${this.controllerUrl2}/${customerId}`);
+  }
+
+}
