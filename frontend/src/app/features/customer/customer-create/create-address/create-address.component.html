@@ -21,7 +21,7 @@
                         [disabled]="!addressForm.get('city')?.value" 
                         [ngClass]="{'error': addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)}">
                     <option value="" disabled>Select a district</option>
-                    <option *ngFor="let district of districts" [ngValue]="district.id">{{ district.name }}</option>
+                    <option *ngFor="let district of districts" [ngValue]="district">{{ district.name }}</option>
                 </select>
                 <div *ngIf="addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)" class="error-message">
                     District cannot be empty.

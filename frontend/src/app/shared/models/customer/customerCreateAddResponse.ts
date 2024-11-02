@@ -3,4 +3,5 @@ export interface customerCreateAddResponse{
     districtId: String;
     postalCode: String;
     description: String;
+    flatNumber?:String;
     }

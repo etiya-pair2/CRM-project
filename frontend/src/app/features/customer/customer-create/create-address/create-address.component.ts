@@ -23,6 +23,7 @@ export class CreateAddressComponent implements OnInit {
   cities: customerGetCityResponse[] = []; // Dinamik şehir listesi
   districts: customerGetDisctrictsByCityIdResponse[] = []; // Dinamik ilçe listesi
   
+  
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +36,8 @@ export class CreateAddressComponent implements OnInit {
       city: ['', Validators.required],
       district: [{ value: '', disabled: true }, Validators.required],
       postalCode: ['', Validators.required],
-      addressDescription: ['', Validators.required]
+      addressDescription: ['', Validators.required],
+      flatNumber: ['']
     });
   }
 
@@ -70,22 +72,25 @@ export class CreateAddressComponent implements OnInit {
     if (this.addressForm.invalid) {
       return; // Form geçersizse gönderimi engelle
     }
-
+  
     const createCustomerAddRequest: customerCreateAddRequest = { 
       customerId: this.customerId!, 
-      districtId: this.addressForm.value.districtId, 
+      districtId: this.addressForm.value.district.id, 
       postalCode: this.addressForm.value.postalCode, 
-      description: this.addressForm.value.addressDescription 
+      description: this.addressForm.value.addressDescription,
+      flatNumber: this.addressForm.value.flatNumber !== undefined ? this.addressForm.value.flatNumber : "" // Flat number boşsa boş string gönder
     };
-
+  
     this.customerService.createCustomerAddress(createCustomerAddRequest).subscribe(
       (response: customerCreateAddResponse) => {
-        this.toastr.success("Customer address created successfully!")
+        this.toastr.success("Müşteri adresi başarıyla oluşturuldu!");
         this.router.navigate(['/customer/contactMedium'], { queryParams: { customerId: response.customerId } });
       },
       (error: any) => {
-        console.error('Error occurred while creating customer address:', error);
+        console.error('Müşteri adresi oluşturulurken bir hata oluştu:', error);
       }
     );
   }
+  
+  
 }
