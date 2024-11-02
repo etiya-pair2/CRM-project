@@ -25,7 +25,7 @@ export class AddressComponent {
   newAddress = { city: '', district: '', postalcode: '', description: '' }; // Yeni adres bilgileri
   
   customerId?: string;
-  district: string='';
+  districtId: string='';
   postalCode: string='';
   addressDescription:string='';
 
@@ -52,7 +52,7 @@ export class AddressComponent {
 
     const createCustomerAddRequest: customerCreateAddRequest = { 
       customerId: this.customerId!, 
-      district: this.district, 
+      districtId: this.districtId, 
       postalCode: this.postalCode, 
       description: this.addressDescription 
     };

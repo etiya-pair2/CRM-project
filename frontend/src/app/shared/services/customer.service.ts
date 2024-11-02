@@ -14,6 +14,8 @@ import { customerCreateAddRequest } from '../models/customer/customerCreateAddRe
 import { customerCreateAddResponse } from '../models/customer/customerCreateAddResponse';
 import { customerDetailsResponse } from '../models/customer/customerDetailsResponse';
 import { contactMediumInfoResponse } from '../models/customer/contactMediumInfoResponse';
+import {customerGetCityResponse} from '../models/customer/customerGetCityResponse';
+import { customerGetDisctrictsByCityIdResponse } from '../models/customer/customerGetDisctrictsByCityIdResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,9 @@ export class CustomerService {
   private readonly controllerUrl = `${environment.MS_V1_API_URL}/customer/individualCustomers`;
   private readonly controllerUrl2 = `${environment.MS_V1_API_URL}/customer/contactMediums`;
   private readonly controllerUrl3 = `${environment.MS_V1_API_URL}/customer/addresses`;
+  private readonly controllerUrl4=`${environment.MS_V1_API_URL}/customer/cities`;
+  private readonly controllerUrl5=`${environment.MS_V1_API_URL}/customer/districts`;
+
 
   constructor(private httpClient: HttpClient) {}
 
@@ -55,7 +60,7 @@ export class CustomerService {
 
   createCustomerAddress(createCustomerAddRequest: customerCreateAddRequest): Observable<customerCreateAddResponse> {
     return this.httpClient.post<customerCreateAddResponse>(
-      `${this.controllerUrl3}`,
+      `${this.controllerUrl3}/create`,
       createCustomerAddRequest
     );
   }
@@ -70,5 +75,14 @@ export class CustomerService {
     return this.httpClient.get<contactMediumInfoResponse>(
       `${this.controllerUrl2}/${customerId}`);
   }
+
+  getCity(): Observable<customerGetCityResponse[]> {
+    return this.httpClient.get<customerGetCityResponse[]>(`${this.controllerUrl4}/getAll`);
+}
+
+getDistrictsByCityId(id: string): Observable<customerGetDisctrictsByCityIdResponse[]> {
+    return this.httpClient.get<customerGetDisctrictsByCityIdResponse[]>(`${this.controllerUrl5}/getCityId/${id}`);
+}
+
 
 }
