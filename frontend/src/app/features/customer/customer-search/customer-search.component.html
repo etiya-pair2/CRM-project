@@ -7,6 +7,7 @@
   <form [formGroup]="searchForm" (ngSubmit)="search()">
     <div class="container">
       <div class="filters">
+        <h2>Filters</h2> <!-- Filters başlığı eklendi -->
         <label for="natId">Nationality ID</label>
         <input id="natId" formControlName="natId" />
 
@@ -40,16 +41,12 @@
           <button type="submit" [disabled]="!isSearchEnabled">SEARCH</button>
         </div>
       </div>
+
       <div class="results">
+        <h2>Results</h2> <!-- Results başlığı eklendi -->
         <div
           *ngIf="results.length === 0 && searched && isSearchEnabled"
-          style="
-            text-align: center;
-            font-size: larger;
-            padding-top: 20px;
-            margin-top: 150px;
-            color: white;
-          "
+          style="text-align: center; font-size: larger; padding-top: 20px; margin-top: 150px; color: white;"
         >
           NO CUSTOMER FOUND! WOULD YOU LIKE TO CREATE THE CUSTOMER?
           <button
@@ -83,22 +80,12 @@
 
         <div
           *ngIf="!isSearchEnabled && !searched"
-          style="
-            text-align: center;
-            font-size: larger;
-            padding-top: 60px;
-            color: white;
-            margin-top: 150px;
-          "
+          style="text-align: center; font-size: larger; padding-top: 60px; color: white; margin-top: 150px;"
         >
           PLEASE AT LEAST FILL ONE AREA TO MAKE A RESEARCH
-          <!-- Araştırma yapmak için en az bir alan girin mesajı -->
         </div>
-        <table
-          class="table"
-          *ngIf="results.length > 0 && searched && isSearchEnabled"
-        >
-          <!-- Tablo yalnızca sonuç varsa ve arama yapılmışsa gösterilecek -->
+        
+        <table class="table" *ngIf="results.length > 0 && searched && isSearchEnabled">
           <thead>
             <tr>
               <th scope="col">Customer ID</th>
@@ -122,6 +109,7 @@
         </table>
       </div>
     </div>
+
     <div class="pagination">
       <button
         (click)="previousPage()"
@@ -129,7 +117,6 @@
         class="previousButton"
       >
         &lt;
-        <!-- Sol ok -->
       </button>
       <span
         style="
@@ -144,7 +131,8 @@
           gap: 10px;
           margin: 0 10px;
         "
-        >Page {{ page }} of {{ totalPages }}
+      >
+        Page {{ page }} of {{ totalPages }}
       </span>
       <button
         (click)="nextPage()"
@@ -152,7 +140,6 @@
         class="nextButton"
       >
         &gt;
-        <!-- Sağ ok -->
       </button>
     </div>
   </form>
