@@ -1,30 +1,34 @@
 <div class="navbar">
   <a
     class="tab"
-    href="/customer/generalInfo"
+    routerLink="/customer/generalInfo"
+    routerLinkActive="active"
     [class.active]="activeTab === 'generalInfo'"
-    (click)="setActiveTab('generalInfo')"
+    (click)="setActiveTab('generalInfo'); $event.preventDefault()"
     >Customer Info</a
   >
   <a
     class="tab"
-    href="/customer/customerAccount"
+    routerLink="/customer/customerAccount"
+    routerLinkActive="active"
     [class.active]="activeTab === 'customerAccount'"
-    (click)="setActiveTab('customerAccount')"
+    (click)="setActiveTab('customerAccount'); $event.preventDefault()"
     >Customer Account</a
   >
   <a
     class="tab"
-    href="/customer/addressInfo"
+    routerLink="/customer/addressInfo"
+    routerLinkActive="active"
     [class.active]="activeTab === 'address'"
-    (click)="setActiveTab('address')"
+    (click)="setActiveTab('address'); $event.preventDefault()"
     >Address</a
   >
   <a
     class="tab"
-    href="/customer/contactMediumInfo"
+    routerLink="/customer/contactMediumInfo"
+    routerLinkActive="active"
     [class.active]="activeTab === 'contactMedium'"
-    (click)="setActiveTab('contactMedium')"
+    (click)="setActiveTab('contactMedium'); $event.preventDefault()"
     >Contact Medium</a
   >
 </div>

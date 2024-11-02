@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
