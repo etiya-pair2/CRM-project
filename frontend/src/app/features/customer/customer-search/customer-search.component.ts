@@ -20,12 +20,16 @@ export class CustomerSearchComponent implements OnInit {
   results: CustomerSearchResponse[] = [];
   isSearchEnabled = false;
   searched = false;
+  page = 1;
+  pageSize = 10;
+  totalResults = 0;
 
-  page: number = 1;
-  pageSize: number = 10;
-  totalResults: number = 0;
-
-  constructor(private fb: FormBuilder, private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private customerService: CustomerService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.searchForm = this.fb.group({
       natId: [''],
       customerId: [''],
@@ -36,76 +40,54 @@ export class CustomerSearchComponent implements OnInit {
     }, { validators: this.nameValidator });
 
     this.searchForm.valueChanges.subscribe(() => {
-      // En az bir alanın dolu olup olmadığını kontrol et
-      this.isSearchEnabled = this.searchForm.valid ||
+      this.isSearchEnabled = this.searchForm.valid || 
         Object.values(this.searchForm.controls).some(control => control.value);
     });
+  }
 
-  }
-  navigateToCreateCustomer() {
-    this.router.navigate(['customer/create']);
-  }
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const natIdFromParams = params['natId'];
       if (natIdFromParams) {
-        this.searchForm.patchValue({
-          natId: natIdFromParams
-        });
-        //TODO: Yapı karmaşık oluşturulmuş
-        this.isSearchEnabled = true
-        this.search()
+        this.searchForm.patchValue({ natId: natIdFromParams });
+        this.isSearchEnabled = true;
+        this.search();
       }
     });
   }
 
-
-
   search(): void {
-    if (this.isSearchEnabled) {
-      const searchRequest = Object.entries(this.searchForm.value).reduce((acc: any, [key, value]) => {
-        if (value) {
-          acc[key] = value;
-        }
-        return acc;
-      }, {} as CustomerSearchRequest);
+    if (!this.isSearchEnabled) return;
 
-      this.customerService.searchCustomer(searchRequest).subscribe(
-        (response) => {
-          this.results = response;
-          this.totalResults = response.length;
-          this.searched = true; // Arama yapıldı
-          if (this.results.length === 0) {
-            this.results = []; // Eğer sonuç boşsa yine de results dizisi sıfırlanmış olur
-          }
-        },
-        (error) => {
-          console.error('Search failed', error);
-          this.results = [];
-          this.searched = true; // Arama yapıldı olarak işaretle
-        }
-      );
-    }
+    const searchRequest: CustomerSearchRequest = Object.fromEntries(
+      Object.entries(this.searchForm.value).filter(([, value]) => value)
+    );
+
+    console.log('Search Request:', searchRequest);
+
+    this.customerService.searchCustomer(searchRequest).subscribe(
+      (response) => {
+        this.results = response.map(customer => ({
+          customerId: customer.customerId,
+          firstName: customer.firstName,
+          lastName: customer.lastName,
+          nationalityId: customer.nationalityId,
+          mobilePhone: customer.contactMediumList[0]?.mobilePhone || '',
+          accNumber: customer.billingAccountList[0]?.accountNumber || '',
+          contactMediumList: customer.contactMediumList,
+          billingAccountList: customer.billingAccountList
+        }));
+
+        this.totalResults = this.results.length;
+        this.searched = true;
+      },
+      (error) => {
+        console.error('Search failed', error);
+        this.results = [];
+        this.searched = true; 
+      }
+    );
   }
-
-
-  private nameValidator(form: FormGroup) {
-    const firstName = form.get('firstName')?.value;
-    const lastName = form.get('lastName')?.value;
-
-    // Eğer her ikisi de boşsa geçerli
-    if (!firstName && !lastName) {
-      return null; // Geçerli
-    }
-
-    // Eğer biri doluysa diğeri de dolu olmalı
-    if ((firstName && !lastName) || (!firstName && lastName)) {
-      return { nameRequired: true }; // Geçersiz
-    }
-
-    return null; // Her ikisi de dolu ise geçerli
-  }
-
 
   clear(): void {
     this.searchForm.reset();
@@ -120,13 +102,13 @@ export class CustomerSearchComponent implements OnInit {
     return this.results.slice(start, start + this.pageSize);
   }
 
-  nextPage() {
+  nextPage(): void {
     if (this.page * this.pageSize < this.totalResults) {
       this.page++;
     }
   }
 
-  previousPage() {
+  previousPage(): void {
     if (this.page > 1) {
       this.page--;
     }
@@ -134,5 +116,15 @@ export class CustomerSearchComponent implements OnInit {
 
   get totalPages() {
     return Math.ceil(this.totalResults / this.pageSize);
+  }
+
+  private nameValidator(form: FormGroup) {
+    const { firstName, lastName } = form.controls;
+    if (!firstName.value && !lastName.value) return null;
+    return (firstName.value && !lastName.value) || (!firstName.value && lastName.value) ? { nameRequired: true } : null;
+  }
+
+  navigateToCreateCustomer() {
+    this.router.navigate(['customer/create']);
   }
 }

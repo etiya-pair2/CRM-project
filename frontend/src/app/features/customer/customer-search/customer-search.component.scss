@@ -125,7 +125,7 @@ button:last-child:disabled {
 
   .pagination .previousButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: 15px; /* Alt kenara 10px mesafe */
+    bottom: 40px; /* Alt kenara 10px mesafe */
     left: 50%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */
@@ -138,7 +138,7 @@ button:last-child:disabled {
   }
   .pagination .nextButton {
     position: absolute; /* Mutlak konumlandırma */
-    bottom: 15px; /* Alt kenara 10px mesafe */
+    bottom: 40px; /* Alt kenara 10px mesafe */
     left: 60%; /* Sol kenarı ortalamak için */
     transform: translateX(-50%); /* Gerçek ortalamak için sola kaydırma */
     cursor: pointer; /* İmleç değişimi */
