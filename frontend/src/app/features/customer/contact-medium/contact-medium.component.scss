@@ -1,0 +1,54 @@
+.contact-container {
+    background-color: #b0afc6;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    border: 2px solid #4c4b59;
+    width: 80%; 
+    margin: 20px auto; 
+  
+    .contact-details {
+      flex: 1;
+      padding-top: 3%;
+  
+      p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #333;
+      }
+  
+      strong {
+        font-weight: bold;
+      }
+    }
+  
+    .edit-button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+      height: 40px;
+      width: 80px;;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 16px; 
+        height: 16px;
+        background: url('../../../../assets/images/EditIcon.svg') no-repeat center;
+        background-size: contain;
+        margin-right: 5px;
+    }
+
+    &:hover {
+        background-color: #555;
+    }
+    }
+  }
+  

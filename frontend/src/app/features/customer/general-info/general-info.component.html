@@ -1,23 +1,23 @@
 <app-main-layout></app-main-layout>
 <app-navbar></app-navbar>
-<div class="customer-info-container">
-    <h2>Customer Info <span class="icon edit"></span><span class="icon delete"></span></h2>
-    <div class="info-grid">
-      <div class="info-row">
-        <span>First Name:</span><span>{{ customer.firstName || ' ' }}</span>
-        <span>Middle Name:</span><span>{{ customer.middleName || ' ' }}</span>
-      </div>
-      <div class="info-row">
-        <span>Last Name:</span><span>{{ customer.lastName || ' ' }}</span>
-        <span>Birth Date:</span><span>{{ customer.birthDate || ' ' }}</span>
-      </div>
-      <div class="info-row">
-        <span>Gender:</span><span>{{ customer.gender || ' ' }}</span>
-        <span>Father Name:</span><span>{{ customer.fatherName || ' ' }}</span>
-      </div>
-      <div class="info-row">
-        <span>Mother Name:</span><span>{{ customer.motherName || ' ' }}</span>
-        <span>Nationality ID:</span><span>{{ customer.nationalityId || ' ' }}</span>
-      </div>
+<div class="customer-info-container" >
+  <h2>Customer Info <span class="icon edit"></span><span class="icon delete"></span></h2>
+  <div class="info-grid">
+    <div class="info-row">
+      <span>First Name:</span><span>{{ customer?.firstName || ' ' }}</span>
+      <span>Middle Name:</span><span>{{ customer?.middleName || ' ' }}</span>
     </div>
+    <div class="info-row">
+      <span>Last Name:</span><span>{{ customer?.lastName || ' ' }}</span>
+      <span>Birth Date:</span><span>{{ customer?.birthday | date:'dd/MM/yyyy'  || ' ' }}</span>
+    </div>
+    <div class="info-row">
+      <span>Gender:</span><span>{{ customer?.gender || ' ' }}</span>
+      <span>Father Name:</span><span>{{ customer?.fatherName || ' ' }}</span>
+    </div>
+    <div class="info-row">
+      <span>Mother Name:</span><span>{{ customer?.motherName || ' ' }}</span>
+      <span>Nationality ID:</span><span>{{ customer?.nationalityId || ' ' }}</span>
+    </div>
+  </div>
 </div>
