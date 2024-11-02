@@ -1,6 +1,7 @@
 export interface customerCreateAddResponse{
     customerId: String;
-    district: String;
+    districtId: String;
     postalCode: String;
     description: String;
+    flatNumber?:String;
     }

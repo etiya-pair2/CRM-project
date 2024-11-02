@@ -63,7 +63,7 @@ export class CustomerInfoComponent implements OnInit {
     this.customerService.createCustomerInfo(createInfoRequest).subscribe(
       (response) => {
         this.toastr.success("Müşteri Başarlı Bir Şekilde Oluşturuldu!")
-        this.router.navigate(['/customer/contactMedium'], { queryParams: { customerId: response.customerId } });
+        this.router.navigate(['/customer/address'], { queryParams: { customerId: response.customerId } });
 
       },
       (error) => {
