@@ -1,6 +1,7 @@
 package com.etiya.customerservice.service.concretes;
 
 import com.etiya.customerservice.dto.individualCustomer.*;
+import com.etiya.customerservice.entity.Customer;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
@@ -78,5 +79,11 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
             getAllIndividualCustomerResponseList.add(indCustMapper.individualCustomerFromGetAllResponse(individualCustomer));
         }
         return getAllIndividualCustomerResponseList;
+    }
+
+    @Override
+    public GetByIdIndividualCustomerResponse findById(UUID customerId) {
+        Optional<IndividualCustomer> individualCustomer = individualCustomerRepository.findById(customerId);
+        return individualCustomer.map(customer -> indCustMapper.getIndividualCustomerById(customer)).orElse(null);
     }
 }

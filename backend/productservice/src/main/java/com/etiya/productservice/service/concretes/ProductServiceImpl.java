@@ -1,6 +1,5 @@
 package com.etiya.productservice.service.concretes;
 
-import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.dto.product.*;
 import com.etiya.productservice.entity.Attribute;
 import com.etiya.productservice.entity.Campaign;
@@ -9,6 +8,7 @@ import com.etiya.productservice.mapper.ProductMapper;
 import com.etiya.productservice.repository.ProductRepository;
 import com.etiya.productservice.rules.ProductBusinessRules;
 import com.etiya.productservice.service.abstracts.ProductService;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

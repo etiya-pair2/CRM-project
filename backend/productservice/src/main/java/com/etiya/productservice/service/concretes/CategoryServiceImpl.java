@@ -1,12 +1,12 @@
 package com.etiya.productservice.service.concretes;
 
-import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.dto.category.*;
 import com.etiya.productservice.entity.Category;
 import com.etiya.productservice.mapper.CategoryMapper;
 import com.etiya.productservice.repository.CategoryRepository;
 import com.etiya.productservice.rules.CategoryBusinessRules;
 import com.etiya.productservice.service.abstracts.CategoryService;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

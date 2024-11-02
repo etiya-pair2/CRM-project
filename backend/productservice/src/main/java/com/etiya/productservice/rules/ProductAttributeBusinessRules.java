@@ -1,9 +1,9 @@
 package com.etiya.productservice.rules;
 
-import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.repository.AttributeRepository;
 import com.etiya.productservice.repository.ProductAttributeRepository;
 import com.etiya.productservice.repository.ProductRepository;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,11 +1,11 @@
 package com.etiya.productservice.rules;
 
-import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.entity.Campaign;
 import com.etiya.productservice.entity.Product;
 import com.etiya.productservice.repository.CampaignProductRepository;
 import com.etiya.productservice.repository.CampaignRepository;
 import com.etiya.productservice.repository.ProductRepository;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

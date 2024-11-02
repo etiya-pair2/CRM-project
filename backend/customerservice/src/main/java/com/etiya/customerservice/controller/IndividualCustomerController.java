@@ -1,6 +1,8 @@
 package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.dto.individualCustomer.*;
+import com.etiya.customerservice.entity.Customer;
+import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mernis.RISKPSPublicSoap;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import jakarta.validation.Valid;
@@ -60,5 +62,10 @@ public class IndividualCustomerController {
 
         return individualCustomerService.searchCustomer(request);
 
+    }
+
+    @GetMapping("/search/{id}")
+    public GetByIdIndividualCustomerResponse findById(@PathVariable UUID id) {
+        return individualCustomerService.findById(id);
     }
 }
