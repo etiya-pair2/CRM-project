@@ -18,6 +18,43 @@
     margin-right: 20px;
     max-width: 25%; /* Genişliği sınırlamak için */
 }
+.select-container {
+    position: relative; /* İçeriklerin pozisyonunu ayarlamak için */
+    margin-bottom: 10px; /* Alt boşluk */
+}
+
+.select-wrapper {
+    position: relative; /* Aşağı açılan ok simgesi için konum ayarı */
+}
+
+.custom-select {
+    padding: 5px; /* İç boşluk */
+    border-radius: 5px; /* Köşe yuvarlama */
+    border: 1px solid #bab9ca; /* Kenar rengi */
+    height: 25px; /* Yükseklik */
+    width: 100%; /* Genişlik */
+    appearance: none; /* Varsayılan stil kaldır */
+    background-color: white; /* Arka plan rengi */
+}
+
+/* Aşağı açılan ok simgesi */
+.select-arrow {
+    position: absolute;
+    top: 50%; /* Dikey olarak ortalama */
+    right: 10px; /* Sağdan boşluk */
+    transform: translateY(-50%); /* Ortalamak için */
+    pointer-events: none; /* Ok simgesine tıklanamaz hale getir */
+    font-size: 12px; /* Ok simgesi boyutu */
+    color: #29294a; /* Renk */
+}
+
+/* Seçenek kutusunun stili için isteğe bağlı olarak */
+.custom-select:focus {
+    border-color: #29294a; /* Fokus durumunda kenar rengi */
+    outline: none; /* Dış çerçeve yok */
+}
+
+
 .title {
     color: #29294a;
     font-weight: bold;  /* Kalın yazı için */

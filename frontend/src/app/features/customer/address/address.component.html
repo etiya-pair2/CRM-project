@@ -24,25 +24,56 @@
 <div *ngIf="isPopupVisible" class="popup">
   <div class="popup-content">
     <h4>Create New Address</h4>
-    <div>
-      <label for="city">City*</label>
-      <input id="city" [(ngModel)]="newAddress.city" />
-    </div>
-    <div>
-      <label for="district">District*</label>
-      <input id="district" [(ngModel)]="newAddress.district" />
-    </div>
-    <div>
-      <label for="postalcode">Postal Code*</label>
-      <input id="postalcode" [(ngModel)]="newAddress.postalcode" />
-    </div>
-    <div>
-      <label for="description">Address Description</label>
-      <input id="description" [(ngModel)]="newAddress.description" />
-    </div>
-    <div class="buttons">
-      <button (click)="closePopup()">Cancel</button>
-      <button (click)="saveAddress()">Save</button>
-    </div>
+    <form (ngSubmit)="saveAddress()" #addressForm="ngForm">
+      <div>
+        <label for="city">City*</label>
+        <select
+          id="city"
+          [(ngModel)]="newAddress.city"
+          name="city"
+          (change)="onCityChange()"
+          required
+        >
+          <option *ngFor="let city of cities" [ngValue]="city">
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="district">District*</label>
+        <select
+          id="district"
+          [(ngModel)]="newAddress.district"
+          name="district"
+          [disabled]="!newAddress.city"
+          required
+        >
+          <option *ngFor="let district of districts" [ngValue]="district">
+            {{ district.name }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="postalcode">Postal Code*</label>
+        <input
+          id="postalcode"
+          [(ngModel)]="newAddress.postalcode"
+          name="postalcode"
+          required
+        />
+      </div>
+      <div>
+        <label for="description">Address Description</label>
+        <input
+          id="description"
+          [(ngModel)]="newAddress.description"
+          name="description"
+        />
+      </div>
+      <div class="buttons">
+        <button type="button" (click)="closePopup()">Cancel</button>
+        <button type="submit">Save</button>
+      </div>
+    </form>
   </div>
 </div>

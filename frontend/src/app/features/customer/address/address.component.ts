@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout.component';
 import { CommonModule } from '@angular/common';
@@ -7,64 +7,96 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CustomerService } from '../../../shared/services/customer.service';  
 import { customerCreateAddRequest } from '../../../shared/models/customer/customerCreateAddRequest';
 import { customerCreateAddResponse } from '../../../shared/models/customer/customerCreateAddResponse';
+import { customerGetCityResponse } from '../../../shared/models/customer/customerGetCityResponse';
+import { customerGetDisctrictsByCityIdResponse } from '../../../shared/models/customer/customerGetDisctrictsByCityIdResponse';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-address',
   standalone: true,
   imports: [NavbarComponent, MainLayoutComponent, CommonModule, FormsModule, RouterModule],
   templateUrl: './address.component.html',
-  styleUrl: './address.component.scss'
+  styleUrls: ['./address.component.scss']
 })
-export class AddressComponent {
-  addresses = [
-    { city: 'New York', district: 'Manhattan', postalcode: '10001', description: '123 Main St' },
-    { city: 'Los Angeles', district: 'Hollywood', postalcode: '90028', description: '456 Sunset Blvd' },
-    { city: 'Brisbane', district: 'QLD', postalcode: '4000', description: '27 George St' }
-  ]; // Kayıtlı adresler
-  isPopupVisible = false; // Pop-up görünürlüğü
-  newAddress = { city: '', district: '', postalcode: '', description: '' }; // Yeni adres bilgileri
+export class AddressComponent implements OnInit {
+  addresses: { city: string; district: string; postalcode: string; description: string; }[] = [];
+  isPopupVisible = false;
+  newAddress = { city: null as customerGetCityResponse | null, district: null as customerGetDisctrictsByCityIdResponse | null, postalcode: '', description: '' };
   
   customerId?: string;
-  districtId: string='';
-  postalCode: string='';
-  addressDescription:string='';
+  cities: customerGetCityResponse[] = [];
+  districts: customerGetDisctrictsByCityIdResponse[] = [];
 
-  constructor( private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {};
-    
+  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, 
+              private toastr: ToastrService) {}
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.customerId = params['customerId'];
     });
+
+    // Şehirleri yükle
+    this.customerService.getCity().subscribe((response: customerGetCityResponse[]) => {
+      this.cities = response;
+    });
   }
+
   showCreateAddressPopup() {
-    this.isPopupVisible = true; // Pop-up'ı göster
+    this.isPopupVisible = true;
   }
 
   closePopup() {
-    this.isPopupVisible = false; // Pop-up'ı kapat
-    this.newAddress = { city: '', district: '', postalcode: '', description: '' }; // Temizle
+    this.isPopupVisible = false;
+    this.newAddress = { city: null, district: null, postalcode: '', description: '' }; // Temizle
+  }
+
+  onCityChange(): void {
+    const selectedCity = this.newAddress.city; // Seçilen şehir nesnesini al
+    // İlçeleri yükle
+    if (selectedCity && selectedCity.id) {
+      const cityId = selectedCity.id;
+      this.customerService.getDistrictsByCityId(cityId).subscribe((response: customerGetDisctrictsByCityIdResponse[]) => {
+        this.districts = response; // API'den gelen ilçeleri al
+      });
+    } else {
+      this.districts = [];
+    }
   }
 
   saveAddress() {
-    // Yeni adresi mevcut adresler listesine ekle
-    this.addresses.push({ ...this.newAddress });
-    this.closePopup(); // Pop-up'ı kapat
-
-    const createCustomerAddRequest: customerCreateAddRequest = { 
-      customerId: this.customerId!, 
-      districtId: this.districtId, 
-      postalCode: this.postalCode, 
-      description: this.addressDescription 
+    if (!this.newAddress.city || !this.newAddress.district || !this.newAddress.postalcode) {
+      //console.error('Form is invalid', this.newAddress);
+      return; // Form geçersizse gönderimi engelle
+    }
+  
+    //console.log('Submitting Address:', this.newAddress); // Burada newAddress'ı kontrol edin
+  
+    const districtId = this.newAddress.district ? this.newAddress.district.id : null;
+  
+    if (!districtId) {
+      //console.error('District ID is null');
+      return; // Eğer districtId null ise, fonksiyondan çık
+    }
+  
+    const createCustomerAddRequest: customerCreateAddRequest = {
+      customerId: this.customerId!,
+      districtId: districtId,
+      postalCode: this.newAddress.postalcode, // Burada kontrol edin
+      description: this.newAddress.description // Burada kontrol edin
     };
-
+  
     this.customerService.createCustomerAddress(createCustomerAddRequest).subscribe(
       (response: customerCreateAddResponse) => {
-        console.log('Customer address created successfully:', response);
-        //this.router.navigate(['/customer/contactMedium']); 
+        this.toastr.success("Customer address created successfully!");
       },
       (error: any) => {
         console.error('Error occurred while creating customer address:', error);
       }
     );
   }
+  
+  
+
 }
+
+
