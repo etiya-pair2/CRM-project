@@ -1,12 +1,12 @@
 package com.etiya.productservice.service.concretes;
 
-import com.etiya.productservice.core.configuration.exceptions.type.BusinessException;
 import com.etiya.productservice.dto.offer.*;
 import com.etiya.productservice.entity.Offer;
 import com.etiya.productservice.mapper.OfferMapper;
 import com.etiya.productservice.repository.OfferRepository;
 import com.etiya.productservice.rules.OfferBusinessRules;
 import com.etiya.productservice.service.abstracts.OfferService;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,8 +66,6 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Offer findById(UUID id) {
         Optional<Offer> offer= offerRepository.findById(id);
-        if(offer.isPresent())
-            return offerRepository.findById(id).orElseThrow();
-        return null;
+        return offer.orElse(null);
     }
 }

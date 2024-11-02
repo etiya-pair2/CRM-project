@@ -40,22 +40,24 @@ body {
     display: block;
     font-size: 14px;
     color: #FFFFFF;
-    margin-bottom: 2px; /* Slightly reduce margin */
+    margin-bottom: 2px;
 }
 
 .form-container input,
-.form-container textarea {
+.form-container textarea,
+.form-container select { /* Select kutuları için stil ekleyin */
     width: 100%;
     padding: 8px;
-    margin-bottom: 10px; /* Reduced margin between fields */
+    margin-bottom: 10px;
     border: none;
     border-radius: 5px;
 }
 
 .form-container input.error,
-.form-container textarea.error {
-    border: 1px solid red; /* Error state border */
-    background-color: #FFE6E6; /* Light pink background for error state */
+.form-container textarea.error,
+.form-container select.error { /* Hata durumu için stil ekleyin */
+    border: 1px solid red;
+    background-color: #FFE6E6;
 }
 
 .button-container {
@@ -78,13 +80,13 @@ body {
 }
 
 .error-message {
-    color: red; /* Error message color */
-    font-size: 10px; /* Font size for error messages */
-    margin-top: 2px; /* Reduced top margin for error messages */
-    display: block; /* Display as block */
-    font-weight: bold; /* Bold font for error messages */
+    color: red;
+    font-size: 10px;
+    margin-top: 2px;
+    display: block;
+    font-weight: bold;
 }
 
 .form-group {
-    margin-bottom: 15px; /* Reduced margin between form groups */
+    margin-bottom: 15px;
 }

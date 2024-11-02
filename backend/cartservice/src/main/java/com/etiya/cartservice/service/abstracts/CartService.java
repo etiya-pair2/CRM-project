@@ -9,7 +9,8 @@ import java.util.UUID;
 
 public interface CartService {
 
-    void add(UUID customerId,UUID productId);
+    void add(CreateCartItemRequest request);
      Map<String, Cart> getAllItems();
+     Cart getCartByCustomerId(UUID customerId);
 
 }

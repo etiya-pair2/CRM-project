@@ -5,8 +5,11 @@
         <form [formGroup]="addressForm" (ngSubmit)="next()">
             <div class="form-group">
                 <label for="city">City*</label>
-                <input type="text" id="city" formControlName="city" 
-                       [ngClass]="{'error': addressForm.get('city')?.invalid && (addressForm.get('city')?.touched)}">
+                <select id="city" formControlName="city" (change)="onCityChange()" 
+                        [ngClass]="{'error': addressForm.get('city')?.invalid && (addressForm.get('city')?.touched)}">
+                    <option value="" disabled>Select a city</option>
+                    <option *ngFor="let city of cities" [ngValue]="city">{{ city.name }}</option>
+                </select>
                 <div *ngIf="addressForm.get('city')?.invalid && (addressForm.get('city')?.touched)" class="error-message">
                     City cannot be empty.
                 </div>
@@ -14,8 +17,12 @@
 
             <div class="form-group">
                 <label for="district">District*</label>
-                <input type="text" id="district" formControlName="district" 
-                       [ngClass]="{'error': addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)}">
+                <select id="district" formControlName="district" 
+                        [disabled]="!addressForm.get('city')?.value" 
+                        [ngClass]="{'error': addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)}">
+                    <option value="" disabled>Select a district</option>
+                    <option *ngFor="let district of districts" [ngValue]="district">{{ district.name }}</option>
+                </select>
                 <div *ngIf="addressForm.get('district')?.invalid && (addressForm.get('district')?.touched)" class="error-message">
                     District cannot be empty.
                 </div>

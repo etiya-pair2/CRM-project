@@ -27,8 +27,5 @@ public class CreateAddressRequest {
     @NotBlank(message = "Lütfen Adres Açıklamasını doldurunuz")
     private String description;
 
-
-    @NotNull
-    @NotBlank(message = "Lütfen Kapı Numarasını Giriniz")
     private String flatNumber;
 }

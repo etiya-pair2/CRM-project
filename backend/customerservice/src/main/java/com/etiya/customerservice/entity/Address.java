@@ -27,13 +27,10 @@ public class Address {
     @ManyToOne
     private Customer customer;
 
-
     @JoinColumn(name = "district_id")
     @ManyToOne
     private District district;
 
-    @NotNull
-    @NotBlank
     @Column(name = "postal_code")
     private String postalCode;
 
@@ -43,8 +40,6 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private BillingAccount billingAccount;
 
-    @NotNull
-    @NotBlank
     @Column(name = "flat_number")
     private String flatNumber;
 }

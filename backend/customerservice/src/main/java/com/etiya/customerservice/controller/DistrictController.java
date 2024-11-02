@@ -22,8 +22,8 @@ public class DistrictController {
 
         return districtService.getAll();
     }
-    @GetMapping("/{getById}")
-    public ResponseEntity<GetByIdDistrictResponse> getById(@PathVariable("getById") UUID id) {
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<GetByIdDistrictResponse> getById(@PathVariable UUID id) {
         if (districtService.getById(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -47,5 +47,10 @@ public class DistrictController {
     @PutMapping("/update")
     public UpdateDistrictResponse update(@RequestBody @Valid UpdateDistrictRequest request){
         return districtService.update(request);
+    }
+    @GetMapping("/getCityId/{id}")
+    public ResponseEntity<List<GetByCityIdDistrictResponse>> getDistrictsFromCity(@PathVariable UUID id) {
+        List<GetByCityIdDistrictResponse> districts = districtService.getDistrictsFromCity(id);
+        return  new ResponseEntity<>(districts,HttpStatus.OK);
     }
 }

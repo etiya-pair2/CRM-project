@@ -1,6 +1,7 @@
 export interface customerCreateAddRequest{
 customerId: String;
-district: String;
+districtId: String;
 postalCode: String;
 description: String;
+flatNumber?:String;
 }

@@ -25,9 +25,9 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/{customerId}/products/{productId}")
-    public ResponseEntity<Void> addProductToCart(@PathVariable UUID customerId, @PathVariable UUID productId) {
-        cartService.add(customerId, productId);
+    @PostMapping("/customer-cart/product")
+    public ResponseEntity<Void> addProductToCart(@RequestBody CreateCartItemRequest request) {
+        cartService.add(request);
         return ResponseEntity.ok().build();
     }
 
@@ -44,6 +44,11 @@ public class CartController {
     @GetMapping
     public ResponseEntity<Map<String, Cart>> getAllCarts() {
         return ResponseEntity.ok(cartService.getAllItems());
+    }
+
+    @GetMapping("/getCartByCustomerId/{customerId}")
+    public ResponseEntity<Cart> getCartByCustomerId(@PathVariable UUID customerId){
+        return ResponseEntity.ok(cartService.getCartByCustomerId(customerId));
     }
 }
 

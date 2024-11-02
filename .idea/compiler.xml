@@ -26,8 +26,8 @@
         <module name="identityservice" />
         <module name="customerservice" />
         <module name="productservice" />
-        <module name="orderservice" />
         <module name="cartservice" />
+        <module name="orderservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

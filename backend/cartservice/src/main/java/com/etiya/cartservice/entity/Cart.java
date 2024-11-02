@@ -11,12 +11,12 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-
 public class Cart implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private UUID id;
     private UUID customerId;
-    private Date createdDate;
-    private Date updatedDate;
     private Boolean status;
     private double totalPrice;
     private List<CartItem> cartItems;
