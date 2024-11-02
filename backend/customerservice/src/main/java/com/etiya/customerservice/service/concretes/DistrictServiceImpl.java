@@ -57,4 +57,14 @@ public class DistrictServiceImpl implements DistrictService {
                 new RuntimeException("District not found with ID: " + districtId));
         return DistrictMapper.INSTANCE.getDistrictById(district);
     }
+
+    @Override
+    public List<GetByCityIdDistrictResponse> getDistrictsFromCity(UUID id) {
+        List<District> districts= districtRepository.findByCityId(id);
+        List<GetByCityIdDistrictResponse> getAll= new ArrayList<>();
+        for(District district:districts){
+            getAll.add(DistrictMapper.INSTANCE.getDistrictByCityId(district));
+        }
+        return getAll;
+    }
 }

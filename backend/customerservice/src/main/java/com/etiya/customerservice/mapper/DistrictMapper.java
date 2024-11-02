@@ -24,6 +24,8 @@ public interface DistrictMapper {
     GetAllDistrictResponse districtFromGetAllResponse(District district);
     @Mapping(source = "city.id",target="cityId" )
     GetByIdDistrictResponse getDistrictById(District district);
+
+    GetByCityIdDistrictResponse getDistrictByCityId(District district);
     @Mapping(source = "cityId",target="city.id" )
     District districtFromCreateRequest(CreateDistrictRequest request);
     @Mapping(source = "cityId",target="city.id" )

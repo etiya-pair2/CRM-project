@@ -16,4 +16,6 @@ public interface DistrictService {
     List<GetAllDistrictResponse> getAll();
 
     GetByIdDistrictResponse getById(UUID id);
+
+    List<GetByCityIdDistrictResponse> getDistrictsFromCity(UUID id);
 }
