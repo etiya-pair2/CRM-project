@@ -64,7 +64,7 @@ export class CustomerInfoComponent implements OnInit {
       (response) => {
         this.toastr.success("Müşteri Başarlı Bir Şekilde Oluşturuldu!")
         this.router.navigate(['/customer/address'], { queryParams: { customerId: response.customerId } });
-
+        this.customerService.setCustomerId(response.customerId);
       },
       (error) => {
         const errorMessages = error.error?.message || "Bir Hata Oluştu";

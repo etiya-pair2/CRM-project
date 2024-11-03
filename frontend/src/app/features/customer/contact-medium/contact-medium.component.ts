@@ -20,16 +20,14 @@ export class ContactMediumComponent implements OnInit {
     private customerService: CustomerService) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const customerId = params['customerId'];
-      if (customerId) {
-        this.fetchContactDetails(customerId);
-      }
-    });
+    const contactMediumId = this.customerService.getContactMediumId(); // Statik olarak ayarlanan id'yi alıyoruz
+    if (contactMediumId) {
+      this.fetchContactDetails(contactMediumId);
+    }
   }
 
-  fetchContactDetails(customerId: string) {
-    this.customerService.getContactDetails(customerId).subscribe(
+  fetchContactDetails(contactMediumId: string) {
+    this.customerService.getContactDetails(contactMediumId).subscribe(
       (response: contactMediumInfoResponse) => {
         this.contact = response;
         console.log(response);

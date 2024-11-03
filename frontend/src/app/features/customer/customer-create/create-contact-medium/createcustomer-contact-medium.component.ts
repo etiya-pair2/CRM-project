@@ -14,6 +14,7 @@ import { Component } from "@angular/core";
   templateUrl: './createcustomer-contact-medium.component.html',
   styleUrl: './createcustomer-contact-medium.component.scss'
 })
+
 export class CreatecustomerContactMediumComponent {
   email:string= '';
   mobilePhone:string='';
@@ -26,54 +27,55 @@ export class CreatecustomerContactMediumComponent {
   customerId?: string ;
  
   constructor( private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {};
-
+ 
+  
   ngOnInit(): void {   
     this.route.queryParams.subscribe(params => {
       this.customerId = params['customerId']; 
     });
-}
+      }
   onInputChange() {
     this.isNextEnabled = this.email.trim().length > 0 && this.mobilePhone.trim().length > 0; // Boş değilse aktif et
   }
 
   
   next(): void {
-      this.showError = false; 
+    this.showError = false; 
   
-      if (!this.email) {
-        this.emailErrorMessage = 'E-mail cannot be empty.';
-        this.showError = true;
-      }
-      
-      if (!this.mobilePhone) {
-        this.mobilePhoneErrorMessage = 'Mobile Phone cannot be empty.';
-        this.showError = true;
-      }
-  
-      if (this.showError) {
-        return; 
-      }
-  
-      
-      const customerCreateContactMedRequest: customerCreateContactMedRequest = { 
-        email: this.email, 
-        mobilePhone: this.mobilePhone, 
-        homePhone: this.homePhone, 
-        fax: this.fax ,
-        customerId: this.customerId! 
-      }
-        
-      this.customerService.createCustomerContactMedium(customerCreateContactMedRequest).subscribe(
-        (response: customerCreateContactMedResponse[]) => {
-          console.log('Customer contact medium created successfully:', response);
-          this.router.navigate(['/customer/generalInfo'],{ queryParams: { customerId: this.customerId } });
-        },
-        (error: any) => {
-          console.error('Error occurred while creating customer contact medium:', error);
-        }
-      );
+    if (!this.email) {
+      this.emailErrorMessage = 'E-mail cannot be empty.';
+      this.showError = true;
+    }
     
+    if (!this.mobilePhone) {
+      this.mobilePhoneErrorMessage = 'Mobile Phone cannot be empty.';
+      this.showError = true;
+    }
+  
+    if (this.showError) {
+      return; 
+    }
+  
+    const customerCreateContactMedRequest: customerCreateContactMedRequest = { 
+      email: this.email, 
+      mobilePhone: this.mobilePhone, 
+      homePhone: this.homePhone, 
+      fax: this.fax,
+      customerId: this.customerId!
+    }
+  
+    this.customerService.createCustomerContactMedium(customerCreateContactMedRequest).subscribe(
+      (response: customerCreateContactMedResponse) => {
+        console.log('Customer contact medium created successfully:', response);
+        this.customerService.setContactMediumId(response.id);
+        this.router.navigate(['/customer/generalInfo'], { queryParams: { customerId: this.customerId } });
+      },
+      (error: any) => {
+        console.error('Error occurred while creating customer contact medium:', error);
+      }
+    );
   }
+  
   
   
   

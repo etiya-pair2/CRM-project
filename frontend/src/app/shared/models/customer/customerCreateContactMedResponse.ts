@@ -1,5 +1,6 @@
 export interface customerCreateContactMedResponse{
-    customerId: string
+    id:string,
+    customerId: string,
     email:string,
     homePhone?:string,
     mobilePhone:string,

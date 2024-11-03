@@ -26,9 +26,27 @@ export class CustomerService {
   private readonly controllerUrl3 = `${environment.MS_V1_API_URL}/customer/addresses`;
   private readonly controllerUrl4=`${environment.MS_V1_API_URL}/customer/cities`;
   private readonly controllerUrl5=`${environment.MS_V1_API_URL}/customer/districts`;
+  private customerId: string | null = null;
+  private contactMediumId:string | null = null;
 
 
   constructor(private httpClient: HttpClient) {}
+  setCustomerId(id: string): void {
+    this.customerId = id;
+  }
+
+  // Müşteri ID'sini almak için getter
+  getCustomerId(): string | null {
+    return this.customerId;
+  }
+
+  setContactMediumId(id: string): void {
+    this.contactMediumId = id;
+  }
+
+  getContactMediumId(): string | null {
+    return this.contactMediumId;
+  }
 
   searchCustomer(searchRequest: CustomerSearchRequest): Observable<CustomerSearchResponse[]> {
     return this.httpClient.post<CustomerSearchResponse[]>(
@@ -51,12 +69,13 @@ export class CustomerService {
     );
   }
 
-  createCustomerContactMedium(createCustContactMedRequest: customerCreateContactMedRequest): Observable<customerCreateContactMedResponse[]> {
-    return this.httpClient.post<customerCreateContactMedResponse[]>(
+  createCustomerContactMedium(createCustContactMedRequest: customerCreateContactMedRequest): Observable<customerCreateContactMedResponse> {
+    return this.httpClient.post<customerCreateContactMedResponse>(
       `${this.controllerUrl2}/create`,
       createCustContactMedRequest
     );
   }
+  
 
   createCustomerAddress(createCustomerAddRequest: customerCreateAddRequest): Observable<customerCreateAddResponse> {
     return this.httpClient.post<customerCreateAddResponse>(
@@ -71,16 +90,16 @@ export class CustomerService {
     );
   }
 
-  getContactDetails(customerId: string): Observable<contactMediumInfoResponse> {
+  getContactDetails(contactMediumId: string): Observable<contactMediumInfoResponse> {
     return this.httpClient.get<contactMediumInfoResponse>(
-      `${this.controllerUrl2}/${customerId}`);
+      `${this.controllerUrl2}/${contactMediumId}`);
   }
 
   getCity(): Observable<customerGetCityResponse[]> {
     return this.httpClient.get<customerGetCityResponse[]>(`${this.controllerUrl4}/getAll`);
 }
 
-getDistrictsByCityId(id: string): Observable<customerGetDisctrictsByCityIdResponse[]> {
+  getDistrictsByCityId(id: string): Observable<customerGetDisctrictsByCityIdResponse[]> {
     return this.httpClient.get<customerGetDisctrictsByCityIdResponse[]>(`${this.controllerUrl5}/getCityId/${id}`);
 }
 

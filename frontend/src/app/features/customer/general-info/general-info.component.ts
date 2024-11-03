@@ -26,12 +26,11 @@ export class GeneralInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const customerId = params['customerId'];
-      if (customerId) {
-        this.fetchCustomerDetails(customerId);
-      }
-    });
+    const customerId = this.customerService.getCustomerId();
+    if (customerId) {
+      this.fetchCustomerDetails(customerId);
+    }
+    
   }
 
   fetchCustomerDetails(customerId: string) {
