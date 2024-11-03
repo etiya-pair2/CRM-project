@@ -15,4 +15,6 @@ public interface AddressService {
     List<GetAllAddressResponse> getAll();
 
     GetByIdAddressResponse getById(UUID id);
+
+    List<GetAddressByCustomerIdResponse> getAddressesFromCustomer(UUID id);
 }

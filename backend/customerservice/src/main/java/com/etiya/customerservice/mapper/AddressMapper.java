@@ -33,4 +33,6 @@ public interface AddressMapper {
     @Mapping(source = "customerId",target="customer.id")
     @Mapping(source = "districtId",target="district.id")
     Address addressFromUpdateRequest(UpdateAddressRequest request);
+
+    GetAddressByCustomerIdResponse getAddressByCustomerId(Address address);
 }

@@ -7,7 +7,6 @@ import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.rules.AddressBusinessRules;
 import com.etiya.customerservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,5 +60,15 @@ public class AddressServiceImpl implements AddressService {
     public GetByIdAddressResponse getById(UUID id) {
         Address address = addressBusinessRules.checkIfAddressExist(id);
         return AddressMapper.INSTANCE.getAddressById(address);
+    }
+
+    @Override
+    public List<GetAddressByCustomerIdResponse> getAddressesFromCustomer(UUID id) {
+        List<Address> addresses= addressRepository.findByCustomerId(id);
+        List<GetAddressByCustomerIdResponse> getAll= new ArrayList<>();
+        for(Address address:addresses){
+            getAll.add(AddressMapper.INSTANCE.getAddressByCustomerId(address));
+        }
+        return getAll;
     }
 }

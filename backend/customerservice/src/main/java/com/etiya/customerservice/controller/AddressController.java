@@ -49,4 +49,10 @@ public class AddressController {
     public UpdateAddressResponse update(@RequestBody @Valid UpdateAddressRequest request){
         return addressService.update(request);
     }
+
+    @GetMapping("/getCustomerId/{id}")
+    public ResponseEntity<List<GetAddressByCustomerIdResponse>> getAddressesFromCustomer(@PathVariable UUID id) {
+        List<GetAddressByCustomerIdResponse> addresses = addressService.getAddressesFromCustomer(id);
+        return new ResponseEntity<>(addresses,HttpStatus.OK);
+    }
 }
