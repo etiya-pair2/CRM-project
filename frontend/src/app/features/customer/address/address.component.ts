@@ -10,6 +10,7 @@ import { customerCreateAddResponse } from '../../../shared/models/customer/custo
 import { customerGetCityResponse } from '../../../shared/models/customer/customerGetCityResponse';
 import { customerGetDisctrictsByCityIdResponse } from '../../../shared/models/customer/customerGetDisctrictsByCityIdResponse';
 import { ToastrService } from 'ngx-toastr';
+import { customerGetAddressByCustomerIdResponse } from '../../../shared/models/customer/customerGetAddressByCustomerIdResponse';
 
 @Component({
   selector: 'app-address',
@@ -21,25 +22,54 @@ import { ToastrService } from 'ngx-toastr';
 export class AddressComponent implements OnInit {
   addresses: { city: string; district: string; postalcode: string; description: string; }[] = [];
   isPopupVisible = false;
-  newAddress = { city: null as customerGetCityResponse | null, district: null as customerGetDisctrictsByCityIdResponse | null, postalcode: '', description: '' };
-  
+  newAddress = { 
+    city: null as customerGetCityResponse | null, 
+    district: null as customerGetDisctrictsByCityIdResponse | null, 
+    postalcode: '', 
+    description: '' 
+  };
+
   customerId?: string;
   cities: customerGetCityResponse[] = [];
   districts: customerGetDisctrictsByCityIdResponse[] = [];
   submitted = false;
 
-  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, 
-              private toastr: ToastrService) {}
+  constructor(
+    private customerService: CustomerService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.customerId = params['customerId'];
-    });
+    // ActivatedRoute üzerinden customerId'yi al
 
+    const customerId = this.customerService.getCustomerId();
+      if (customerId) {
+        this.getAddresses(customerId);
+      }
+  
     // Şehirleri yükle
     this.customerService.getCity().subscribe((response: customerGetCityResponse[]) => {
       this.cities = response;
     });
+  }
+
+  getAddresses(customerId: string) {
+    this.customerService.getAddressByCustomerId(customerId).subscribe(
+      (response: customerGetAddressByCustomerIdResponse[]) => {
+        this.addresses = response.map(address => ({
+          city: address.cityName || 'Unknown', // Şehir bilgisi
+          district: address.districtName || 'Unknown', // İlçe bilgisi
+          postalcode: address.postalCode,
+          description: address.description
+        }));
+      },
+      (error) => {
+        console.error('Error fetching addresses:', error);
+        this.toastr.error("Error fetching addresses.");
+      }
+    );
   }
 
   showCreateAddressPopup() {
@@ -48,16 +78,14 @@ export class AddressComponent implements OnInit {
 
   closePopup() {
     this.isPopupVisible = false;
-    this.newAddress = { city: null, district: null, postalcode: '', description: '' }; // Temizle
+    this.newAddress = { city: null, district: null, postalcode: '', description: '' };
   }
 
   onCityChange(): void {
-    const selectedCity = this.newAddress.city; // Seçilen şehir nesnesini al
-    // İlçeleri yükle
+    const selectedCity = this.newAddress.city;
     if (selectedCity && selectedCity.id) {
-      const cityId = selectedCity.id;
-      this.customerService.getDistrictsByCityId(cityId).subscribe((response: customerGetDisctrictsByCityIdResponse[]) => {
-        this.districts = response; // API'den gelen ilçeleri al
+      this.customerService.getDistrictsByCityId(selectedCity.id).subscribe((response: customerGetDisctrictsByCityIdResponse[]) => {
+        this.districts = response;
       });
     } else {
       this.districts = [];
@@ -65,40 +93,32 @@ export class AddressComponent implements OnInit {
   }
 
   saveAddress() {
-    this.submitted = true; // Form gönderildi olarak işaretle
+    this.submitted = true;
     if (!this.newAddress.city || !this.newAddress.district || !this.newAddress.postalcode) {
-      //console.error('Form is invalid', this.newAddress);
-      return; // Form geçersizse gönderimi engelle
+      return; 
     }
   
-    //console.log('Submitting Address:', this.newAddress); // Burada newAddress'ı kontrol edin
-  
     const districtId = this.newAddress.district ? this.newAddress.district.id : null;
-  
     if (!districtId) {
-      //console.error('District ID is null');
-      return; // Eğer districtId null ise, fonksiyondan çık
+      return; 
     }
   
     const createCustomerAddRequest: customerCreateAddRequest = {
       customerId: this.customerId!,
       districtId: districtId,
-      postalCode: this.newAddress.postalcode, // Burada kontrol edin
-      description: this.newAddress.description // Burada kontrol edin
+      postalCode: this.newAddress.postalcode,
+      description: this.newAddress.description
     };
   
     this.customerService.createCustomerAddress(createCustomerAddRequest).subscribe(
       (response: customerCreateAddResponse) => {
         this.toastr.success("Customer address created successfully!");
+        this.closePopup();
+        this.getAddresses(this.customerId!); // Adresleri tekrar yükle
       },
       (error: any) => {
         console.error('Error occurred while creating customer address:', error);
       }
     );
   }
-  
-  
-
 }
-
-

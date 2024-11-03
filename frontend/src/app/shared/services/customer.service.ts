@@ -16,6 +16,7 @@ import { customerDetailsResponse } from '../models/customer/customerDetailsRespo
 import { contactMediumInfoResponse } from '../models/customer/contactMediumInfoResponse';
 import {customerGetCityResponse} from '../models/customer/customerGetCityResponse';
 import { customerGetDisctrictsByCityIdResponse } from '../models/customer/customerGetDisctrictsByCityIdResponse';
+import { customerGetAddressByCustomerIdResponse } from '../models/customer/customerGetAddressByCustomerIdResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,12 @@ export class CustomerService {
   getDistrictsByCityId(id: string): Observable<customerGetDisctrictsByCityIdResponse[]> {
     return this.httpClient.get<customerGetDisctrictsByCityIdResponse[]>(`${this.controllerUrl5}/getCityId/${id}`);
 }
+
+getAddressByCustomerId(customerId: string): Observable<customerGetAddressByCustomerIdResponse[]> {
+  return this.httpClient.get<customerGetAddressByCustomerIdResponse[]>(`${this.controllerUrl3}/getCustomerId/${customerId}`);
+}
+
+
 
 
 }

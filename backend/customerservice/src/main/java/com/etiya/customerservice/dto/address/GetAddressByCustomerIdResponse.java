@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GetAddressByCustomerIdResponse {
     private UUID id;
-    private UUID districtId;
+    private String districtName;
     private String postalCode;
     private String description;
     private String flatNumber;
