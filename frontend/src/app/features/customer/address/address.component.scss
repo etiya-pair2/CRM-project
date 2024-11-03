@@ -31,11 +31,14 @@
     padding: 5px; /* İç boşluk */
     border-radius: 5px; /* Köşe yuvarlama */
     border: 1px solid #bab9ca; /* Kenar rengi */
-    height: 25px; /* Yükseklik */
+    height: auto; /* Yüksekliği otomatik ayarlama */
+    min-height: 30px; /* Minimum yükseklik belirleme */
     width: 100%; /* Genişlik */
     appearance: none; /* Varsayılan stil kaldır */
     background-color: white; /* Arka plan rengi */
+    line-height: 1.5; /* Satır yüksekliğini ayarlama */
 }
+
 
 /* Aşağı açılan ok simgesi */
 .select-arrow {
@@ -60,6 +63,7 @@
     font-weight: bold;  /* Kalın yazı için */
     text-align: left;   /* Sol hizalama */
     margin-left: 35px;  /* Sağ kaydırma için boşluk */
+    
 }
 .title-divider {
     border: none;         /* Kenar çizgisi yok */
@@ -67,15 +71,18 @@
     background-color: #29294a; /* Çizgi rengi */
     margin-top: 10px;    /* Başlık ile çizgi arasındaki boşluk */
     margin-bottom: 20px; /* Çizgi ile altındaki içerik arasındaki boşluk */
+    
 }
 .create-address-btn {
     padding: 5px 10px; /* Butonun iç boşlukları */
-    border-radius: 15px; /* Yuvarlak köşeler için */
+    border-radius: 10px; /* Yuvarlak köşeler için */
     background-color: #242441; /* Arka plan rengi */
     color: white; /* Metin rengi */
     border: none; /* Kenarlık yok */
     cursor: pointer; /* Fare imlecini gösterir */
     transition: background-color 0.3s; /* Hover geçiş efekti */
+    
+    
 }
 
 .create-address-btn:hover {
@@ -84,23 +91,27 @@
 
 .header-container {
     display: flex;              
-    justify-content: flex-start; /* Başlık ve butonu sola hizala */
+    justify-content: space-between; /* Başlık ve butonu baştan sona yayarak yerleştir */
     align-items: center;        
     margin-bottom: 10px;       
 }
 
 .title {
-    margin-right: 1050px; /* Başlık ile buton arasında boşluk */
+    margin-right: 20px; /* Başlık ile buton arasında daha az boşluk bırak */
+    flex: 1; /* Başlık alanının esnek olmasını sağlar */
 }
 input {
-    padding: 5px;
+    padding: 5px; /* İç boşluk */
     margin-top: 10px; /* Label ile input arasında boşluk */
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #bab9ca;
-    height: 25px;
+    height: auto; /* Yüksekliği otomatik ayarlama */
+    min-height: 30px; /* Minimum yükseklik belirleme */
     width: 100%; /* Input alanlarının genişliği tam olsun */
+    line-height: 1.5; /* Satır yüksekliğini ayarlama */
 }
+
 
 .buttons {
     display: flex;
@@ -144,3 +155,12 @@ button:hover {
     text-align: center;
     border: 2px solid #A1A0B4; 
 }
+.invalid {
+    border: 1px solid red; // Geçersiz alanlar için kırmızı kenarlık
+}
+.error-message {
+    color: rgb(116, 15, 15); // Hata mesajı rengi
+    margin-top: 3px; // Üst boşluk
+    text-align: center; // Ortala
+}
+  

@@ -26,6 +26,7 @@ export class AddressComponent implements OnInit {
   customerId?: string;
   cities: customerGetCityResponse[] = [];
   districts: customerGetDisctrictsByCityIdResponse[] = [];
+  submitted = false;
 
   constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, 
               private toastr: ToastrService) {}
@@ -64,6 +65,7 @@ export class AddressComponent implements OnInit {
   }
 
   saveAddress() {
+    this.submitted = true; // Form gönderildi olarak işaretle
     if (!this.newAddress.city || !this.newAddress.district || !this.newAddress.postalcode) {
       //console.error('Form is invalid', this.newAddress);
       return; // Form geçersizse gönderimi engelle

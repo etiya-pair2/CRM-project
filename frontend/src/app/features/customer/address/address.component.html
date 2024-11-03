@@ -1,12 +1,15 @@
 <app-main-layout></app-main-layout>
 <app-navbar></app-navbar>
+
 <div class="header-container">
   <h3 class="title">Customer Address</h3>
   <button (click)="showCreateAddressPopup()" class="create-address-btn">
     Create New Address
   </button>
 </div>
+
 <hr class="title-divider" />
+
 <div *ngIf="addresses.length > 0; else noAddress" class="address-list">
   <div *ngFor="let address of addresses" class="address-item">
     <p><strong>City:</strong> {{ address.city }}</p>
@@ -16,6 +19,7 @@
     <hr />
   </div>
 </div>
+
 <ng-template #noAddress>
   <p>No addresses found. Please add one.</p>
 </ng-template>
@@ -25,7 +29,7 @@
   <div class="popup-content">
     <h4>Create New Address</h4>
     <form (ngSubmit)="saveAddress()" #addressForm="ngForm">
-      <div>
+      <div class="select-container">
         <label for="city">City*</label>
         <select
           id="city"
@@ -33,13 +37,19 @@
           name="city"
           (change)="onCityChange()"
           required
+          class="custom-select"
+          [ngClass]="{ invalid: submitted && !newAddress.city }"
         >
+          <option value="" disabled selected>Select a city</option>
           <option *ngFor="let city of cities" [ngValue]="city">
             {{ city.name }}
           </option>
         </select>
+        <div *ngIf="submitted && !newAddress.city" class="error-message">
+          This field is required.
+        </div>
       </div>
-      <div>
+      <div class="select-container">
         <label for="district">District*</label>
         <select
           id="district"
@@ -47,11 +57,17 @@
           name="district"
           [disabled]="!newAddress.city"
           required
+          class="custom-select"
+          [ngClass]="{ invalid: submitted && !newAddress.district }"
         >
+          <option value="" disabled selected>Select a district</option>
           <option *ngFor="let district of districts" [ngValue]="district">
             {{ district.name }}
           </option>
         </select>
+        <div *ngIf="submitted && !newAddress.district" class="error-message">
+          This field is required.
+        </div>
       </div>
       <div>
         <label for="postalcode">Postal Code*</label>
@@ -60,7 +76,12 @@
           [(ngModel)]="newAddress.postalcode"
           name="postalcode"
           required
+          class="input-field"
+          [ngClass]="{ invalid: submitted && !newAddress.postalcode }"
         />
+        <div *ngIf="submitted && !newAddress.postalcode" class="error-message">
+          This field is required.
+        </div>
       </div>
       <div>
         <label for="description">Address Description</label>
@@ -68,11 +89,12 @@
           id="description"
           [(ngModel)]="newAddress.description"
           name="description"
+          class="input-field"
         />
       </div>
       <div class="buttons">
         <button type="button" (click)="closePopup()">Cancel</button>
-        <button type="submit">Save</button>
+        <button type="submit" (click)="saveAddress()">Save</button>
       </div>
     </form>
   </div>
