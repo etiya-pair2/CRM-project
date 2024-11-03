@@ -60,6 +60,17 @@ services:
     networks:
       - common
 
+  #REDIS
+  cartservice.db:
+    image: redis:latest
+    container_name: cartservice.db
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - common
+
   #MONGO
   orderservice.db:
     container_name: orderservice.db
@@ -206,12 +217,28 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=podman
 
+  cart:
+    image: "localhost/cartservice"
+    container_name: "cartservice"
+    build: ./cartservice
+    ports:
+      -  "8085:8085"
+    networks:
+      - common
+    environment:
+      - SPRING_PROFILES_ACTIVE=podman
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      eureka:
+        condition: service_healthy
 
 volumes:
   mysql_data2:
   postgres_data:
   postgres_data2:
   mongo_data:
+  redis_data:
 
 networks:
   common:
