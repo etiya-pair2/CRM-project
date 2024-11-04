@@ -36,7 +36,7 @@ export class CustomerService {
     this.customerId = id;
   }
 
-  // Müşteri ID'sini almak için getter
+  
   getCustomerId(): string | null {
     return this.customerId;
   }
@@ -104,11 +104,9 @@ export class CustomerService {
     return this.httpClient.get<customerGetDisctrictsByCityIdResponse[]>(`${this.controllerUrl5}/getCityId/${id}`);
 }
 
-getAddressByCustomerId(customerId: string): Observable<customerGetAddressByCustomerIdResponse[]> {
+  getAddressByCustomerId(customerId: string): Observable<customerGetAddressByCustomerIdResponse[]> {
   return this.httpClient.get<customerGetAddressByCustomerIdResponse[]>(`${this.controllerUrl3}/getCustomerId/${customerId}`);
 }
-
-
 
 
 }

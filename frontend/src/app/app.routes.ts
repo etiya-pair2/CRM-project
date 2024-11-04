@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { authGuard } from './shared/guards/auth.guard';
-import { CreatecustomerComponent } from './features/customer/customer-create/createcustomer/createcustomer.component';
-import { CustomerSearchComponent } from './features/customer/customer-search/customer-search.component';
 
-// Lazy Loading
+
 export const routes: Routes = [
   {
     path: '',
@@ -20,7 +17,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'forgot-password', // Forgot Password için route
+    path: 'forgot-password', 
     loadComponent: () =>
       import('../app/shared/pages/forgot-password/forgot-password.component').then(
         (c) => c.ForgotPasswordComponent

@@ -2,11 +2,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Standalone component'ı doğrudan yükleyin
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'search', // Ana rotayı doğrudan login sayfasına yönlendiriyoruz
+    redirectTo: 'search', 
     pathMatch: 'full',
   },
   {
