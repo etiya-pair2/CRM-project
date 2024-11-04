@@ -8,6 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface DistrictRepository extends JpaRepository<District, UUID> {
-
     List<District> findByCityId(UUID id);
 }
