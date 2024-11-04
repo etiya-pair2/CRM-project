@@ -4,11 +4,7 @@ import { catchError, finalize, tap } from 'rxjs';
 import { StorageService } from '../services/storage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // req => request (giden istek)
-  // next => isteği devam ettirecek fonksiyon.
-  //HTTP isteklerine otomatik olarak token ekleyerek, kullanıcı doğrulama süreçlerini yönetir.
-
-  // fn bazlı DI
+  
   const storageService = inject(StorageService);
 
   req = req.clone({
@@ -22,7 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       console.log('Interceptor isteğin bitttiğini yakaldı..');
     }),
     catchError((err) => {
-      // global hata yönetimi
+      
       console.log('interceptor hata yakaladı:', err);
       throw err;
     })

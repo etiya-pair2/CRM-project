@@ -4,7 +4,9 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -15,12 +17,11 @@ import java.util.UUID;
 public class Order {
     @Id
     private UUID id;
-
     private UUID billingAccountId;
     private UUID userId;
     private UUID orderAddressId;
-    private Date date;
-
+    private LocalDate date;
+    private List<Product> products;
     public Order() {
         this.id = UUID.randomUUID();
     }

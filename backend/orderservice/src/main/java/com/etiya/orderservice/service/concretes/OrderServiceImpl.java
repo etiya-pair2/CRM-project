@@ -1,16 +1,19 @@
 package com.etiya.orderservice.service.concretes;
 
+import com.etiya.event.OrderCreatedEvent;
 import com.etiya.orderservice.client.ProductServiceClient;
 import com.etiya.orderservice.dto.order.*;
 import com.etiya.orderservice.entity.Order;
+import com.etiya.orderservice.entity.Product;
 import com.etiya.orderservice.mapper.OrderMapper;
 import com.etiya.orderservice.repository.OrderRepository;
 import com.etiya.orderservice.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,8 +23,9 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductServiceClient productServiceClient;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final StreamBridge streamBridge;
     OrderMapper orderMapper = OrderMapper.INSTANCE;
+
 
     @Override
     public List<GetAllOrderResponse> getAll() {
@@ -30,9 +34,25 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CreateOrderResponse create(CreateOrderRequest request) {
-        Order order = orderRepository.save(orderMapper.orderFromCreateRequest(request));
+
+        List<Product> response = new ArrayList<>();
+
+
+        Order order = new Order();
+        order.setDate(LocalDate.now());
+        order.setBillingAccountId(request.getBillingAccountId());
+        order.setProducts(response);
+//      orderRepository.save(order);
+
+        // Diğer 5 servis bir işlem yapacak..
+        // Kafka -> NewOrderCreated -> { id:1, customerId:2, products:[] }
+        // Subscriber-(Consumer) -> NewOrderCreated kafkada ne zaman oluşturulsa ben onu alıp işlicem.
+        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
+//        orderCreatedEvent.setId(order.getId());  //TO DO
+        streamBridge.send("orderCreatedEvent-out-0", orderCreatedEvent);
         return orderMapper.orderFromCreateResponse(order);
     }
+
 
     @Override
     public UpdateOrderResponse update(UpdateOrderRequest request) {
@@ -56,34 +76,6 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + id));
     }
 
-
-//    @Override
-//    public void add(CreateOrderRequest createOrderRequest) {
-///*        // Customer bilgileri
-//
-//
-//        List<Product> response = productServiceClient.findAllByIds(
-//                createOrderRequest.getProducts().stream().map(ProductForOrderDto::getProductId).toList()
-//        );
-//
-//        //TODO: Refactor as business rules.
-//        // OrderBusinessRules.AllProductsShouldExist()
-//        if(response.size() != createOrderRequest.getProducts().size()) //
-//        {
-//            // Ürün sayısı uyuşmuyor..
-//        }
-//        // 293 -> 5 adet istenmiş stok yeterli mi?
-//        Order order = new Order();
-//        order.setOrderDate(LocalDate.now());
-//        order.setCustomerId(createOrderRequest.getCustomerId());
-//        order.setProducts(response);
-//        orderRepository.save(order); // Sipariş alındı.
-//
-//        // Diğer 5 servis bir işlem yapacak..
-//        // Kafka -> NewOrderCreated -> { id:1, customerId:2, products:[] }
-//        // Subscriber-(Consumer) -> NewOrderCreated kafkada ne zaman oluşturulsa ben onu alıp işlicem.
-//        kafkaTemplate.send("orderTopic", new OrderCreatedEvent(order.getId()));*/
-//    }
 
 
 }

@@ -113,6 +113,7 @@ services:
     networks:
       - common
 
+
   configserver:
     image: "localhost/configserver"
     container_name: configserver
@@ -232,6 +233,16 @@ services:
     depends_on:
       eureka:
         condition: service_healthy
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq3
+    ports:
+      - "5672:5672"  # RabbitMQ iletişim portu
+      - "15672:15672" # RabbitMQ yönetim konsolu portu
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
 volumes:
   mysql_data2:

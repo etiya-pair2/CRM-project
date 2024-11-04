@@ -19,17 +19,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateAddressComponent implements OnInit {
   addressForm: FormGroup;
-  customerId?: string;
+  customerId!: string; // ! ile tanımlama, kesin olarak atandığını belirtir // Müşteri ID'si zorunlu hale getirildi
   cities: customerGetCityResponse[] = []; // Dinamik şehir listesi
   districts: customerGetDisctrictsByCityIdResponse[] = []; // Dinamik ilçe listesi
-  
-  
 
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
     private router: Router,
-    private route: ActivatedRoute,
     private toastr: ToastrService
   ) {
     this.addressForm = this.fb.group({
@@ -42,9 +39,8 @@ export class CreateAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.customerId = params['customerId'];
-    });
+    // Customer ID'yi servisten al
+    this.customerId = this.customerService.getCustomerId()!; // Null kontrolü yapılabilir
 
     // Şehirleri yükle
     this.customerService.getCity().subscribe((response: customerGetCityResponse[]) => {
@@ -70,17 +66,18 @@ export class CreateAddressComponent implements OnInit {
 
   next(): void {
     if (this.addressForm.invalid) {
+      this.toastr.error("Lütfen tüm alanları doldurun.");
       return; // Form geçersizse gönderimi engelle
     }
-  
-    const createCustomerAddRequest: customerCreateAddRequest = { 
-      customerId: this.customerId!, 
-      districtId: this.addressForm.value.district.id, 
-      postalCode: this.addressForm.value.postalCode, 
+
+    const createCustomerAddRequest: customerCreateAddRequest = {
+      customerId: this.customerId,
+      districtId: this.addressForm.value.district.id,
+      postalCode: this.addressForm.value.postalCode,
       description: this.addressForm.value.addressDescription,
-      flatNumber: this.addressForm.value.flatNumber !== undefined ? this.addressForm.value.flatNumber : "" // Flat number boşsa boş string gönder
+      flatNumber: this.addressForm.value.flatNumber || "" // Flat number boşsa boş string gönder
     };
-  
+
     this.customerService.createCustomerAddress(createCustomerAddRequest).subscribe(
       (response: customerCreateAddResponse) => {
         this.toastr.success("Müşteri adresi başarıyla oluşturuldu!");
@@ -88,9 +85,8 @@ export class CreateAddressComponent implements OnInit {
       },
       (error: any) => {
         console.error('Müşteri adresi oluşturulurken bir hata oluştu:', error);
+        this.toastr.error("Müşteri adresi oluşturulurken bir hata oluştu.");
       }
     );
   }
-  
-  
 }

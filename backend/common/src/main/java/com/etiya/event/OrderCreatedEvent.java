@@ -1,24 +1,24 @@
 package com.etiya.event;
 
 
+import java.util.UUID;
+
 public class OrderCreatedEvent {
 
     public OrderCreatedEvent() {
     }
 
-    public OrderCreatedEvent(String id) {
-        this.id = id;
+    public OrderCreatedEvent(UUID id) {
+        this.id= id;
     }
 
-    private String id;
+    private UUID id;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 }
-// Pztesi: IDentity service test
-// Frontend

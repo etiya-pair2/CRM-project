@@ -11,7 +11,7 @@ import { TokenResponse } from '../models/auth/tokenResponse';
 export class AuthService {
   controllerUrl: string = `${environment.MS_V1_API_URL}/identity/auth`;
   constructor(private httpClient: HttpClient) {}
-  // any,unknown ❌
+
 
   login(loginRequest: LoginRequest): Observable<TokenResponse> {
     return this.httpClient.post<TokenResponse>(
