@@ -19,7 +19,7 @@ public class OrderDetail {
 
     @Id
     private UUID id;
-
+    private UUID orderId;
     private UUID productId;
     private int quantity;
     private double unitPrice;

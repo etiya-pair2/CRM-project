@@ -6,12 +6,12 @@ import com.etiya.customerservice.mernis.RISKPSPublicSoap;
 import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import io.github.sabaurgup.exceptions.type.BusinessException;
+import io.github.sabaurgup.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +23,8 @@ public class IndCustBusinessRules {
 
     private final CustomerRepository customerRepository;
 
+    private final MessageService messageServices;
+
     @SneakyThrows
     public void checkMernis(CreateIndividualCustomerRequest request)  {
         RISKPSPublicSoap client = new RISKPSPublicSoap();
@@ -33,7 +35,7 @@ public class IndCustBusinessRules {
         boolean isRealPerson = client.TCKimlikNoDogrula(Long.valueOf(request.getNationalityId()),fullName,
                 request.getLastName(), request.getBirthday().getYear());
         if(!isRealPerson){
-            throw new BusinessException("Müşterinin Kimlik Bilgileri Doğrulanamadı!");
+            throw new BusinessException(messageServices.getMessage("credentionals.verified"));
         }
     }
 

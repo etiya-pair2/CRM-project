@@ -1,6 +1,7 @@
 package com.etiya.orderservice.entity;
 
 import lombok.*;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Document(collection = "orders")
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID billingAccountId;
     private UUID userId;

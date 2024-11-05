@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setDate(LocalDate.now());
         order.setBillingAccountId(request.getBillingAccountId());
-        order.setProducts(response);
+        //order.setProducts(response);
 //      orderRepository.save(order);
 
         // Diğer 5 servis bir işlem yapacak..
@@ -50,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
 //        orderCreatedEvent.setId(order.getId());  //TO DO
         streamBridge.send("orderCreatedEvent-out-0", orderCreatedEvent);
+        orderRepository.save(order);
         return orderMapper.orderFromCreateResponse(order);
     }
 
