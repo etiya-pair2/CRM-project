@@ -147,6 +147,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.etiya</groupId>
             <artifactId>common</artifactId>
             <version>1.0</version>
