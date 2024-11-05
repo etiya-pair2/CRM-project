@@ -3,6 +3,7 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/backend/cartservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/backend/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/configserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/customerservice/src/main/java" charset="UTF-8" />
