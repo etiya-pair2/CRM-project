@@ -59,9 +59,7 @@ public class IndividualCustomerController {
 
     @PostMapping("/search")
     public List<GetAllIndividualCustomerResponse> searchCustomer(@RequestBody SearchIndCustomerRequest request) {
-
         return individualCustomerService.searchCustomer(request);
-
     }
 
     @GetMapping("/search/{id}")
