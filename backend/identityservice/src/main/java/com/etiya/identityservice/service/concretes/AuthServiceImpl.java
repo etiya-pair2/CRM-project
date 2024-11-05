@@ -11,21 +11,18 @@ import io.github.sabaurgup.security.BaseJwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService
+
 {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final BaseJwtService baseJwtService;
     private final AuthBusinessRules authBusinessRules;
-
 
     @Override
     public TokenResponse login(LoginRequest loginRequest) {
