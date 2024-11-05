@@ -1,11 +1,13 @@
 package com.etiya.identityservice;
 
 import com.etiya.identityservice.dto.Auth.LoginRequest;
+import com.etiya.identityservice.dto.Auth.RegisterRequest;
 import com.etiya.identityservice.dto.Auth.TokenResponse;
 import com.etiya.identityservice.entity.User;
 import com.etiya.identityservice.rules.AuthBusinessRules;
 import com.etiya.identityservice.service.abstracts.UserService;
 import com.etiya.identityservice.service.concretes.AuthServiceImpl;
+import io.github.sabaurgup.exceptions.type.BusinessException;
 import io.github.sabaurgup.security.BaseJwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,14 +92,13 @@ public class AuthServiceImplTest {
         });
         assertEquals("E-posta veya şifre hatalı.", exception.getMessage());
     }
-
-/*    @Test
+    @Test
     void testRegister_Success() {
         // Given
         String email = "test@example.com";
         String password = "password";
         String encodedPassword = "encodedPassword";
-        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "123456789", email, password);
+        RegisterRequest registerRequest = new RegisterRequest(email, password, "John", "Doe","12345678900"  );
 
         doNothing().when(authBusinessRules).checkIfEmailExist(email);
         when(passwordEncoder.encode(password)).thenReturn(encodedPassword);
@@ -115,24 +116,31 @@ public class AuthServiceImplTest {
         verify(passwordEncoder).encode(password);
         verify(userService).create(any(User.class));
         verify(baseJwtService).generateToken(user.getUsername());
-    }*/
+    }
 
-/*    @Test
+    @Test
     void testRegister_EmailAlreadyExists() {
         // Given
         String email = "test@example.com";
         String password = "password";
-        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "123456789", email, password);
+        RegisterRequest registerRequest = new RegisterRequest(email, password, "John", "Doe", "12345678900");
 
-        // Mocking the behavior of dependencies
-        doNothing().when(authBusinessRules).checkIfEmailExist(email);
+        // Mocking the behavior of checkIfEmailExist to throw BusinessException if email already exists
+        doThrow(new BusinessException("USER_EMAIL_ALREADY_EXISTS")).when(authBusinessRules).checkIfEmailExist(email);
 
-        // When & Then
-        BusinessException exception = assertThrows(BusinessException.class, () -> authServiceImpl.register(registerRequest));
-        assertEquals("USER_EMAIL_ALREADY_EXISTS", exception.getMessage()); // Hata mesajını kontrol et
+        // When & Then: E-posta zaten mevcut olduğunda BusinessException fırlatılmalı
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
+            authServiceImpl.register(registerRequest);
+        });
 
-        // Verify that the email check was performed
+        // Hata mesajını kontrol et
+        assertEquals("USER_EMAIL_ALREADY_EXISTS", exception.getMessage());
+
+        // Verifications: checkIfEmailExist metodu çağrıldı
         verify(authBusinessRules).checkIfEmailExist(email);
-        verifyNoInteractions(passwordEncoder, userService, baseJwtService); // Diğer metodların çağrılmadığını doğrula
-    }*/
+
+        // Verifying that no other interactions occur (other methods should not be called)
+        verifyNoInteractions(passwordEncoder, userService, baseJwtService);
+    }
+
 }
