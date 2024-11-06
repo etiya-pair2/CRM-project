@@ -25,7 +25,7 @@
         </processorPath>
         <module name="customerservice" />
       </profile>
-      <profile name="Annotation profile for identityservice" enabled="true">
+      <profile name="Annotation profile for productservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
