@@ -98,7 +98,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let result of paginatedResults">
-              <td>{{ result.customerId }}</td>
+              <td>{{ result.customerId | uuidShortener }}</td>
               <td>{{ result.firstName }}</td>
               <td>{{ result.lastName }}</td>
               <td>{{ result.accNumber }}</td>

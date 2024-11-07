@@ -8,6 +8,7 @@ import { authInterceptor } from './shared/interceptors/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideToastr } from 'ngx-toastr';
+import { UUIDShortenerPipe } from './shared/pipes/uuidShortener.pipe';
 
 // Global konfigürasyon yapısı (kod için)
 export const appConfig: ApplicationConfig = {
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])), // artık tüm uygulama http client kullanabilir
     provideAnimations(),
     provideToastr(),
+    UUIDShortenerPipe,
     // importProvidersFrom([TranslateModule.forRoot({
     //   loader: {
     //     provide: TranslateLoader,

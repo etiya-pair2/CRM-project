@@ -7,11 +7,12 @@ import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-la
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UUIDShortenerPipe } from "../../../shared/pipes/uuidShortener.pipe";
 
 @Component({
   selector: 'app-customer-search',
   standalone: true,
-  imports: [MainLayoutComponent, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [MainLayoutComponent, FormsModule, ReactiveFormsModule, CommonModule, UUIDShortenerPipe],
   templateUrl: './customer-search.component.html',
   styleUrls: ['./customer-search.component.scss']
 })
@@ -63,7 +64,6 @@ export class CustomerSearchComponent implements OnInit {
       Object.entries(this.searchForm.value).filter(([, value]) => value)
     );
 
-    console.log('Search Request:', searchRequest);
 
     this.customerService.searchCustomer(searchRequest).subscribe(
       (response) => {
